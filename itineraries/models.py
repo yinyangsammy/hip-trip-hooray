@@ -31,6 +31,14 @@ class Itinerary(models.Model):
         related_name="itineraries"
     )
 
+    original_author = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="original_itineraries"
+    )
+
     trip = models.ForeignKey(
         "trips.Trip",
         on_delete=models.SET_NULL,
@@ -66,7 +74,6 @@ class Itinerary(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     
-
     class Meta:
         verbose_name_plural = "Itineraries"
         ordering = ["-created_on"]
@@ -88,7 +95,11 @@ class Itinerary(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("itineraries:itinerary_detail", args=[self.slug])
+        country_slug = slugify(self.country_name) if self.country_name else "world"
+        return reverse(
+            "itineraries:itinerary_detail",
+            args=[self.slug, country_slug]
+        )
 
 
 class ItineraryItem(models.Model):
