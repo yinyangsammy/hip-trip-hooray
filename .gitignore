@@ -38,7 +38,7 @@ media/
 # -----------------------
 # Static collectstatic
 # -----------------------
-staticfiles/
+/media/
 
 # -----------------------
 # Logs
