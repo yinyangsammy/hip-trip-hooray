@@ -18,6 +18,15 @@ __pycache__/
 *.pyo
 *.pyd
 
+# Python cache everywhere
+**/__pycache__/
+
+# PyCharm / VS Code extras
+.idea/
+
+# Environment variables alt naming
+.env.*
+
 # -----------------------
 # Virtual Environment
 # -----------------------
@@ -66,3 +75,7 @@ node_modules/
 # Migrations cache
 # -----------------------
 *.sqlite3
+
+# Django collectstatic
+staticfiles/
+
