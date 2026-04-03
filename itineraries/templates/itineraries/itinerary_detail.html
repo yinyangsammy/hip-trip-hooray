@@ -1,0 +1,463 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<article class="itinerary-detail">
+
+  <!-- TITLE -->
+  <h1 class="location-title">
+{{ itinerary.title }}
+</h1>
+
+<div class="flag"></div>
+
+  <!-- LOCATION -->
+  {% if itinerary.location_name %}
+  <h2 class="location">{{ itinerary.location_name }}</h2>
+  {% endif %}
+
+  <!-- DESCRIPTION -->
+  {% if itinerary.description %}
+  <h3 class="description">
+    {{ itinerary.description }}
+  </h3>
+  {% endif %}
+
+
+<!-- DYNAMIC CONTEXT HEADER -->
+
+
+
+
+<!-- CATEGORY TABS -->
+<section class="itinerary-tabs">
+
+{% for category, items in category_items.items %}
+
+{% with first_item=items.0 %}
+
+<!-- TAB INPUT -->
+<input
+type="radio"
+name="tabs"
+id="tab-{{ forloop.counter }}"
+data-title="{{ first_item.context_title }}"
+data-date="{{ first_item.travel_date|date:'Y-m-d' }}"
+data-weather="{{ first_item.weather }}"
+data-daynight="{{ first_item.day_night }}"
+data-country="{{ itinerary.country_code }}"
+{% if forloop.first %}checked{% endif %}
+>
+
+<!-- TAB LABEL -->
+<label for="tab-{{ forloop.counter }}">
+{{ category.name }}
+</label>
+
+
+<!-- TAB CONTENT -->
+<div class="tab-content" id="content-{{ forloop.counter }}">
+
+<div class="carousel-glass">
+
+<div class="carousel">
+
+<button class="carousel-btn prev">&#10094;</button>
+
+<div class="carousel-track">
+
+{% for item in items %}
+
+<!-- SLIDE -->
+<div class="carousel-slide">
+
+<!-- 🔷 CONTEXT HEADER -->
+{% if item.travel_date and item.weather %}
+
+<div class="slide-context-header">
+
+<!-- WEATHER -->
+<div class="weather-cube weather-{{ item.weather }} {{ item.day_night }}">
+
+<div class="weather-time">
+{{ item.get_day_night_display|upper }}
+</div>
+
+<div class="weather-icon">
+{% if item.weather == "sun" %}☀
+{% elif item.weather == "rain" %}🌧
+{% elif item.weather == "snow" %}❄
+{% elif item.weather == "cloud" %}☁
+{% elif item.weather == "wind" %}💨
+{% else %}🌤
+{% endif %}
+</div>
+
+<div class="weather-label">
+{{ item.get_weather_display }}
+</div>
+
+</div>
+
+<!-- TITLE -->
+<h2 class="slide-context-title">
+{{ item.context_title }}
+</h2>
+
+<!-- DATE -->
+<div class="calendar-badge">
+
+<span class="month">
+{{ item.travel_date|date:"M"|upper }}
+</span>
+
+<span class="day">
+{{ item.travel_date|date:"d" }}
+</span>
+
+<span class="year">
+{{ item.travel_date|date:"Y" }}
+</span>
+
+</div>
+
+</div>
+
+{% endif %}
+
+
+<!-- IMAGE -->
+{% if item.image %}
+<div class="slide-image">
+<img src="{{ item.image.url }}" alt="{{ item.story_title }}">
+</div>
+{% endif %}
+
+
+<!-- DOT PROGRESS -->
+<div class="carousel-progress">
+{% for dot in items %}
+<span class="dot {% if forloop.first %}active{% endif %}"></span>
+{% endfor %}
+</div>
+
+
+<!-- STORY -->
+<div class="slide-story">
+
+<h2 class="slide-title">
+{{ item.story_title }}
+</h2>
+
+<p>
+    By <span class="itinerary-author-bubble">{{ itinerary.author.username }}</span>
+</p>
+
+{% if itinerary.original_author and itinerary.original_author != itinerary.author %}
+    <p class="text-muted">
+        Originally created by
+        <span class="itinerary-author-bubble text-muted">
+            {{ itinerary.original_author.username }}
+        </span>
+    </p>
+{% endif %}
+
+<p class="slide-description">
+{{ item.story_description }}
+</p>
+
+</div>
+
+
+<!-- FOOTER -->
+<div class="slide-footer">
+
+<!-- MINI MAP -->
+<div class="slide-map">
+
+<div
+class="mini-map"
+id="map-{{ item.id }}"
+data-lat="{{ item.latitude }}"
+data-lng="{{ item.longitude }}">
+</div>
+
+</div>
+
+<!-- TIMELINE -->
+<div class="slide-timeline">
+
+<h4>Day {{ item.display_order }}</h4>
+
+<ul>
+<li>✈️ Arrival</li>
+<li>🏨 Hotel Check-in</li>
+<li>🍷 Dinner</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+<!-- END SLIDE -->
+
+{% endfor %}
+
+</div>
+
+<button class="carousel-btn next">&#10095;</button>
+
+</div>
+
+</div>
+
+</div>
+<!-- END TAB CONTENT -->
+
+{% endwith %}
+
+{% endfor %}
+
+</section>
+
+<form method="POST" action="{% url 'itineraries:use_template' itinerary.id %}">
+    {% csrf_token %}
+    <button class="btn btn-primary">
+        Create a Trip Using This Itinerary
+    </button>
+</form>
+
+
+<!-- COMMENTS -->
+<section class="comments">
+
+<h2>Comments</h2>
+
+{% if comments %}
+
+{% for comment in comments %}
+
+<div class="comment p-2">
+
+<p class="comment-meta">
+<span class="comment-author">
+{{ comment.author }}
+</span>
+
+<span class="comment-date">
+• {{ comment.created_on|date:"M d, Y" }}
+</span>
+</p>
+
+<div class="comment-bubble" id="comment{{ comment.id }}">
+{{ comment.body|linebreaks }}
+</div>
+
+{% if user.is_authenticated and comment.author == user %}
+
+<div class="comment-actions mt-2">
+
+<button
+class="btn btn-delete btn-dark btn-sm"
+data-comment_id="{{ comment.id }}">
+Delete
+</button>
+
+<button
+class="btn btn-edit btn-outline-dark btn-sm"
+data-comment_id="{{ comment.id }}">
+Edit
+</button>
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<p>No comments yet. Be the first 👀</p>
+
+{% endif %}
+
+</section>
+
+
+<!-- COMMENT FORM -->
+<section class="comment-form">
+
+<div class="card mt-3">
+
+<div class="card-body">
+
+{% if user.is_authenticated %}
+
+<p>Posting as: {{ user.username }}</p>
+
+<form id="commentForm" method="post">
+
+{% csrf_token %}
+
+{{ comment_form|crispy }}
+
+<button
+id="submitButton"
+type="submit"
+class="btn btn-primary mt-2">
+Submit
+</button>
+
+</form>
+
+{% else %}
+
+<textarea
+class="form-control"
+rows="3"
+placeholder="Log in or sign up to leave a comment..."
+disabled>
+</textarea>
+
+<a href="{% url 'account_login' %}"
+class="btn btn-outline-primary mt-2">
+Log in to Comment
+</a>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</section>
+
+</article>
+
+
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+
+<div class="modal-dialog">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<h5 class="modal-title">
+Delete comment?
+</h5>
+
+<button
+type="button"
+class="btn-close"
+data-bs-dismiss="modal">
+</button>
+
+</div>
+
+<div class="modal-body">
+Are you sure you want to delete your comment?
+This action cannot be undone.
+</div>
+
+<div class="modal-footer">
+
+<button
+type="button"
+class="btn btn-secondary"
+data-bs-dismiss="modal">
+Close
+</button>
+
+<a id="deleteConfirm"
+href="#"
+class="btn btn-danger">
+Delete
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock content %}
+
+
+{% block extras %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+const tabs = document.querySelectorAll('.itinerary-tabs input[name="tabs"]');
+const flagSpan = document.querySelector(".flag");
+
+function updateFlag(tab){
+const country = (tab.dataset.country || "").trim();
+
+if(flagSpan && country && country !== "None"){
+flagSpan.innerHTML =
+`<img src="https://flagcdn.com/w40/${country.toLowerCase()}.png"
+style="width:36px;border-radius:4px;">`;
+}
+}
+
+tabs.forEach(tab=>{
+tab.addEventListener("change", function(){
+updateFlag(this);
+});
+});
+
+const first = document.querySelector('.itinerary-tabs input[name="tabs"]:checked');
+
+if(first){
+updateFlag(first);
+}
+
+});
+
+</script>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded",function(){
+
+const maps=document.querySelectorAll(".mini-map");
+
+maps.forEach(function(mapEl){
+
+const lat=mapEl.dataset.lat;
+const lng=mapEl.dataset.lng;
+
+if(!lat || !lng) return;
+
+const map=L.map(mapEl.id,{
+zoomControl:false,
+attributionControl:false
+}).setView([lat,lng],13);
+
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+maxZoom:19
+}).addTo(map);
+
+L.marker([lat,lng]).addTo(map);
+
+});
+
+});
+
+</script>
+
+<script src="{% static 'js/comments.js' %}"></script>
+
+{% endblock %}
