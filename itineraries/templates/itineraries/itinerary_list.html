@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4 text-center">✈️🌐 Explore Itineraries 🌐✈️</h2>
+
+{% for itinerary in itineraries %}
+    <article>
+        <h2>
+            <a href="{{ itinerary.get_absolute_url }}">
+    {{ itinerary.title }}
+</a>
+        </h2>
+        <p>{{ itinerary.description|truncatewords:25 }}</p>
+    </article>
+{% empty %}
+    <p>No itineraries available.</p>
+{% endfor %}
+
+{% endblock content %}
