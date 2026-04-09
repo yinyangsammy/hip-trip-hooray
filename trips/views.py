@@ -111,7 +111,7 @@ def trip_detail(request, pk):
             trip=trip,
             category=category
         ).order_by("display_order")
-        category_items[category] = items
+        category_items[category] = list(items)
 
     context = {
         "itinerary": trip,   # IMPORTANT → reuse itinerary_detail template
@@ -140,23 +140,55 @@ class TripList(LoginRequiredMixin, generic.ListView):
 # -----------------------------
 @login_required
 def trip_create(request):
+
     if request.method == "POST":
-        form = TripForm(request.POST)
-        if form.is_valid():
+
+        form = TripForm(request.POST, request.FILES)
+
+        temp_trip = Trip(owner=request.user)
+
+        formset = TripItemFormSet(
+            request.POST,
+            request.FILES,
+            instance=temp_trip
+        )
+
+        if form.is_valid() and formset.is_valid():
+
             trip = form.save(commit=False)
             trip.owner = request.user
             trip.save()
 
-            formset = TripItemFormSet(request.POST, instance=trip)
-            if formset.is_valid():
-                formset.save()
-                messages.success(request, "Trip created successfully!")
-                return redirect("trips:trip_detail", pk=trip.pk)
+            items = formset.save(commit=False)
+
+            for item in items:
+
+                # Skip empty JS generated stops
+                if not item.title:
+                    continue
+
+                item.trip = trip
+                item.save()
+
+            messages.success(request, "✅ Trip created successfully!")
+            return redirect("trips:trip_detail", pk=trip.pk)
+
+        else:
+
+            print("FORM ERRORS:", form.errors)
+            print("FORMSET ERRORS:", formset.errors)
+
+            messages.error(
+                request,
+                "❌ Something went wrong. Check errors below."
+            )
+
     else:
+
         form = TripForm()
         formset = TripItemFormSet(instance=Trip())
 
-    categories = Category.objects.all().order_by("name")
+    categories = Category.objects.order_by("display_order")
 
     return render(
         request,
@@ -178,7 +210,12 @@ def trip_edit(request, pk):
 
     if request.method == "POST":
         form = TripForm(request.POST, instance=trip)
-        formset = TripItemFormSet(request.POST, instance=trip)
+        formset = TripItemFormSet(
+            request.POST,
+            request.FILES,
+            instance=trip,
+            prefix="items"
+        )
 
         if form.is_valid() and formset.is_valid():
             form.save()
@@ -187,7 +224,7 @@ def trip_edit(request, pk):
             return redirect("trips:trip_detail", pk=trip.pk)
     else:
         form = TripForm(instance=trip)
-        formset = TripItemFormSet(instance=trip)
+        formset = TripItemFormSet(instance=trip, prefix="items")
 
     categories = Category.objects.all().order_by("name")
 
