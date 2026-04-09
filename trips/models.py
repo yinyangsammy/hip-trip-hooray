@@ -3,6 +3,35 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
+class Category(models.Model):
+    """
+    Categories used to group Trip stops.
+    Mirrors itinerary categories for seamless publishing.
+    """
+
+    name = models.CharField(
+        max_length=50,
+        unique=True
+    )
+
+    display_order = models.PositiveIntegerField(
+        default=1
+    )
+
+    header_image = models.ImageField(
+        upload_to="trip_category_headers/",
+        blank=True,
+        null=True
+    )
+
+    class Meta:
+        verbose_name_plural = "Trip Categories"
+        ordering = ["display_order"]
+
+    def __str__(self):
+        return self.name
+
+
 class Trip(models.Model):
 
     owner = models.ForeignKey(
@@ -11,28 +40,69 @@ class Trip(models.Model):
         related_name="trips"
     )
 
-    title = models.CharField(max_length=200)
+    title = models.CharField(
+        max_length=200,
+        blank=True
+    )
 
-    destination = models.CharField(max_length=200)
+    destination = models.CharField(
+        max_length=200
+    )
 
-    country_name = models.CharField(max_length=200, blank=True)
-    country_code = models.CharField(max_length=10, blank=True)
+    country_name = models.CharField(
+        max_length=200,
+        blank=True
+    )
 
-    start_date = models.DateField(null=True, blank=True)
-    end_date = models.DateField(null=True, blank=True)
+    country_code = models.CharField(
+        max_length=10,
+        blank=True
+    )
 
-    story_title = models.CharField(max_length=255, blank=True)
-    story_description = models.TextField(blank=True)
+    latitude = models.FloatField(
+        null=True,
+        blank=True
+    )
 
-    date = models.DateField(null=True, blank=True)
-    weather = models.CharField(max_length=20, blank=True)
+    longitude = models.FloatField(
+        null=True,
+        blank=True
+    )
 
-    description = models.TextField(blank=True)
+    start_date = models.DateField(
+        null=True,
+        blank=True
+    )
 
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
+    end_date = models.DateField(
+        null=True,
+        blank=True
+    )
 
-    is_published = models.BooleanField(default=False)
+    description = models.TextField(
+        blank=True
+    )
+
+    story_title = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
+    story_description = models.TextField(
+        blank=True
+    )
+
+    is_published = models.BooleanField(
+        default=False
+    )
+
+    created_on = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    updated_on = models.DateTimeField(
+        auto_now=True
+    )
 
     class Meta:
         ordering = ["-created_on"]
@@ -41,10 +111,17 @@ class Trip(models.Model):
         return f"{self.title} — {self.owner.username}"
 
     def get_absolute_url(self):
-        return reverse("trips:trip_detail", args=[self.pk])
+        return reverse(
+            "trips:trip_detail",
+            args=[self.pk]
+        )
 
 
 class TripItem(models.Model):
+    """
+    Individual stop within a Trip.
+    Mirrors ItineraryItem structure for seamless publishing.
+    """
 
     trip = models.ForeignKey(
         Trip,
@@ -52,35 +129,109 @@ class TripItem(models.Model):
         related_name="items"
     )
 
-    title = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
-    user_note = models.TextField(blank=True)
-
-    image = models.ImageField(upload_to="trip_images/", blank=True, null=True)
-
-    # NEW STORY FIELDS
-    story_title = models.CharField(max_length=255, blank=True)
-    story_description = models.TextField(blank=True)
-
-    date = models.DateField(null=True, blank=True)
-    weather = models.CharField(max_length=20, blank=True)
-
     category = models.ForeignKey(
-        "itineraries.Category",
+        Category,
         on_delete=models.SET_NULL,
         null=True,
         blank=True
     )
 
-    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    title = models.CharField(
+        max_length=200,
+        blank=True
+    )
 
-    display_order = models.PositiveIntegerField(default=0)
-    created_on = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(
+        blank=True
+    )
 
+    context_title = models.CharField(
+        max_length=200,
+        blank=True
+    )
+
+    context_description = models.TextField(
+        blank=True
+    )
+
+    travel_date = models.DateField(
+        null=True,
+        blank=True
+    )
+
+    DAY_NIGHT_CHOICES = [
+        ("sunrise", "Sunrise"),
+        ("day", "Day"),
+        ("sunset", "Sunset"),
+        ("night", "Night"),
+    ]
+
+    WEATHER_CHOICES = [
+        ("sun", "Sunny"),
+        ("cloud", "Cloudy"),
+        ("rain", "Rainy"),
+        ("snow", "Snowy"),
+        ("wind", "Windy"),
+        ("storm", "Stormy"),
+    ]
+
+    weather = models.CharField(
+        max_length=10,
+        choices=WEATHER_CHOICES,
+        blank=True
+    )
+
+    day_night = models.CharField(
+        max_length=10,
+        choices=DAY_NIGHT_CHOICES,
+        default="day"
+    )
+
+    story_title = models.CharField(
+        max_length=200,
+        blank=True
+    )
+
+    story_description = models.TextField(
+        blank=True
+    )
+
+    image = models.ImageField(
+        upload_to="trip_items/",
+        blank=True,
+        null=True
+    )
+
+    user_note = models.TextField(
+        blank=True,
+        help_text="Optional personal notes"
+    )
+
+    is_featured = models.BooleanField(
+        default=False
+    )
+
+    display_order = models.PositiveIntegerField(
+        default=0
+    )
+
+    latitude = models.FloatField(
+        null=True,
+        blank=True
+    )
+
+    longitude = models.FloatField(
+        null=True,
+        blank=True
+    )
+
+    created_on = models.DateTimeField(
+        auto_now_add=True
+    )
 
     class Meta:
         ordering = ["display_order"]
+        unique_together = ["trip", "display_order"]
 
     def __str__(self):
-        return self.title
+        return self.story_title or self.title or "Trip Stop"

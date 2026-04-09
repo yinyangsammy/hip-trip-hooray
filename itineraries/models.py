@@ -130,7 +130,9 @@ class ItineraryItem(models.Model):
     travel_date = models.DateField(blank=True, null=True)
 
     DAY_NIGHT_CHOICES = [
+        ("sunrise", "Sunrise"),
         ("day", "Day"),
+        ("sunset", "Sunset"),
         ("night", "Night"),
     ]
 
@@ -140,6 +142,7 @@ class ItineraryItem(models.Model):
         ("rain", "Rainy"),
         ("snow", "Snowy"),
         ("wind", "Windy"),
+        ("storm", "Stormy"),
     ]
 
     weather = models.CharField(
@@ -149,7 +152,7 @@ class ItineraryItem(models.Model):
     )
 
     day_night = models.CharField(
-        max_length=5,
+        max_length=10,
         choices=DAY_NIGHT_CHOICES,
         default="day"
     )
