@@ -1,35 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-
-
-class Category(models.Model):
-    """
-    Categories used to group Trip stops.
-    Mirrors itinerary categories for seamless publishing.
-    """
-
-    name = models.CharField(
-        max_length=50,
-        unique=True
-    )
-
-    display_order = models.PositiveIntegerField(
-        default=1
-    )
-
-    header_image = models.ImageField(
-        upload_to="trip_category_headers/",
-        blank=True,
-        null=True
-    )
-
-    class Meta:
-        verbose_name_plural = "Trip Categories"
-        ordering = ["display_order"]
-
-    def __str__(self):
-        return self.name
+from itineraries.models import Category
 
 
 class Trip(models.Model):
@@ -83,14 +55,6 @@ class Trip(models.Model):
         blank=True
     )
 
-    story_title = models.CharField(
-        max_length=255,
-        blank=True
-    )
-
-    story_description = models.TextField(
-        blank=True
-    )
 
     is_published = models.BooleanField(
         default=False
@@ -133,11 +97,6 @@ class TripItem(models.Model):
         Category,
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
-    )
-
-    title = models.CharField(
-        max_length=200,
         blank=True
     )
 
@@ -234,4 +193,4 @@ class TripItem(models.Model):
         unique_together = ["trip", "display_order"]
 
     def __str__(self):
-        return self.story_title or self.title or "Trip Stop"
+        return self.story_title or "Trip Stop"
