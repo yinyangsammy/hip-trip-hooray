@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import inlineformset_factory
 from .models import Trip, TripItem
+from itineraries.models import Category
 
 
 class TripForm(forms.ModelForm):
@@ -12,9 +13,7 @@ class TripForm(forms.ModelForm):
             "destination",
             "description",
             "start_date",
-            "end_date",
-            "story_title",
-            "story_description",         
+            "end_date",      
         ]
 
         labels = {
@@ -32,6 +31,12 @@ class TripForm(forms.ModelForm):
 
 class TripItemForm(forms.ModelForm):
 
+    title = forms.CharField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["category"].queryset = Category.objects.order_by("display_order")
+
     class Meta:
         model = TripItem
         fields = [
@@ -41,7 +46,8 @@ class TripItemForm(forms.ModelForm):
             "category",
             "story_title",
             "story_description",
-            "date",
+            "travel_date",
+            "day_night",
             "weather",
             "latitude",
             "longitude",
@@ -67,6 +73,18 @@ class TripItemForm(forms.ModelForm):
             "longitude": forms.HiddenInput(),
             "display_order": forms.HiddenInput(),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        title = cleaned_data.get("title")
+        story_title = cleaned_data.get("story_title")
+
+        # Auto fallback
+        if not title and story_title:
+            cleaned_data["title"] = story_title
+
+        return cleaned_data
 
 
 TripItemFormSet = inlineformset_factory(
