@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="about-page text-light">
+
+  <!-- HERO -->
+  <section class="about-hero text-center d-flex align-items-center justify-content-center">
+    <div class="overlay"></div>
+
+    <div class="hero-content container">
+      <h1 class="display-4 fw-bold mb-3">
+        Hip Trip Hooray
+      </h1>
+
+      <hr class="my-4">
+
+      <p class="lead mb-4">
+        By travellers. Of travellers. For everyone.
+      </p>
+
+      <p class="hero-sub">
+        Stories shared across generations, across borders —
+        just like sitting around a fire, swapping memories of the world.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- VALUES -->
+  <section class="container py-5 text-center">
+
+    <div class="row g-4">
+
+      <div class="col-md-4">
+        <div class="about-card">
+          <i class="fas fa-heart fa-2x mb-3"></i>
+          <h5>Sharing is Caring</h5>
+          <p>Moments passed from one traveller to another.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="about-card">
+          <i class="fas fa-globe fa-2x mb-3"></i>
+          <h5>Across Generations & Borders</h5>
+          <p>From grandparents to grandkids — one shared world.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="about-card">
+          <i class="fas fa-map fa-2x mb-3"></i>
+          <h5>One World. Many Stories.</h5>
+          <p>Every journey matters. Every voice counts.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SIMPLICITY / TRUST -->
+  <section class="container py-5 text-center">
+
+    <div class="row g-4">
+
+      <div class="col-md-6">
+        <div class="about-card">
+          <i class="fas fa-user-secret fa-2x mb-3"></i>
+          <h5>No Spying</h5>
+          <p>No tracking. No nonsense. Just travel stories.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="about-card">
+          <i class="fas fa-feather fa-2x mb-3"></i>
+          <h5>Keep It Simple</h5>
+          <p>Clean, easy, and built for sharing — not selling.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FUTURE -->
+  <section class="container py-5 text-center">
+
+    <h3 class="mb-4">Where We're Going</h3>
+
+    <p class="about-future">
+      Soon you'll be able to explore beautifully crafted templates,
+      share travel vlogs, and build richer stories — all while keeping
+      the same simple, human feel.
+    </p>
+
+  </section>
+
+
+  <!-- CTA -->
+  <section class="text-center py-5">
+    <a href="{% url 'itineraries:itinerary_list' %}" class="btn btn-outline-light btn-lg">
+      Explore Itineraries
+    </a>
+  </section>
+
+</div>
+
+
+<style>
+
+/* PAGE BACKGROUND */
+.about-page {
+    background: radial-gradient(circle at top, #0f172a, #020617);
+}
+
+/* HERO */
+.about-hero {
+    position: relative;
+    height: 75vh;
+    background: url("{% static 'images/planet-hero.png' %}") center/cover no-repeat;
+}
+
+.about-hero .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+}
+
+.hero-sub {
+    opacity: 0.85;
+}
+
+/* CARDS */
+.about-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    padding: 25px;
+    transition: 0.3s;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.08);
+}
+
+/* FUTURE TEXT */
+.about-future {
+    max-width: 700px;
+    margin: auto;
+    opacity: 0.85;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .about-hero {
+        height: 60vh;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+}
+
+</style>
+
+{% endblock %}
