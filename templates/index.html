@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+body {
+  background: radial-gradient(circle at top, #050505 0%, #000 60%);
+}
+
+main {
+  padding: 0;
+}
+
+.landing-page {
+  background-color: #000;
+}
+
+/* kill any Bootstrap/light sections sneaking in */
+section {
+  background: transparent !important;
+}
+
+/* HERO */
+.landing-hero {
+  text-align: center;
+  
+}
+
+.landing-hero img {
+  max-width: 700px;
+  width: 100%;
+}
+
+/* SEARCH SECTION */
+.search-section {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.search-bar {
+  max-width: 600px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 15px 60px 15px 20px;
+  border-radius: 50px;
+  border: none;
+  background: #111827;
+  color: white;
+  text-transform: capitalize;
+}
+
+.search-bar button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+  border: none;
+  background: linear-gradient(45deg, orange, pink, purple);
+  color: white;
+}
+
+/* ICON ROW */
+.feature-icons {
+  margin-top: 40px;
+}
+
+.feature-icons i {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.feature-card {
+  padding: 15px;
+}
+</style>
+
+
+<div class="landing-page text-light">
+
+  <!-- ================= HERO ================= -->
+  <section class="landing-hero container">
+   
+
+    <p class="lead" style="display: none;">Explore • Share • Hooray</p>
+
+    <!-- HERO IMAGE -->
+    <img src="{% static 'images/hip-trip-hooray-landing.jpg' %}" alt="Travel Globe">
+  </section>
+
+
+  <!-- ================= SEARCH ================= -->
+  <section class="search-section container">
+
+    <p class="lead">
+      Find inspiring itineraries from around the world
+    </p>
+
+  <form method="GET" action="{% url 'itineraries:search_itineraries' %}">
+  <div class="search-bar position-relative">
+
+    <input 
+      type="text" 
+      id="live-search-input"
+      name="q"
+      placeholder="Search city . . ."
+      autocomplete="off"
+    >
+
+    <button type="submit">
+      <i class="fas fa-search"></i>
+    </button>
+
+    <!-- DROPDOWN -->
+    <div id="live-search-results" class="live-search-results"></div>
+
+  </div>
+</form>
+
+  </section>
+
+
+  <!-- ================= FEATURES ================= -->
+  <section class="feature-icons container text-center">
+
+    <div class="row">
+
+      <div class="col-md-3 feature-card">
+        <i class="fas fa-briefcase text-warning"></i>
+        <h6>Curated Trips</h6>
+      </div>
+
+      <div class="col-md-3 feature-card">
+        <i class="fas fa-heart text-success"></i>
+        <h6>Hidden Gems</h6>
+      </div>
+
+      <div class="col-md-3 feature-card">
+        <i class="fas fa-location-dot text-primary"></i>
+        <h6>Tailored Itineraries</h6>
+      </div>
+
+      <div class="col-md-3 feature-card">
+        <i class="fas fa-camera text-info"></i>
+        <h6>Human Stories</h6>
+      </div>
+      
+
+    </div>
+
+  </section>
+
+</div>
+
+
+
+{% endblock %}
