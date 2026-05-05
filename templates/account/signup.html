@@ -1,0 +1,67 @@
+{% extends "account/base.html" %}
+
+{% block account_content %}
+{{ block.super }}
+{% endblock %}
+
+{% block body_class %}auth-page{% endblock %}
+
+{% load i18n %}
+
+{% block head_title %}Sign Up{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-7"></div>
+
+     <!-- AUTH CARD -->
+      <div class="auth-card p-4 shadow-sm bg-white rounded">
+
+        <div class="auth-header text-center">
+          <h3 class="mb-2">
+            <i class="fa-solid fa-globe"></i>  Start Your Journey  <i class="fa-solid fa-globe"></i></h3>
+             </h3>
+          <p class="mb-0 small">
+          Sign up to share your hippest trips and find similar holiday vibes!
+        </p>
+         </div>
+
+        <br>
+
+        <form method="post" action="{% url 'account_signup' %}">
+          {% csrf_token %}
+
+          {% for field in form %}
+            <div class="mb-3">
+              <label class="form-label">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="text-danger small">
+                  {{ field.errors }}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+          <button class="btn btn-signup w-100 mt-3">
+            Sign Up →
+          </button>
+
+        </form>
+
+        <div class="auth-divider"></div>
+
+        <p class="text-center mt-4 small">
+          Already travelling with us?
+          <a href="{{ login_url }}">Sign in</a>
+        </p>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}

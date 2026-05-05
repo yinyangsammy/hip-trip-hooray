@@ -62,6 +62,12 @@ urlpatterns = [
         name="toggle_publish"
     ),
 
+    path(
+        'search/',
+        views.search_itineraries,
+        name='search_itineraries'
+    ),
+
     # -----------------------------
     # OLD URL (no country)
     # -----------------------------

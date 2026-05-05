@@ -55,6 +55,14 @@ class Trip(models.Model):
         blank=True
     )
 
+    story_title = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
+    story_description = models.TextField(
+        blank=True
+    )
 
     is_published = models.BooleanField(
         default=False
@@ -143,7 +151,8 @@ class TripItem(models.Model):
     day_night = models.CharField(
         max_length=10,
         choices=DAY_NIGHT_CHOICES,
-        default="day"
+        default="day",
+        blank=True
     )
 
     story_title = models.CharField(
@@ -171,7 +180,8 @@ class TripItem(models.Model):
     )
 
     display_order = models.PositiveIntegerField(
-        default=0
+        default=0,
+        blank=True
     )
 
     latitude = models.FloatField(

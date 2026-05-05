@@ -1,0 +1,72 @@
+{% extends "account/base.html" %}
+
+{% block account_content %}
+{{ block.super }}
+{% endblock %}
+
+{% block body_class %}auth-page{% endblock %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-7"></div>
+
+      <!-- AUTH CARD -->
+      <div class="auth-card p-4 shadow-sm bg-white rounded">
+
+        <!-- AUTH HEADER -->
+        <div class="auth-header text-center">
+          <h3 class="mb-2">
+            <i class="fa-solid fa-sailboat"></i>
+            Welcome Back, Fellow Traveler
+            <i class="fa-solid fa-sailboat"></i>
+          </h3>
+          <p class="mb-0 small">
+            Log in to share your trips and discover new travel vibes
+          </p>
+        </div>
+
+        <br>
+
+        <!-- LOGIN FORM -->
+        <form method="POST" action="{% url 'account_login' %}" class="login">
+          {% csrf_token %}
+
+          {{ form.as_p }}
+
+          {% if redirect_field_value %}
+            <input type="hidden"
+                   name="{{ redirect_field_name }}"
+                   value="{{ redirect_field_value }}">
+          {% endif %}
+
+          <button type="submit" class="btn btn-signup w-100 mt-3">
+            {% trans "Sign In" %}
+          </button>
+        </form>
+
+        <div class="auth-divider"></div>
+
+        <!-- SIGNUP LINK -->
+        <p class="text-center mt-4 small">
+          {% blocktrans %}
+            New to Hip Trip Hooray?
+          {% endblocktrans %}
+          <a href="{{ signup_url }}">Create an account</a>
+        </p>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

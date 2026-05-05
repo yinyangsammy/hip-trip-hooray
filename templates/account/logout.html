@@ -1,0 +1,32 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}Sign Out{% endblock %}
+
+{% block content %}
+<div class="container py-5 text-center">
+
+  <div class="auth-card p-4 shadow-sm mx-auto" style="max-width:500px;">
+
+    <!-- AUTH HEADER -->
+        <div class="auth-header text-center">
+          <h3 class="mb-2">
+            <i class="fa-solid fa-magnifying-glass"></i> Done exploring for today? <i class="fa-solid fa-magnifying-glass"></i></h3>
+
+</h3>
+          <p class="mb-0 small">
+      Sure you want to sign out of Hip Trip Hooray?
+    </p>
+    <br>
+    <div class="auth-divider"></div>
+    <form method="post" action="{% url 'account_logout' %}">
+      {% csrf_token %}
+      <button class="btn btn-signup">
+        Sign Out
+      </button>
+    </form>
+
+  </div>
+
+</div>
+{% endblock %}

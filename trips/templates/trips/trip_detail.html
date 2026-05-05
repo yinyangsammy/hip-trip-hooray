@@ -26,30 +26,27 @@
 
 
 <!-- CATEGORY TABS -->
-<section class="trip-tabs">
+<section class="itinerary-tabs">
 
-    <p>Category count: {{ category_items|length }}</p>
-
-{% for category, items in category_items.items %}
-{% if items|length > 0 %}
-{% with first_item=items.0 %}
+{% for block in category_items %}
+{% with first_item=block.items|first %}
 
 <!-- TAB INPUT -->
 <input
     type="radio"
     name="tabs"
     id="tab-{{ forloop.counter }}"
-    data-title="{{ first_item.story_title }}"
-    data-date="{{ first_item.travel_date|date:'Y-m-d' }}"
-    data-weather="{{ first_item.weather }}"
-    data-daynight="{{ first_item.day_night }}"
+    data-title="{{ first_item.context_title|default:trip.title }}"
+    data-date="{{ first_item.travel_date|default:'' }}"
+    data-weather="{{ first_item.weather|default:'' }}"
+    data-daynight="{{ first_item.day_night|default:'' }}"
     data-country="{{ trip.country_code }}"
     {% if forloop.first %}checked{% endif %}
 >
 
 <!-- TAB LABEL -->
 <label for="tab-{{ forloop.counter }}">
-    {{ category.name }}
+    {{ block.category.name }}
 </label>
 
 <!-- TAB CONTENT -->
@@ -58,17 +55,20 @@
     <div class="carousel-glass">
         <div class="carousel">
 
-            <button class="carousel-btn prev">&#10094;</button>
+            <button class="carousel-btn prev" style="display:none;">&#10094;</button>
 
             <div class="carousel-track">
 
-                {% for item in items %}
+                {% for item in block.items %}
 
                 <!-- SLIDE -->
-                <div class="carousel-slide">
+                <div class="carousel-slide"
+                    data-lat="{{ item.latitude|default:'' }}"
+                    data-lng="{{ item.longitude|default:'' }}"
+                    data-date="{{ item.travel_date }}">
 
                     <!-- CONTEXT HEADER -->
-                    {% if item.travel_date and item.weather %}
+                    {% if item.travel_date or item.weather or item.description %}
                     <div class="slide-context-header">
 
                         <!-- WEATHER -->
@@ -96,7 +96,7 @@
 
                         <!-- TITLE -->
                         <h2 class="slide-context-title">
-                            {{ item.story_title }}
+                            {{ item.description }}
                         </h2>
 
                         <!-- DATE -->
@@ -122,56 +122,114 @@
                     </div>
                     {% endif %}
 
-                    <!-- DOT PROGRESS -->
-                    <div class="carousel-progress">
-                        {% for dot in items %}
-                        <span class="dot {% if forloop.first %}active{% endif %}"></span>
-                        {% endfor %}
-                    </div>
+                    
+<!-- STORY -->
+<div class="slide-story">
 
-                    <!-- STORY -->
-                    <div class="slide-story">
-                        <h2 class="slide-title">
-                            {{ item.story_title }}
-                        </h2>
-                        <p class="slide-description">
-                            {{ item.story_description }}
-                        </p>
-                    </div>
+<h2 class="slide-title">
+{{ item.story_title }}
+</h2>
 
-                    <!-- SLIDE FOOTER -->
-                    <div class="slide-footer">
+<p>
+    By <span class="itinerary-author-bubble">{{ itinerary.author.username }}</span>
+</p>
 
-                        <!-- MINI MAP -->
-                        <div class="slide-map">
-                            <div
-                                class="mini-map"
-                                id="map-{{ item.id }}"
-                                data-lat="{{ item.latitude }}"
-                                data-lng="{{ item.longitude }}">
-                            </div>
-                        </div>
+{% if itinerary.original_author and itinerary.original_author != itinerary.author %}
+    <p class="text-muted">
+        Originally created by
+        <span class="itinerary-author-bubble text-muted">
+            {{ itinerary.original_author.username }}
+        </span>
+    </p>
+{% endif %}
 
-                        <!-- TIMELINE -->
-                        <div class="slide-timeline">
-                            <h4>Day {{ item.display_order }}</h4>
-                            <ul>
-                                <li>✈️ Arrival</li>
-                                <li>🏨 Hotel Check-in</li>
-                                <li>🍷 Dinner</li>
-                            </ul>
-                        </div>
+<p class="slide-description">
+{{ item.story_description }}
+</p>
 
-                    </div>
+</div>
+
+<!-- SLIDE FOOTER -->
+<div class="slide-footer">
+
+    <!-- MINI MAP & TIMELINE NOT DISPLAYING FOR STUDENT PROJECT
+
+    <div class="slide-map">
+
+        {% if item.latitude and item.longitude %}
+        <div
+            class="mini-map"
+            id="map-{{ item.id }}"
+            data-lat="{{ item.latitude }}"
+            data-lng="{{ item.longitude }}">
+        </div>
+        {% else %}
+        <div class="mini-map map-placeholder">
+            📍 No location selected
+        </div>
+        {% endif %}
+
+    </div>
+
+     TIMELINE
+    <div class="slide-timeline">
+
+        {% if forloop.first %}
+        <h4>Day {{ item.display_order }}</h4>
+        {% endif %}
+
+        <ul>
+            <li>✈️ Arrival</li>
+            <li>🏨 Hotel Check-in</li>
+            <li>🍷 Dinner</li>
+        </ul>
+
+    </div>
+    -->
+
+</div>
+
+                    <!-- ACTION BUTTONS NOT DISPLAYED FOR STUDENT PROJECT-->
+                <div class="slide-actions" style="display:none;">
+
+                    <button class="btn btn-sm btn-outline-dark share-btn" title="Share">
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </button>
+
+                    <button class="btn btn-sm btn-outline-dark print-btn" title="Print">
+                        <i class="fa-solid fa-print"></i>
+                    </button>
+
+                </div>
 
                 </div>
                 <!-- END SLIDE -->
+
+
+                
 
                 {% endfor %}
 
             </div>
 
-            <button class="carousel-btn next">&#10095;</button>
+
+            <div
+                class="mini-map"
+                id="map-trip-{{ forloop.counter }}"
+                data-lat="{{ trip_info.latitude|default:'' }}"
+                data-lng="{{ trip_info.longitude|default:'' }}"
+                style="height:220px; margin-top:20px; border-radius:10px;">
+            </div>
+
+<!-- DOT PROGRESS (FIXED LOCATION) NOT DISPLAYED FOR STUDENT PROJECT -->
+<div class="carousel-progress" style="display:none;">
+    {% for item in block.items %}
+        <span class="dot {% if forloop.first %}active{% endif %}"></span>
+    {% endfor %}
+</div>
+
+<button class="carousel-btn next" style="display:none;">&#10095;</button>
+
 
         </div>
     </div>
@@ -179,8 +237,10 @@
 </div>
 <!-- END TAB CONTENT -->
 
+
+
 {% endwith %}
-{% endif %}
+
 {% endfor %}
 
 </section>
@@ -210,34 +270,220 @@
 
 {% block extras %}
 
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const flagSpan = document.querySelector(".flag");
+
+    function updateFlag(countryCode) {
+        const country = (countryCode || "").trim();
+        if (flagSpan && country && country !== "None") {
+            flagSpan.innerHTML = `<img src="https://flagcdn.com/w40/${country.toLowerCase()}.png" style="width:36px;border-radius:4px;">`;
+        }
+    }
+
+    // Works for both itinerary-tabs and trip-tabs radio inputs
+    const tabs = document.querySelectorAll('input[name="tabs"]');
+
+    tabs.forEach(tab => {
+        tab.addEventListener("change", function () {
+            updateFlag(this.dataset.country);
+        });
+    });
+
+    // Show flag for the initially checked tab
+    const first = document.querySelector('input[name="tabs"]:checked');
+    if (first) updateFlag(first.dataset.country);
+
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const maps = new Map();
+
+    function initMap(el) {
+
+        if (maps.has(el)) return;
+
+        const lat = parseFloat(el.dataset.lat);
+        const lng = parseFloat(el.dataset.lng);
+
+        if (isNaN(lat) || isNaN(lng)) return;
+
+        setTimeout(() => {
+
+            const map = L.map(el, {
+                zoomControl: false,
+                attributionControl: false
+            });
+
+            L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
+                maxZoom: 19
+            }).addTo(map);
+
+            L.marker([lat, lng]).addTo(map);
+
+            el._leaflet_map = map;
+            maps.set(el, map);
+
+            setTimeout(() => {
+                map.invalidateSize();
+                map.setView([lat, lng], 13);
+            }, 200);
+
+        }, 100);
+    }
+
+    function scan() {
+        document.querySelectorAll(".mini-map").forEach(initMap);
+    }
+
+    // INITIAL LOAD
+    setTimeout(scan, 1200);
+
+    // TAB CHANGE
+    document.querySelectorAll('input[name="tabs"]').forEach(tab => {
+        tab.addEventListener("change", () => {
+            setTimeout(scan, 400);
+        });
+    });
+
+    // CAROUSEL BUTTONS
+    document.querySelectorAll(".carousel-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            setTimeout(scan, 400);
+        });
+    });
+
+    // RESIZE
+    window.addEventListener("resize", () => {
+        setTimeout(scan, 300);
+    });
+
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    function resizeAllMaps() {
+
+        document.querySelectorAll(".mini-map").forEach(el => {
+
+            const map = el._leaflet_map;
+
+            if (!map) return;
+
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    map.invalidateSize();
+                }, 250);
+            });
+
+        });
+
+    }
+
+    document.querySelectorAll('input[name="tabs"]').forEach(tab => {
+        tab.addEventListener("change", function () {
+            setTimeout(resizeAllMaps, 500);
+        });
+    });
+
+    setTimeout(resizeAllMaps, 1000);
+
+});
+</script>
+
 <script>
 
 document.addEventListener("DOMContentLoaded", function(){
 
-const tabs = document.querySelectorAll('.trip-tabs input[name="tabs"]');
-const flagSpan = document.querySelector(".flag");
+document.querySelectorAll(".carousel").forEach(function(carousel){
 
-function updateFlag(tab){
-const country = (tab.dataset.country || "").trim();
+const track = carousel.querySelector(".carousel-track");
+const slides = carousel.querySelectorAll(".carousel-slide");
+const nextBtn = carousel.querySelector(".next");
+const prevBtn = carousel.querySelector(".prev");
+const dots = carousel.querySelectorAll(".dot");
 
-if(flagSpan && country && country !== "None"){
-flagSpan.innerHTML =
-`<img src="https://flagcdn.com/w40/${country.toLowerCase()}.png"
-style="width:36px;border-radius:4px;">`;
+let index = 0;
+
+function updateCarousel(){
+
+// ✅ EXISTING (unchanged)
+track.style.transform =
+`translateX(-${index * 100}%)`;
+
+dots.forEach(dot => dot.classList.remove("active"));
+
+if(dots[index]){
+dots[index].classList.add("active");
 }
+
+// 🔥 ADDED: ensure maps render correctly on slide change
+setTimeout(() => {
+
+document.querySelectorAll(".mini-map").forEach(el => {
+
+const map = el._leaflet_map;
+
+if (!map) {
+    // Trigger your existing scan/init system
+    window.dispatchEvent(new Event("resize"));
+} else {
+    map.invalidateSize();
 }
 
-tabs.forEach(tab=>{
-tab.addEventListener("change", function(){
-updateFlag(this);
 });
+
+}, 300);
+
+}
+
+// ✅ EXISTING (unchanged)
+nextBtn.addEventListener("click", function(){
+
+index++;
+
+if(index >= slides.length){
+index = 0;
+}
+
+updateCarousel();
+
 });
 
-const first = document.querySelector('.trip-tabs input[name="tabs"]:checked');
+prevBtn.addEventListener("click", function(){
 
-if(first){
-updateFlag(first);
+index--;
+
+if(index < 0){
+index = slides.length - 1;
 }
+
+updateCarousel();
+
+});
+
+dots.forEach((dot, i)=>{
+
+dot.addEventListener("click", function(){
+
+index = i;
+
+updateCarousel();
+
+});
+
+});
+
+});
 
 });
 
@@ -245,33 +491,65 @@ updateFlag(first);
 
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
 
-document.addEventListener("DOMContentLoaded",function(){
+    const initialisedMaps = new Map();
 
-const maps=document.querySelectorAll(".mini-map");
+    function initMiniMap(el) {
+        if (initialisedMaps.has(el)) {
+            setTimeout(() => {
+                initialisedMaps.get(el).invalidateSize();
+            }, 100);
+            return;
+        }
 
-maps.forEach(function(mapEl){
+        let lat = parseFloat(el.dataset.lat);
+        let lng = parseFloat(el.dataset.lng);
 
-const lat=mapEl.dataset.lat;
-const lng=mapEl.dataset.lng;
+        if (isNaN(lat) || isNaN(lng) || lat === 0 || lng === 0) {
+            lat = 51.505;
+            lng = -0.09;
+        }
 
-if(!lat || !lng) return;
+        setTimeout(() => {
+            const m = L.map(el, {
+                zoomControl: false,
+                attributionControl: false
+            }).setView([lat, lng], 12);
 
-const map=L.map(mapEl.id,{
-zoomControl:false,
-attributionControl:false
-}).setView([lat,lng],13);
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                maxZoom: 19
+            }).addTo(m);
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
-maxZoom:19
-}).addTo(map);
+            L.marker([lat, lng]).addTo(m);
 
-L.marker([lat,lng]).addTo(map);
+            initialisedMaps.set(el, m);
+
+            setTimeout(() => {
+                m.invalidateSize();
+                m.setView([lat, lng], 12);
+            }, 200);
+
+        }, 100);
+    }
+
+    function scanAndInit() {
+        document.querySelectorAll(".mini-map").forEach(initMiniMap);
+    }
+
+    setTimeout(scanAndInit, 500);
+
+    document.querySelectorAll('input[name="tabs"]').forEach(tab => {
+        tab.addEventListener("change", () => {
+            setTimeout(scanAndInit, 400);
+        });
+    });
+
+    window.addEventListener("resize", () => {
+        setTimeout(scanAndInit, 300);
+    });
 
 });
-
-});
-
 </script>
 
 <script src="{% static 'js/comments.js' %}"></script>

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5 overflow-hidden px-3">
+
+<div class="row g-4">
+
+<!-- Contact Info Panel -->
+
+<div class="col-md-5">
+
+<div class="contact-info p-4 h-100">
+
+<h3 class="mb-3">Get in Touch</h3>
+
+<p class="text-muted">
+Have a travel question, partnership idea, or feedback?
+We’d love to hear from you.
+</p>
+
+<hr>
+
+<p><strong>✉ Email</strong><br>
+support@hiptriphooray.com</p>
+
+<hr>
+
+<p><strong>🌐 Platform</strong><br>
+Hip Trip Hooray</p>
+
+<hr>
+
+<p><strong>⏱ Response Time</strong><br>
+Usually within 48 hours</p>
+
+</div>
+
+</div>
+
+
+<!-- Contact Form Panel -->
+
+<div class="col-md-7">
+
+<div class="card shadow-sm">
+
+<div class="card-body">
+
+<h4 class="mb-4">Send a Message</h4>
+
+<form method="POST">
+
+{% csrf_token %}
+
+{% for field in form %}
+  <div class="mb-3">
+    {{ field.label_tag }}
+    {{ field }}
+    {% if field.errors %}
+      <div class="text-danger small">
+        {{ field.errors }}
+      </div>
+    {% endif %}
+  </div>
+{% endfor %}
+
+<button type="submit" class="btn btn-signup">
+Send Message
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

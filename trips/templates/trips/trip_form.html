@@ -1,0 +1,1635 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_class %}wide-page{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+
+<h1 class="text-center mb-4">Create a Trip</h1>
+
+<!-- ========================= -->
+<!-- 1. LOCATION + MAP -->
+<!-- ========================= -->
+
+<div class="trip-map-section mb-5">
+
+    <h2 class="text-center mb-3">Enter Location</h2>
+
+    <input 
+        type="text" 
+        id="location-input"
+        class="form-control text-center mb-3"
+        placeholder="Search for a city..."
+        style="text-transform: capitalize;"
+    >
+
+    <div id="trip-create-map" class="map-box w-100"></div>
+
+</div>
+
+<h2 class="text-center mb-4">Build Your Journey</h2>
+
+
+<!-- ========================= -->
+<!-- 2. CATEGORY TABS -->
+<!-- ========================= -->
+
+<div class="trip-tabs text-center mb-4">
+
+    <span class="trip-tab active" data-category="sights" data-category-id="1">Sights</span>
+    <span class="trip-tab" data-category="flavours" data-category-id="2">Flavours</span>
+    <span class="trip-tab" data-category="experiences" data-category-id="3">Experiences</span>
+    <span class="trip-tab" data-category="vibes" data-category-id="4">Vibes</span>
+    <span class="trip-tab" data-category="seasons" data-category-id="5">Seasons</span>
+
+</div>
+
+
+<form method="POST" enctype="multipart/form-data">
+
+{{ formset.management_form }}
+
+<!-- FALLBACK FOR HIDDEN FORMS (if user adds more than 5 stops, the extra ones will be hidden and we need to ensure they are still submitted with the form) -->
+{% for hidden_form in formset.forms|slice:"5:" %}
+    {{ hidden_form.id }}
+    {{ hidden_form.DELETE }}
+{% endfor %}
+
+
+{% csrf_token %}
+
+<!-- Trip-level coordinates written by map search -->
+<input type="hidden" id="trip-latitude" name="latitude" value="{{ trip.latitude|default:'' }}">
+<input type="hidden" id="trip-longitude" name="longitude" value="{{ trip.longitude|default:'' }}">
+<input type="hidden" name="country_code" id="trip-country-code" value="{{ trip.country_code|default:'' }}">
+
+{% if form.errors or formset.errors %}
+
+<div style="background:#ffe6e6; padding:15px; margin-bottom:20px; border-radius:8px;">
+
+  <h4 style="color:#cc0000;">⚠️ There are errors in your form</h4>
+
+  <!-- MAIN FORM ERRORS -->
+  {% if form.errors %}
+    <div style="margin-bottom:10px;">
+      <strong>Trip Form Errors:</strong>
+      <ul>
+        {% for field in form %}
+          {% for error in field.errors %}
+            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <!-- FORMSET ERRORS -->
+  {% if formset.errors %}
+    <div>
+      <strong>Stops Errors:</strong>
+      <ul>
+        {% for form in formset %}
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li><strong>{{ field.name }}:</strong> {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+</div>
+
+{% endif %}
+
+<!-- ========================= -->
+<!-- 3. TRIP INFO -->
+<!-- ========================= -->
+
+<div class="trip-card mb-5">
+
+<h3 class="trip-section-title">Trip Details</h3>
+
+<div class="trip-form-group">
+<label id="label-title" class="trip-label">
+What city did / will you visit?
+</label>
+{{ form.title }}
+</div>
+
+<div class="trip-form-group">
+<label id="label-destination" class="trip-label">
+Where did / will you go?
+</label>
+{{ form.destination }}
+</div>
+
+<h3 class="stop-zero-header trip-section-title" >
+Initial Stop
+</h3>
+
+
+
+<!-- ========================= -->
+<!-- 4. STOPS BUILDER -->
+<!-- ========================= -->
+
+
+<div id="tab-panels">
+
+<!-- ========================= -->
+<!-- SIGHTS -->
+<!-- ========================= -->
+
+<div class="tab-panel active" data-category="sights">
+
+<div class="stop-card stop-0" data-category="sights" data-stop-zero="true">
+
+{{ formset.forms.0.id }}
+
+<div class="trip-form-group">
+<label class="trip-label">What Did You See?</label>
+{{ formset.forms.0.description }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Story Title</label>
+{{ formset.forms.0.story_title }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Story Description</label>
+{{ formset.forms.0.story_description }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Time Of Day</label>
+{{ formset.forms.0.day_night }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Weather</label>
+{{ formset.forms.0.weather }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Travel Date</label>
+{{ formset.forms.0.travel_date }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Trip Image</label>
+{{ formset.forms.0.image }}
+</div>
+
+<div style="display:none;">
+{{ formset.forms.0.category.as_hidden }}
+<input 
+type="hidden"
+name="{{ formset.forms.0.category.html_name }}"
+value="{{ categories.0.id }}">
+{{ formset.forms.0.DELETE }}
+</div>
+
+<div class="mini-map-container">
+    <input type="hidden" name="{{ formset.forms.0.latitude.html_name }}">
+    <input type="hidden" name="{{ formset.forms.0.longitude.html_name }}">
+</div>
+
+</div>
+
+<div class="stops-container"></div>
+
+<!-- Stop button not displayed for submission -->
+
+<button type="button" class="btn btn-dark add-stop-btn mt-3" style="display:none;">
++ Add Stop
+</button>
+
+</div>
+
+
+
+<!-- ========================= -->
+<!-- FLAVOURS -->
+<!-- ========================= -->
+
+<div class="tab-panel" data-category="flavours">
+
+<div class="stop-card stop-0" data-category="flavours" data-stop-zero="true">
+
+{{ formset.forms.1.id }}
+
+<div class="trip-form-group">
+<label class="trip-label">Where Did You Eat & Drink?</label>
+{{ formset.forms.1.description }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Story Title</label>
+{{ formset.forms.1.story_title }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Story Description</label>
+{{ formset.forms.1.story_description }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Time Of Day</label>
+{{ formset.forms.1.day_night }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Weather</label>
+{{ formset.forms.1.weather }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Travel Date</label>
+{{ formset.forms.1.travel_date }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Trip Image</label>
+{{ formset.forms.1.image }}
+</div>
+
+<div style="display:none;">
+{{ formset.forms.1.category.as_hidden }}
+<input 
+type="hidden"
+name="{{ formset.forms.1.category.html_name }}"
+value="{{ categories.1.id }}">
+{{ formset.forms.1.DELETE }}
+</div>
+
+<div class="mini-map-container">
+    <input type="hidden" name="{{ formset.forms.1.latitude.html_name }}">
+    <input type="hidden" name="{{ formset.forms.1.longitude.html_name }}">
+</div>
+
+</div>
+
+<div class="stops-container"></div>
+
+<button type="button" class="btn btn-dark add-stop-btn mt-3" style="display:none;">
++ Add Stop
+</button>
+
+</div>
+
+
+
+<!-- ========================= -->
+<!-- EXPERIENCES -->
+<!-- ========================= -->
+
+<div class="tab-panel" data-category="experiences">
+
+<div class="stop-card stop-0" data-category="experiences" data-stop-zero="true">
+
+{{ formset.forms.2.id }}
+
+<div class="trip-form-group">
+<label class="trip-label">What Did You Experience?</label>
+{{ formset.forms.2.description }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Story Title</label>
+{{ formset.forms.2.story_title }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Story Description</label>
+{{ formset.forms.2.story_description }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Time Of Day</label>
+{{ formset.forms.2.day_night }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Weather</label>
+{{ formset.forms.2.weather }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Travel Date</label>
+{{ formset.forms.2.travel_date }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Trip Image</label>
+{{ formset.forms.2.image }}
+</div>
+
+<div style="display:none;">
+{{ formset.forms.2.category.as_hidden }}
+<input 
+type="hidden"
+name="{{ formset.forms.2.category.html_name }}"
+value="{{ categories.2.id }}">
+{{ formset.forms.2.DELETE }}
+</div>
+
+<div class="mini-map-container">
+    <input type="hidden" name="{{ formset.forms.2.latitude.html_name }}">
+    <input type="hidden" name="{{ formset.forms.2.longitude.html_name }}">
+</div>
+
+</div>
+
+<div class="stops-container"></div>
+
+<button type="button" class="btn btn-dark add-stop-btn mt-3" style="display:none;">
++ Add Stop
+</button>
+
+</div>
+
+
+
+<!-- ========================= -->
+<!-- VIBES -->
+<!-- ========================= -->
+
+<div class="tab-panel" data-category="vibes">
+
+<div class="stop-card stop-0" data-category="vibes" data-stop-zero="true">
+
+{{ formset.forms.3.id }}
+
+<div class="trip-form-group">
+<label class="trip-label">What Was The Vibe?</label>
+{{ formset.forms.3.description }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Story Title</label>
+{{ formset.forms.3.story_title }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Story Description</label>
+{{ formset.forms.3.story_description }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Time Of Day</label>
+{{ formset.forms.3.day_night }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Weather</label>
+{{ formset.forms.3.weather }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Travel Date</label>
+{{ formset.forms.3.travel_date }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Trip Image</label>
+{{ formset.forms.3.image }}
+</div>
+
+<div style="display:none;">
+{{ formset.forms.3.category.as_hidden }}
+<input 
+type="hidden"
+name="{{ formset.forms.3.category.html_name }}"
+value="{{ categories.3.id }}">
+{{ formset.forms.3.DELETE }}
+</div>
+
+<div class="mini-map-container">
+    <input type="hidden" name="{{ formset.forms.3.latitude.html_name }}">
+    <input type="hidden" name="{{ formset.forms.3.longitude.html_name }}">
+</div>
+
+</div>
+
+<div class="stops-container"></div>
+
+<button type="button" class="btn btn-dark add-stop-btn mt-3" style="display:none;">
++ Add Stop
+</button>
+
+</div>
+
+
+
+<!-- ========================= -->
+<!-- SEASONS -->
+<!-- ========================= -->
+
+<div class="tab-panel" data-category="seasons">
+
+<div class="stop-card stop-0" data-category="seasons" data-stop-zero="true">
+
+{{ formset.forms.4.id }}
+
+<div class="trip-form-group">
+<label class="trip-label">Which Season Did You Visit?</label>
+{{ formset.forms.4.description }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Story Title</label>
+{{ formset.forms.4.story_title }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Story Description</label>
+{{ formset.forms.4.story_description }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Time Of Day</label>
+{{ formset.forms.4.day_night }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Weather</label>
+{{ formset.forms.4.weather }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Travel Date</label>
+{{ formset.forms.4.travel_date }}
+</div>
+
+<div class="trip-form-group">
+<label class="trip-label">Trip Image</label>
+{{ formset.forms.4.image }}
+</div>
+
+<div style="display:none;">
+{{ formset.forms.4.category.as_hidden }}
+<input 
+type="hidden"
+name="{{ formset.forms.4.category.html_name }}"
+value="{{ categories.4.id }}">
+{{ formset.forms.4.DELETE }}
+</div>
+
+<div class="mini-map-container">
+    <input type="hidden" name="{{ formset.forms.4.latitude.html_name }}">
+    <input type="hidden" name="{{ formset.forms.4.longitude.html_name }}">
+</div>
+
+</div>
+
+<div class="stops-container"></div>
+
+<button type="button" class="btn btn-dark add-stop-btn mt-3" style="display:none;">
++ Add Stop
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- ========================= -->
+<!-- 5 LIVE PREVIEW -->
+<!-- ========================= -->
+
+<div class="trip-preview card p-4 mb-5 shadow-sm">
+
+<h3 class="text-center mb-3">Live Preview</h3>
+
+<!-- LOCATION (PRIMARY) -->
+<h1 id="preview-destination" class="location-title">
+</h1>
+
+<!-- TRIP TITLE -->
+<h1 id="context-title">City Name</h1>
+
+
+    <!-- Context Row -->
+    <div class="slide-context-header">
+
+    <!-- WEATHER -->
+    <div id="preview-weather-cube" class="weather-cube">
+        <div id="preview-daynight" class="weather-time"></div>
+        <div id="preview-weather-icon" class="weather-icon"></div>
+        <div id="preview-weather-label" class="weather-label"></div>
+    </div>
+
+    <!-- TITLE -->
+    <h2 id="preview-description" class="slide-context-title">
+        Trip Location will appear here...
+    </h2>
+
+    <!-- DATE -->
+    <div id="preview-date-cube" class="calendar-badge">
+        <span id="preview-month" class="month"></span>
+        <span id="preview-day" class="day"></span>
+        <span id="preview-year" class="year"></span>
+    </div>
+
+</div>
+
+    <!-- Image -->
+
+    <div id="image-placeholder" class="image-placeholder">
+    📷 Add a photo
+</div>
+
+<img id="preview-image" src="" class="img-fluid rounded d-none" alt="image from trip">
+
+
+<!-- STORY TITLE -->
+<h5 id="story-title" class="mt-3 text-muted">
+    Your trip story title will appear here...
+</h5>
+
+<!-- STORY / STOP DESCRIPTION -->
+<p id="story-description" class="mt-3 text-muted">
+    Your story of the trip will appear here...
+</p>
+
+<!-- DATES -->
+<p id="preview-dates" class="mt-2"></p>
+
+<div id="preview-mini-map" style="height:150px; margin-top:15px; border-radius:10px;"></div>
+
+</div>
+
+
+
+<!-- SUBMIT -->
+<div class="text-center mt-5">
+<button type="submit" class="btn btn-primary btn-lg">
+Save Trip
+</button>
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- EMPTY TEMPLATE -->
+<!-- ========================= -->
+
+<div id="empty-form-template" style="display:none;">
+
+<div class="stop-card" data-category="__category__">
+
+    <div class="stop-header">
+        <h4>Stop __number__</h4>
+    </div>
+
+    <div class="builder-frame">
+
+        <div class="context-header">
+
+            <!-- CONTEXT DESCRIPTION -->
+            <textarea 
+                name="items-__prefix__-description"
+                class="context-description-input mt-2"
+                placeholder="What did you see / eat / experience?"
+            ></textarea>
+
+            <!-- DATE -->
+            <input 
+                type="date" 
+                name="items-__prefix__-travel_date"
+                class="mt-2"
+            >
+
+            <!-- TIME OF DAY -->
+            <select 
+                name="items-__prefix__-day_night"
+                class="mt-2">
+                <option value="">Time of Day</option>
+                <option value="sunrise">🌅 Sunrise</option>
+                <option value="day">☀ Day</option>
+                <option value="sunset">🌇 Sunset</option>
+                <option value="night">🌙 Night</option>
+            </select>
+
+            <!-- WEATHER -->
+            <select 
+                name="items-__prefix__-weather"
+                class="mt-2">
+                <option value="">Weather</option>
+                <option value="sun">☀ Sunny</option>
+                <option value="cloud">☁ Cloudy</option>
+                <option value="rain">🌧 Rain</option>
+                <option value="storm">⛈ Storm</option>
+                <option value="snow">❄ Snow</option>
+                <option value="wind">💨 Wind</option>
+            </select>
+
+            <!-- STORY TITLE -->
+            <input 
+                type="text" 
+                name="items-__prefix__-story_title"
+                class="story-title mt-2"
+                placeholder="What would you call this moment?"
+            >
+
+            <!-- STORY DESCRIPTION -->
+            <textarea 
+                name="items-__prefix__-story_description"
+                class="story-description mt-2"
+                placeholder="What happened here? Tell your story..."
+            ></textarea>
+
+        </div>
+
+        <textarea name="items-__prefix__-user_note"></textarea>
+
+        <!-- IMAGE / CAROUSEL -->
+        <div class="carousel-builder mt-2">
+            <input 
+                type="file"
+                name="items-__prefix__-image"
+                accept="image/*"
+                class="form-control"
+            >
+        </div>
+
+    </div>
+
+    <!-- MINI MAP / COORDINATES -->
+    <div class="mini-map-container">
+        <input type="hidden" name="items-__prefix__-latitude">
+        <input type="hidden" name="items-__prefix__-longitude">
+    </div>
+
+     <!-- REMOVE STOP BUTTON -->
+    <button type="button" class="btn btn-sm btn-danger remove-stop-btn mt-3">
+        ❌ Remove Stop
+    </button>
+
+    <!-- HIDDEN FIELDS -->
+    <input type="hidden" name="items-__prefix__-id">
+    <input type="hidden" name="items-__prefix__-title" class="stop-title">
+    <input 
+    type="hidden" 
+    name="items-__prefix__-category"
+    class="category-field"
+    value="">
+    <input type="hidden" name="items-__prefix__-display_order" class="display-order">
+
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- JS -->
+<!-- ========================= -->
+
+<!-- ========================= -->
+<!-- MAP LOGIC (LEAFLET) -->
+<!-- ========================= -->
+
+<script>
+let previewMiniMap;
+let previewMiniMarker;
+
+
+let map;
+let marker;
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    // =========================
+    // 1. MAP INITIALISATION
+    // =========================
+    map = L.map('trip-create-map').setView([51.505, -0.09], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+        .addTo(map);
+
+    map.on('click', function(e){
+
+    if(marker){
+        map.removeLayer(marker);
+    }
+
+    marker = L.marker(e.latlng).addTo(map);
+
+    // Always keep trip-level coords in sync
+    const tripLat = document.getElementById("trip-latitude");
+    const tripLng = document.getElementById("trip-longitude");
+    if(tripLat) tripLat.value = e.latlng.lat;
+    if(tripLng) tripLng.value = e.latlng.lng;
+
+    // Write coords to ALL stop-zero cards (one per tab)
+    document.querySelectorAll(".stop-0").forEach(card => {
+        const latInput = card.querySelector('[name$="latitude"]');
+        const lngInput = card.querySelector('[name$="longitude"]');
+        if(latInput) latInput.value = e.latlng.lat;
+        if(lngInput) lngInput.value = e.latlng.lng;
+    });
+
+    // Also write to active card if there is one
+    const activeCard = document.querySelector(".stop-card.active");
+    if(activeCard){
+        const latInput = activeCard.querySelector('[name$="latitude"]');
+        const lngInput = activeCard.querySelector('[name$="longitude"]');
+        if(latInput) latInput.value = e.latlng.lat;
+        if(lngInput) lngInput.value = e.latlng.lng;
+    }
+
+    updatePreviewMiniMap(e.latlng.lat, e.latlng.lng);
+});
+
+
+   // =========================
+// 2. MAP SEARCH
+// =========================
+const locationInput = document.getElementById("location-input");
+
+if(locationInput){
+    locationInput.addEventListener("change", function(){
+
+        const query = this.value;
+
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${query}`)
+        .then(res => res.json())
+        .then(data => {
+
+            if(!data.length) return;
+
+            const place = data[0];
+
+            const lat = parseFloat(place.lat);
+            const lon = parseFloat(place.lon);
+
+            map.setView([lat, lon], 10);
+
+            if(marker){
+                map.removeLayer(marker);
+            }
+
+            marker = L.marker([lat, lon]).addTo(map);
+
+            // Write trip-level coords safely
+            const tripLat = document.getElementById("trip-latitude");
+            const tripLng = document.getElementById("trip-longitude");
+            if(tripLat) tripLat.value = lat;
+            if(tripLng) tripLng.value = lon;
+
+            // Write search coords to all stop-zero cards
+            document.querySelectorAll(".stop-0").forEach(card => {
+                const latInput = card.querySelector('[name$="latitude"]');
+                const lngInput = card.querySelector('[name$="longitude"]');
+                if(latInput) latInput.value = lat;
+                if(lngInput) lngInput.value = lon;
+            });
+
+            // Update the live preview mini map
+            updatePreviewMiniMap(lat, lon);
+
+            // FULL DESTINATION
+            const destinationInput = document.querySelector('[name="destination"]');
+            if(destinationInput){
+                destinationInput.value = place.display_name;
+            }
+
+            // CITY NAME ONLY
+            const titleInput = document.querySelector('[name="title"]');
+            if(titleInput){
+
+                const addr = place.address;
+
+                const cityName =
+                    addr.city ||
+                    addr.town ||
+                    addr.village ||
+                    addr.municipality ||
+                    addr.county ||
+                    addr.state ||
+                    place.display_name.split(",")[0];
+
+                titleInput.value = cityName;
+                titleInput.dispatchEvent(new Event("input"));
+
+                // LOCK FIELD
+                titleInput.readOnly = true;
+            }
+
+            // Save country code for flag display
+            const countryCode = place.address.country_code || "";
+            const countryCodeInput = document.querySelector('[name="country_code"]');
+            if (countryCodeInput) countryCodeInput.value = countryCode.toUpperCase();
+
+        })
+        .catch(err => console.error("Search error:", err));
+
+    });
+}
+
+// =========================
+// MINI PREVIEW MAP
+// =========================
+
+function updatePreviewMiniMap(lat, lng){
+
+    const mapEl = document.getElementById("preview-mini-map");
+    if(!mapEl) return;
+
+    if(!previewMiniMap){
+        previewMiniMap = L.map(mapEl, {
+            zoomControl:false,
+            attributionControl:false
+        }).setView([lat, lng], 13);
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
+            .addTo(previewMiniMap);
+    } else {
+        previewMiniMap.setView([lat, lng], 13);
+    }
+
+    if(previewMiniMarker){
+        previewMiniMap.removeLayer(previewMiniMarker);
+    }
+
+    previewMiniMarker = L.marker([lat, lng])
+        .addTo(previewMiniMap);
+}
+// =========================
+// 3. LIVE PREVIEW (TRIP LEVEL)
+// =========================
+const titleInput = document.querySelector('[name="title"]');
+const destinationInput = document.querySelector('[name="destination"]');
+const startDateInput = document.querySelector('[name="start_date"]');
+const endDateInput = document.querySelector('[name="end_date"]');
+const descriptionInput =
+    document.querySelector('[name="context_title"]') ||
+    document.querySelector('[name="description"]');
+const tripStoryTitleInput = document.querySelector('[name="story_title"]');
+const tripStoryDescInput = document.querySelector('[name="story_description"]');
+
+const previewTitle = document.getElementById("context-title");
+const previewDates = document.getElementById("preview-dates");
+const previewDescription = document.getElementById("preview-description");
+
+function updatePreview(){
+
+    if(titleInput){
+        previewTitle.textContent = titleInput.value || "Your Trip Title";
+    }
+
+    if(startDateInput && endDateInput){
+        const start = startDateInput.value;
+        const end = endDateInput.value;
+
+        previewDates.textContent = (start || end)
+            ? `${start || "Start"} → ${end || "End"}`
+            : "";
+    }
+
+    if(descriptionInput){
+        previewDescription.textContent =
+            descriptionInput.value || "Stop Name";
+    }
+
+    // ✅ FIX — ensure story updates when typing at trip level
+    updateStoryPreview();
+}
+
+[
+    titleInput,
+    destinationInput,
+    startDateInput,
+    endDateInput,
+    descriptionInput,
+    tripStoryTitleInput,
+    tripStoryDescInput
+]
+.forEach(input => {
+    if(input){
+        input.addEventListener("input", updatePreview);
+    }
+});
+
+updatePreview();
+updateStoryPreview();
+
+
+// =========================
+// STORY PREVIEW SYSTEM
+// =========================
+const storyTitleMain = document.querySelector('[name="story_title"]');
+const storyDescMain = document.querySelector('[name="story_description"]');
+
+let activeStops = {};
+
+function setActiveStop(card){
+
+    document.querySelectorAll(".stop-card")
+        .forEach(c => c.classList.remove("active"));
+
+    card.classList.add("active");
+
+    const category = card.dataset.category;
+    activeStops[category] = card;
+
+    updateStoryPreview();
+    updateContextCubes();
+    updateDayNumber(card);
+
+    const lat = card.querySelector('[name$="latitude"]')?.value;
+    const lng = card.querySelector('[name$="longitude"]')?.value;
+
+    if(lat && lng){
+        updatePreviewMiniMap(lat, lng);
+    }
+}
+
+function updateStoryPreview(){
+
+    const active = document.querySelector(".stop-card.active");
+
+    const previewContextTitle = document.getElementById("context-title");
+    const previewStoryTitle = document.getElementById("story-title");
+    const previewStory = document.getElementById("story-description");
+    const previewDescription = document.getElementById("preview-description");
+
+    // =========================
+    // NO ACTIVE STOP → TRIP LEVEL
+    // =========================
+    if(!active){
+
+        if(previewContextTitle){
+            previewContextTitle.textContent =
+                document.querySelector('[name="title"]')?.value || "Your Context Title";
+        }
+
+        if(previewStoryTitle){
+            previewStoryTitle.textContent =
+                document.querySelector('[name="story_title"]')?.value || "Your trip title will appear here...";
+        }
+
+        if(previewStory){
+            previewStory.textContent =
+                document.querySelector('[name="story_description"]')?.value || "Your trip story will appear here...";
+        }
+
+        if(previewDescription){
+            previewDescription.textContent =
+                document.querySelector('[name="description"]')?.value || "Stop name";
+        }
+
+        return;
+    }
+
+    // =========================
+    // ACTIVE STOP → USE STOP FIELDS
+    // =========================
+    const storyTitle = active.querySelector('[name$="story_title"]');
+    const story = active.querySelector('[name$="story_description"]');
+    const description = active.querySelector('[name$="description"]');
+
+    if(previewContextTitle){
+        previewContextTitle.textContent =
+            document.querySelector('[name="title"]')?.value || "Your Context Title";
+    }
+
+    if(previewStoryTitle){
+        previewStoryTitle.textContent =
+            storyTitle?.value || "Your story title";
+    }
+
+    if(previewStory){
+        previewStory.textContent =
+            story?.value || "Your story";
+    }
+
+    if(previewDescription){
+        previewDescription.textContent =
+            description?.value || "Stop name";
+    }
+}
+
+// =========================
+// DATE + WEATHER CUBES
+// =========================
+function updateContextCubes(dateInputOverride, weatherInputOverride, dayNightOverride){
+
+    let dateInput = dateInputOverride;
+    let weatherInput = weatherInputOverride;
+    let dayNightInput = dayNightOverride;
+
+    // If no overrides passed → fallback to ACTIVE STOP ONLY
+    if(!dateInput || !weatherInput || !dayNightInput){
+
+        const activeStop = document.querySelector(".stop-card.active");
+
+        if(activeStop){
+            dateInput = activeStop.querySelector('[name$="travel_date"]');
+            weatherInput = activeStop.querySelector('[name$="weather"]');
+            dayNightInput = activeStop.querySelector('[name$="day_night"]');
+        } else {
+            dateInput = document.querySelector('[name="start_date"]');
+            weatherInput = document.querySelector('[name="weather"]');
+            dayNightInput = document.querySelector('[name="day_night"]');
+        }
+    }
+
+    const weatherCube = document.getElementById("preview-weather-cube");
+    const weatherIcon = document.getElementById("preview-weather-icon");
+    const weatherLabel = document.getElementById("preview-weather-label");
+    const dayNightLabel = document.getElementById("preview-daynight");
+
+    const monthEl = document.getElementById("preview-month");
+    const dayEl = document.getElementById("preview-day");
+    const yearEl = document.getElementById("preview-year");
+
+    const tripInfoMonthEl = document.getElementById("tripinfo-month");
+    const tripInfoDayEl = document.getElementById("tripinfo-day");
+    const tripInfoYearEl = document.getElementById("tripinfo-year");
+
+    const weatherMap = {
+        sun: { icon: "☀", label: "Sunny" },
+        cloud: { icon: "☁", label: "Cloudy" },
+        rain: { icon: "🌧", label: "Rainy" },
+        snow: { icon: "❄", label: "Snowy" },
+        wind: { icon: "💨", label: "Windy" }
+    };
+
+    // WEATHER
+    if(weatherInput && weatherCube){
+        if(weatherInput.value){
+            weatherCube.className = "weather-cube weather-" + weatherInput.value;
+
+            if(weatherMap[weatherInput.value]){
+                weatherIcon.textContent = weatherMap[weatherInput.value].icon;
+                weatherLabel.textContent = weatherMap[weatherInput.value].label;
+            }
+        } else {
+            weatherCube.className = "weather-cube";
+            weatherIcon.textContent = "";
+            weatherLabel.textContent = "";
+        }
+    }
+
+    // DAY/NIGHT
+    if(dayNightInput && dayNightLabel){
+        dayNightLabel.textContent = dayNightInput.value
+            ? dayNightInput.value.toUpperCase()
+            : "";
+    }
+
+    // DATE (STRICT: ONLY the provided dateInput — no global fallback)
+    if(dateInput && dateInput.value){
+
+        const d = new Date(dateInput.value);
+
+        const month = d.toLocaleString('default', { month: 'short' }).toUpperCase();
+        const day = d.getDate();
+        const year = d.getFullYear();
+
+        if(monthEl) monthEl.textContent = month;
+        if(dayEl) dayEl.textContent = day;
+        if(yearEl) yearEl.textContent = year;
+
+        // Only update Trip Info cube if we are NOT inside a stop
+const activeStop = document.querySelector(".stop-card.active");
+
+if(!activeStop){
+    if(tripInfoMonthEl) tripInfoMonthEl.textContent = month;
+    if(tripInfoDayEl) tripInfoDayEl.textContent = day;
+    if(tripInfoYearEl) tripInfoYearEl.textContent = year;
+}
+
+    } else {
+        if(monthEl) monthEl.textContent = "";
+        if(dayEl) dayEl.textContent = "";
+        if(yearEl) yearEl.textContent = "";
+    }
+}
+
+
+// =========================
+// HARD LOCK title
+// =========================
+document.addEventListener("input", function(e){
+
+    const card = e.target.closest(".stop-card");
+
+    if(card){
+
+        // ALWAYS make this stop active when typing
+        setActiveStop(card);
+
+        // FORCE preview update immediately
+        updateStoryPreview();
+    }
+
+    // Trip-level typing
+    if(
+        e.target.matches('[name="story_title"]') ||
+        e.target.matches('[name="story_description"]') ||
+        e.target.matches('[name="description"]') ||
+        e.target.matches('[name="title"]')
+    ){
+        updateStoryPreview();
+    }
+});
+
+
+// =========================
+// DAY NUMBER
+// =========================
+function updateDayNumber(card){
+
+const el = document.getElementById("preview-dates");
+if(!card || !el) return;
+
+const start = card.querySelector('[name$="travel_date"]')?.value;
+
+// ONLY START DATE
+if(start){
+    el.textContent = start;
+    return;
+}
+
+// ONLY visible tab stops
+const activePanel =
+document.querySelector(".tab-panel[style*='display: block']");
+
+const allStops =
+activePanel.querySelectorAll(".stop-card");
+
+let index = Array.from(allStops).indexOf(card) + 1;
+
+el.textContent = "Day " + index;
+
+}
+
+// =========================
+// TYPING UPDATES PREVIEW
+// =========================
+
+
+
+// =========================
+// STOP DATE / WEATHER CHANGE
+// =========================
+document.addEventListener("change", function(e){
+
+    if(
+        e.target.matches('[name$="travel_date"]') ||
+        e.target.matches('[name$="weather"]') ||
+        e.target.matches('[name$="day_night"]')
+    ){
+        const card = e.target.closest(".stop-card");
+
+        if(card){
+            setActiveStop(card);
+
+            // Only update cubes for THIS stop
+            const dateInput = card.querySelector('[name$="travel_date"]');
+            const weatherInput = card.querySelector('[name$="weather"]');
+            const dayNightInput = card.querySelector('[name$="day_night"]');
+
+            updateContextCubes(
+    card.querySelector('[name$="travel_date"]'),
+    card.querySelector('[name$="weather"]'),
+    card.querySelector('[name$="day_night"]')
+);
+        }
+    }
+
+});
+
+
+// =========================
+// TRIP LEVEL DATE / WEATHER
+// =========================
+document.addEventListener("change", function(e){
+
+    if(
+        e.target.matches('[name="start_date"]') ||
+        e.target.matches('[name="weather"]') ||
+        e.target.matches('[name="day_night"]')
+    ){
+        updateContextCubes();
+    }
+
+});
+
+
+// =========================
+// CLICKING A STOP SELECTS IT
+// =========================
+document.addEventListener("click", function(e){
+    const card = e.target.closest(".stop-card");
+    if(card){
+        const category = card.dataset.category;
+        activeStops[category] = card;
+        setActiveStop(card);
+        updateContextCubes();
+        updateDayNumber(card);
+    }
+});
+
+    // =========================
+    // CATEGORY LABEL SWITCH
+    // =========================
+    const labelTitle = document.getElementById("label-title");
+    const labelDestination = document.getElementById("label-destination");
+    const labelDescription = document.getElementById("label-description");
+
+    const contentMap = {
+        sights: {
+            title: "Where did you go?",
+            destination: "Where was the trip to?",
+            description: "What did you see?",
+            storyTitle: "Give this trip a title?",
+            storyDesc: "Tell us all about your trip & the sights?"
+        },
+        flavours: {
+            title: "Where did you go?",
+            destination: "Where was the trip to?",
+            description: "Where did you eat / drink?",
+            storyTitle: "Give this trip a title?",
+            storyDesc: "Tell us all about your trip & the flavours?"
+        },
+        experiences: {
+            title: "Where did you go?",
+            destination: "Where was the trip to?",
+            description: "What did you experience?",
+            storyTitle: "Give this trip a title?",
+            storyDesc: "Tell us all about your trip & the experiences?"
+        },
+        vibes: {
+            title: "Where did you go?",
+            destination: "Where was the trip to?",
+            description: "What was the overall vibe?",
+            storyTitle: "Give this trip a title?",
+            storyDesc: "Tell us all about your trip & the vibes?"
+        },
+        seasons: {
+            title: "Where did you go?",
+            destination: "Where was the trip to?",
+            description: "Which season did you travel?",
+            storyTitle: "Give this trip a title?",
+            storyDesc: "Tell us all about your trip & the seasons?"
+        }
+    };
+
+    function updateFormContext(category){
+        const content = contentMap[category];
+        if(!content) return;
+
+        labelTitle.textContent = content.title;
+        labelDestination.textContent = content.destination;
+        labelDescription.textContent = content.description;
+
+        if(descriptionInput){
+            descriptionInput.placeholder = content.description;
+        }
+
+        document.querySelectorAll(".story-title").forEach(input => {
+            input.placeholder = content.storyTitle;
+        });
+
+        document.querySelectorAll(".story-description").forEach(input => {
+            input.placeholder = content.storyDesc;
+        });
+    }
+
+// =========================
+// TABS + STOPS
+// =========================
+
+function updateTabs(){
+
+    const active = document.querySelector(".trip-tab.active").dataset.category;
+
+    document.querySelectorAll(".tab-panel").forEach(panel => {
+        panel.style.display = (panel.dataset.category === active)
+            ? "block"
+            : "none";
+    });
+
+    const activeStopCard = activeStops[active];
+
+    if(activeStopCard){
+        setActiveStop(activeStopCard);
+    } else {
+        const firstStop = document.querySelector(
+    `.tab-panel[data-category="${active}"] .stop-card`
+);
+
+if(firstStop){
+    setActiveStop(firstStop);
+} else {
+    // No stops yet → show trip preview instead
+    document.querySelectorAll(".stop-card")
+        .forEach(c => c.classList.remove("active"));
+    updateStoryPreview();
+}
+    }
+
+    updateFormContext(active);
+}
+
+
+// =========================
+// STOP NUMBERING
+// =========================
+function updateStopNumbers(){
+
+const activePanel =
+document.querySelector(".tab-panel[style*='display: block']");
+
+const allStops =
+activePanel.querySelectorAll(".stop-card");
+    const tripTitle = document.querySelector('[name="title"]')?.value || "";
+
+    allStops.forEach((card, index) => {
+
+        const header = card.querySelector(".stop-header h4");
+        if(header){
+            header.textContent = "Stop " + (index + 1);
+        }
+
+        // ✅ display_order
+        const orderInput = card.querySelector('.display-order');
+        if(orderInput){
+            orderInput.value = index + 1;
+        }
+
+        // ✅ title (comes from main trip title)
+        const titleInput = card.querySelector('.stop-title');
+        if(titleInput){
+            titleInput.value = tripTitle;
+        }
+
+    });
+}
+
+
+// =========================
+// ADD STOP
+// =========================
+document.querySelectorAll(".add-stop-btn").forEach(button => {
+
+button.addEventListener("click", function(){
+
+const totalForms =
+document.querySelector("#id_items-TOTAL_FORMS");
+
+const index = document.querySelectorAll(".stop-card").length;
+
+const template =
+document.getElementById("empty-form-template")
+.innerHTML
+.replace(/__prefix__/g, index)
+.replace(/__number__/g, index + 1);
+
+const panel = this.closest(".tab-panel");
+const container = panel.querySelector(".stops-container");
+
+const categoryId =
+document.querySelector(".trip-tab.active")
+.dataset.categoryId;
+
+const newStop =
+document.createElement("div");
+
+newStop.innerHTML = template;
+
+const stopCard =
+newStop.firstElementChild;
+
+stopCard.querySelector(".category-field").value = categoryId;
+
+container.appendChild(stopCard);
+
+totalForms.value = index + 1;
+
+updateStopNumbers();
+
+});
+});
+
+
+// =========================
+// REMOVE STOP
+// =========================
+document.addEventListener("click", function(e){
+
+    if(e.target.classList.contains("remove-stop-btn")){
+        const card = e.target.closest(".stop-card");
+        if(!card) return;
+
+        const wasActive = card.classList.contains("active");
+
+        card.remove();
+        updateStopNumbers();
+
+        // If we deleted the active card, clear active state
+        if(wasActive){
+            document.querySelectorAll(".stop-card")
+                .forEach(c => c.classList.remove("active"));
+
+            updateStoryPreview();
+        }
+    }
+
+});
+
+
+// =========================
+// TAB CLICK
+// =========================
+document.querySelectorAll(".trip-tab").forEach(tab => {
+    tab.addEventListener("click", function(){
+
+        document.querySelectorAll(".trip-tab")
+            .forEach(t => t.classList.remove("active"));
+
+        this.classList.add("active");
+        updateTabs();
+    });
+});
+
+
+// =========================
+// ADD STOP BUTTON CLICK
+// =========================
+document.querySelectorAll(".add-stop-btn").forEach(button => {
+
+    button.addEventListener("click", function(){
+        const panel = this.closest(".tab-panel");
+        addStop(panel);
+    });
+
+});
+
+
+// =========================
+// INITIAL STOPS
+// =========================
+
+updateTabs();
+
+// Auto-activate first stop so map clicks register immediately
+const firstStop = document.querySelector(".tab-panel.active .stop-card, .tab-panel[style*='display: block'] .stop-card");
+if (firstStop) setActiveStop(firstStop);
+
+
+// TRIP IMAGE PREVIEW
+const tripImageInput = document.querySelector('input[name="trip_image"]');
+
+if(tripImageInput){
+
+    tripImageInput.addEventListener("change", function(){
+
+        const previewImage = document.getElementById("preview-image");
+        const imagePlaceholder = document.getElementById("image-placeholder");
+
+        const file = this.files[0];
+        if(!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+            if(previewImage){
+                previewImage.src = e.target.result;
+                previewImage.classList.remove("d-none");
+            }
+
+            if(imagePlaceholder){
+                imagePlaceholder.style.display = "none";
+            }
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+
+// STOP IMAGE PREVIEW
+document.addEventListener("change", function(e){
+
+    if(e.target.matches('.stop-card input[type="file"]')){
+
+        const file = e.target.files[0];
+        if(!file) return;
+
+        const previewImage = document.getElementById("preview-image");
+        const imagePlaceholder = document.getElementById("image-placeholder");
+
+        const reader = new FileReader();
+
+        reader.onload = function(ev){
+            if(previewImage){
+                previewImage.src = ev.target.result;
+                previewImage.classList.remove("d-none");
+            }
+
+            if(imagePlaceholder){
+                imagePlaceholder.style.display = "none";
+            }
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+});
+
+});
+document.addEventListener("DOMContentLoaded", function(){
+
+const form = document.querySelector("form");
+
+if(form){
+
+form.addEventListener("submit", function(){
+
+    const tripTitle = document.querySelector('[name="title"]')?.value || "";
+
+    document.querySelectorAll(".stop-card").forEach((card, index) => {
+
+        const titleInput = card.querySelector('.stop-title');
+        const orderInput = card.querySelector('.display-order');
+
+        if(titleInput){
+            titleInput.value = tripTitle;
+        }
+
+        if(orderInput){
+            orderInput.value = index + 1;
+        }
+
+    });
+
+});
+
+}
+
+});
+</script>
+
+<script>
+
+document.addEventListener("change", function(e){
+
+    if (e.target.type === "file") {
+
+        const file = e.target.files[0]
+
+        if (!file) return
+
+        const reader = new FileReader()
+
+        reader.onload = function(event){
+
+            const preview = document.getElementById("preview-image")
+            const placeholder = document.getElementById("image-placeholder")
+
+            preview.src = event.target.result
+            preview.classList.remove("d-none")
+
+            if (placeholder){
+                placeholder.style.display = "none"
+            }
+
+        }
+
+        reader.readAsDataURL(file)
+
+    }
+
+})
+
+</script>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

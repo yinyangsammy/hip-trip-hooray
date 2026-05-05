@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import about_view
+from .views import index
 
 
 urlpatterns = [
@@ -38,9 +39,10 @@ urlpatterns = [
 
     path("contact/", include("contact.urls")),
 
-
     # about view lives under /my-trips/
     path("about/", about_view, name="about"),
+
+    path('', index, name='home'),
 ]
 
 if settings.DEBUG:

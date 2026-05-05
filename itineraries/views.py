@@ -7,6 +7,8 @@ from django.utils.text import slugify
 from .models import Itinerary, ItineraryItem, Category, Comment
 from .forms import CommentForm, ItineraryForm, ItineraryItemForm, ItineraryItemFormSet
 from trips.models import Trip, TripItem
+from django.db.models import Q
+from django.http import JsonResponse
 
 
 # ----------------------------------------
@@ -32,6 +34,7 @@ def use_template(request, pk):
         TripItem.objects.create(
             trip=trip,
             category=item.category,
+            description=item.context_title,
             story_title=item.story_title,
             story_description=item.story_description,
             image=item.image,
@@ -40,7 +43,6 @@ def use_template(request, pk):
             travel_date=item.travel_date,
             weather=item.weather,
             day_night=item.day_night,
-            context_title=item.context_title,
             display_order=item.display_order
         )
 
@@ -61,7 +63,69 @@ def itinerary_list(request):
         {"itineraries": itineraries},
     )
 
-  
+
+# -----------------------------
+# ITINERARY LIST SEARCH
+# -----------------------------
+def search_itineraries(request):
+    query = request.GET.get('q', '').strip()
+
+    if request.user.is_authenticated:
+        itineraries = Itinerary.objects.filter(
+            Q(published=True) | Q(author=request.user)
+        )
+    else:
+        itineraries = Itinerary.objects.filter(published=True)
+
+    if query:
+        itineraries = itineraries.filter(
+            Q(title__icontains=query) |
+            Q(location_name__icontains=query) |
+            Q(country_name__icontains=query)
+        ).distinct()
+
+    no_results = query and not itineraries.exists()
+
+    print("QUERY:", query)
+    print("COUNT:", itineraries.count())  # 👈 DEBUG LINE
+
+    context = {
+        'query': query,
+        'itineraries': itineraries,
+        'no_results': no_results
+    }
+
+    return render(request, 'itineraries/itinerary_list.html', context)
+
+
+# -----------------------------
+# ITINERARY LIST LIVE SEARCH
+# -----------------------------
+def live_search_itineraries(request):
+    query = request.GET.get('q', '').strip()
+
+    results = []
+
+    if query:
+        itineraries = Itinerary.objects.filter(
+            Q(published=True),
+            Q(title__icontains=query) |
+            Q(location_name__icontains=query) |
+            Q(country_name__icontains=query)
+        ).distinct()[:5]  # limit results
+
+        results = [
+            {
+                "title": i.title,
+                "location": i.location_name,
+                "url": i.get_absolute_url(),
+            }
+            for i in itineraries
+        ]
+
+    return JsonResponse({"results": results})
+
+
 # -----------------------------
 # USER ITINERARY LIST
 # -----------------------------
@@ -125,11 +189,19 @@ def itinerary_detail(request, slug, country=None):
 
     items = itinerary.items.all()
 
+    def is_blank(item):
+        return (
+            (not item.story_title or item.story_title == "")
+            and (not item.story_description or item.story_description == "")
+            and not item.image
+        )
+
     for category in categories:
         filtered = [
             item for item in items
-            if item.category == category
+            if item.category == category and not is_blank(item)
         ]
+
         if filtered:
             category_items[category] = filtered
 
@@ -278,32 +350,16 @@ def itinerary_edit(request, pk):
         author=request.user
     )
 
-    if request.method == "POST":
-        form = ItineraryForm(
-            request.POST,
-            request.FILES,
-            instance=itinerary
-        )
+    # 🔒 If linked trip exists → go to real editor
+    if itinerary.trip:
+        return redirect("trips:trip_edit", pk=itinerary.trip.pk)
 
-        if form.is_valid():
-            form.save()
-            messages.success(
-                request,
-                "Itinerary updated successfully!"
-            )
-            return redirect("itineraries:user_itineraries")
-
-    else:
-        form = ItineraryForm(instance=itinerary)
-
-    return render(
+    # ⚠️ Fallback: legacy / broken data
+    messages.error(
         request,
-        "itineraries/itinerary_form.html",
-        {
-            "form": form,
-            "itinerary": itinerary
-        },
+        "This itinerary is not linked to an editable trip."
     )
+    return redirect("itineraries:user_itineraries")
 
 
 # -----------------------------

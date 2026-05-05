@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.db import models
 from django.views import generic
 from django.utils.text import slugify
 from .models import Trip, TripItem
-from .forms import TripForm, TripItemFormSet
+from .forms import TripForm, TripItemCreateFormSet, TripItemEditFormSet
 from itineraries.models import Category, Itinerary, ItineraryItem
 
 
@@ -62,8 +63,8 @@ def publish_trip(request, pk):
             itinerary=itinerary,
             category=item.category,
 
-            context_title=item.context_title,
-            context_description=item.context_description or item.description,
+            context_title=item.context_title or item.description,
+            context_description=item.context_description,
 
             story_title=item.story_title,
             story_description=item.story_description,
@@ -133,43 +134,59 @@ def trip_detail(request, pk):
         items = TripItem.objects.filter(
             trip=trip,
             category=category
+            ).exclude(
+                models.Q(
+                    description="",
+                    story_title="",
+                    story_description="",
+                    image=""
+                )
+            ).order_by(
+                "display_order", "id"
+            )
+
+        items = list(items)
+
+        if items:
+            category_items.append({
+                "category": category,
+                "items": items
+            })
+
+    # --------------------------------
+    # Create Trip Info category (Stop 0)
+    # --------------------------------
+
+    first_image = TripItem.objects.filter(
+        trip=trip
+    ).exclude(
+        image__isnull=True
+    ).exclude(
+        image=""
+    ).first()
+
+    first_with_coords = TripItem.objects.filter(
+        trip=trip,
+        latitude__isnull=False,
+        longitude__isnull=False
         ).exclude(
-            category__isnull=True
-        ).order_by(
-            "display_order", "id"
-        )
+            latitude=0,
+            longitude=0
+        ).order_by("id").first()
 
-    items = list(items)
-
-    if items:
-        category_items.append({
-            "category": category,
-            "items": items
-        })
-
-    # --------------------------------
-    # Create Trip Info category (Stop 0)
-    # --------------------------------
-
-    first_image = TripItem.objects.filter(
-        trip=trip
-    ).exclude(
-        image__isnull=True
-    ).exclude(
-        image=""
-    ).first()
-
-    # --------------------------------
-    # Create Trip Info category (Stop 0)
-    # --------------------------------
-
-    first_image = TripItem.objects.filter(
-        trip=trip
-    ).exclude(
-        image__isnull=True
-    ).exclude(
-        image=""
-    ).first()
+    trip_info = first_with_coords if first_with_coords else TripItem(
+        trip=trip,
+        category=None,
+        context_title=trip.title,
+        context_description=trip.description,
+        story_title=trip.title,
+        story_description=trip.description,
+        image=None,
+        travel_date=None,
+        weather="",
+        day_night="day",
+        display_order=0,
+    )
 
     trip_info_category = Category(
         name="Trip Info",
@@ -180,27 +197,26 @@ def trip_detail(request, pk):
         trip=trip,
         category=None,
 
-        context_title=trip.story_title or trip.title,
+        context_title=trip.title,
         context_description=trip.description,
 
         story_title=trip.title,
-        story_description=trip.story_description or trip.description,
+        story_description=trip.description,
 
         image=first_image.image if first_image else None,
         travel_date=first_image.travel_date if first_image else None,
 
-        weather=first_image.weather if first_image and first_image.weather 
-        else "",
-        day_night=first_image.day_night if first_image 
-        and first_image.day_night else "day",
+        weather=first_image.weather if first_image and first_image.weather else "",
+        day_night=first_image.day_night if first_image and first_image.day_night else "day",
+
+        # ✅ ADD THIS FIX
+        latitude=first_with_coords.latitude if first_with_coords else None,
+        longitude=first_with_coords.longitude if first_with_coords else None,
 
         display_order=0,
     )
- 
-    category_items.insert(0, {
-        "category": trip_info_category,
-        "items": [trip_info_item]
-    })
+
+    trip_info = trip_info_item
 
     return render(
         request,
@@ -208,6 +224,7 @@ def trip_detail(request, pk):
         {
             "itinerary": trip,
             "trip": trip,
+            "trip_info": trip_info,
             "category_items": category_items,
         }
     )
@@ -232,35 +249,63 @@ class TripList(LoginRequiredMixin, generic.ListView):
 @login_required
 def trip_create(request):
 
+    # ✅ Always load categories first (used in both GET + POST)
+    categories = Category.objects.order_by("display_order")
+
     if request.method == "POST":
 
         form = TripForm(request.POST, request.FILES)
 
         temp_trip = Trip(owner=request.user)
 
-        formset = TripItemFormSet(
+        formset = TripItemCreateFormSet(
             request.POST,
             request.FILES,
             instance=temp_trip,
             prefix="items"
         )
 
+        print("------------ POST DATA ------------")
+        for key, value in request.POST.items():
+            print(f"{key}: {value}")
+
+        print("------------ FORMSET ERRORS ------------")
+        print(formset.errors)
+
+        print("------------ MANAGEMENT FORM ------------")
+        print(formset.management_form.errors)
+
+        print("TOTAL_FORMS:", request.POST.get("items-TOTAL_FORMS"))
+        print("INITIAL_FORMS:", request.POST.get("items-INITIAL_FORMS"))
+
         if form.is_valid() and formset.is_valid():
 
             trip = form.save(commit=False)
             trip.owner = request.user
+
+            trip.latitude = request.POST.get("latitude") or None
+            trip.longitude = request.POST.get("longitude") or None
+
+            trip.country_code = request.POST.get("country_code") or ""
+
             trip.save()
 
-            items = formset.save(commit=False)
+            items = sorted(
+                formset.save(commit=False),
+                key=lambda x: x.display_order or 0
+            )
 
             for index, item in enumerate(items):
-                item.trip = trip
-                item.display_order = index
 
-                # 🔥 ADD THIS SAFETY NET
+                item.trip = trip
+                item.display_order = index + 1
+
+                # ✅ Category safety fallback
                 if not item.category:
-                    # fallback to first category OR skip
-                    item.category = Category.objects.order_by("display_order").first()
+                    try:
+                        item.category = categories[index % len(categories)]
+                    except:
+                        item.category = categories.first()
 
                 item.save()
 
@@ -273,17 +318,19 @@ def trip_create(request):
             print("FORM ERRORS:", form.errors)
             print("FORMSET ERRORS:", formset.errors)
 
-            messages.error(request, "❌ Something went wrong. Check errors below.")
+            messages.error(
+                request,
+                "❌ Something went wrong. Check errors below."
+            )
 
     else:
+
         form = TripForm()
 
-        formset = TripItemFormSet(
+        formset = TripItemCreateFormSet(
             instance=Trip(),
             prefix="items"
         )
-
-    categories = Category.objects.order_by("display_order")
 
     return render(
         request,
@@ -302,47 +349,120 @@ def trip_create(request):
 @login_required
 def trip_edit(request, pk):
 
-    trip = get_object_or_404(Trip, pk=pk, owner=request.user)
+    trip = get_object_or_404(
+        Trip,
+        pk=pk,
+        owner=request.user
+    )
+
+    # Always load categories first
+    categories = Category.objects.order_by("display_order")
 
     if request.method == "POST":
 
-        form = TripForm(request.POST, request.FILES, instance=trip)
+        form = TripForm(
+            request.POST,
+            request.FILES,
+            instance=trip
+        )
 
-        formset = TripItemFormSet(
+        formset = TripItemEditFormSet(
             request.POST,
             request.FILES,
             instance=trip,
             prefix="items"
         )
 
+        print("------------ POST DATA ------------")
+        for key, value in request.POST.items():
+            print(f"{key}: {value}")
+
+        print("------------ FORMSET ERRORS ------------")
+        print(formset.errors)
+
+        print("------------ MANAGEMENT FORM ------------")
+        print(formset.management_form.errors)
+
+        print("TOTAL_FORMS:", request.POST.get("items-TOTAL_FORMS"))
+        print("INITIAL_FORMS:", request.POST.get("items-INITIAL_FORMS"))
+
         if form.is_valid() and formset.is_valid():
 
-            form.save()
+            trip = form.save(commit=False)
 
-            items = formset.save(commit=False)
+            lat = request.POST.get("latitude")
+            lng = request.POST.get("longitude")
+            if lat:
+                trip.latitude = float(lat)
+            if lng:
+                trip.longitude = float(lng)
+
+            country_code = request.POST.get("country_code")
+            if country_code:
+                trip.country_code = country_code
+
+            trip.save()
+
+            items = sorted(
+                formset.save(commit=False),
+                key=lambda x: x.display_order or 0
+            )
 
             for index, item in enumerate(items):
                 item.trip = trip
-                item.display_order = index
+                item.display_order = index + 1
+
+                # Don't wipe existing coords if edit form submitted empty values
+                if not item.latitude and not item.longitude:
+                    existing = TripItem.objects.filter(
+                        pk=item.pk
+                    ).values('latitude', 'longitude').first()
+                    if existing:
+                        item.latitude = item.latitude or existing['latitude']
+                        item.longitude = item.longitude or existing['longitude']
+
+                # Category fallback
+                if not item.category:
+                    try:
+                        item.category = categories[index % len(categories)]
+                    except:
+                        item.category = categories.first()
+
                 item.save()
 
+            # Handle deletions
             for obj in formset.deleted_objects:
                 obj.delete()
 
             formset.save_m2m()
 
-            messages.success(request, "Trip updated successfully!")
-            return redirect("trips:trip_detail", pk=trip.pk)
+            messages.success(
+                request,
+                "Trip updated successfully!"
+            )
+
+            return redirect(
+                "trips:trip_detail",
+                pk=trip.pk
+            )
+
+        else:
+            print("FORM ERRORS:", form.errors)
+            print("FORMSET ERRORS:", formset.errors)
+
+            messages.error(
+                request,
+                "❌ Something went wrong. Check errors below."
+            )
 
     else:
+
         form = TripForm(instance=trip)
 
-        formset = TripItemFormSet(
+        formset = TripItemEditFormSet(
             instance=trip,
             prefix="items"
         )
-
-    categories = Category.objects.order_by("display_order")
 
     return render(
         request,
@@ -354,6 +474,7 @@ def trip_edit(request, pk):
             "trip": trip,
         },
     )
+
 
 
 # -----------------------------

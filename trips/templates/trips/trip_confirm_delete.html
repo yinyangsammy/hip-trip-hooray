@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-5 text-center">
+
+```
+<h2>Delete Trip</h2>
+<p>Are you sure you want to delete "<strong>{{ trip.title }}</strong>"?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">
+        Yes, delete
+    </button>
+    <a href="{% url 'trips:trip_detail' trip.pk %}" class="btn btn-secondary">
+        Cancel
+    </a>
+</form>
+```
+
+</div>
+{% endblock %}

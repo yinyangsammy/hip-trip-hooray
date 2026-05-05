@@ -79,3 +79,7 @@ node_modules/
 # Django collectstatic
 staticfiles/
 
+
+# VS Code history (if you use the "Local History" extension)
+.history/
+

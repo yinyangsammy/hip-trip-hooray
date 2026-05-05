@@ -13,10 +13,7 @@
 
 <div class="flag"></div>
 
-  <!-- LOCATION -->
-  {% if itinerary.location_name %}
-  <h2 class="location">{{ itinerary.location_name }}</h2>
-  {% endif %}
+
 
   <!-- DESCRIPTION -->
   {% if itinerary.description %}
@@ -27,8 +24,6 @@
 
 
 <!-- DYNAMIC CONTEXT HEADER -->
-
-
 
 
 <!-- CATEGORY TABS -->
@@ -64,7 +59,7 @@ data-country="{{ itinerary.country_code }}"
 
 <div class="carousel">
 
-<button class="carousel-btn prev">&#10094;</button>
+<button class="carousel-btn prev" style="display: none;">&#10094;</button>
 
 <div class="carousel-track">
 
@@ -137,7 +132,7 @@ data-country="{{ itinerary.country_code }}"
 
 
 <!-- DOT PROGRESS -->
-<div class="carousel-progress">
+<div class="carousel-progress" style="display:none;">
 {% for dot in items %}
 <span class="dot {% if forloop.first %}active{% endif %}"></span>
 {% endfor %}
@@ -186,7 +181,7 @@ data-lng="{{ item.longitude }}">
 
 </div>
 
-<!-- TIMELINE -->
+<!-- TIMELINE 
 <div class="slide-timeline">
 
 <h4>Day {{ item.display_order }}</h4>
@@ -199,6 +194,8 @@ data-lng="{{ item.longitude }}">
 
 </div>
 
+-->
+
 </div>
 
 </div>
@@ -208,7 +205,7 @@ data-lng="{{ item.longitude }}">
 
 </div>
 
-<button class="carousel-btn next">&#10095;</button>
+<button class="carousel-btn next" style="display: none;">&#10095;</button>
 
 </div>
 
@@ -282,7 +279,7 @@ Edit
 
 {% else %}
 
-<p>No comments yet. Be the first 👀</p>
+<p>Be the first to comment!</p>
 
 {% endif %}
 
@@ -429,33 +426,65 @@ updateFlag(first);
 
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
 
-document.addEventListener("DOMContentLoaded",function(){
+    const initialisedMaps = new Map();
 
-const maps=document.querySelectorAll(".mini-map");
+    function initMiniMap(el) {
+        if (initialisedMaps.has(el)) {
+            // Already initialised — just invalidate size
+            setTimeout(() => {
+                initialisedMaps.get(el).invalidateSize();
+            }, 100);
+            return;
+        }
 
-maps.forEach(function(mapEl){
+        const lat = parseFloat(el.dataset.lat);
+        const lng = parseFloat(el.dataset.lng);
+        if (isNaN(lat) || isNaN(lng)) return;
 
-const lat=mapEl.dataset.lat;
-const lng=mapEl.dataset.lng;
+        setTimeout(() => {
+            const m = L.map(el, {
+                zoomControl: false,
+                attributionControl: false
+            }).setView([lat, lng], 13);
 
-if(!lat || !lng) return;
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                maxZoom: 19
+            }).addTo(m);
 
-const map=L.map(mapEl.id,{
-zoomControl:false,
-attributionControl:false
-}).setView([lat,lng],13);
+            L.marker([lat, lng]).addTo(m);
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
-maxZoom:19
-}).addTo(map);
+            initialisedMaps.set(el, m);
 
-L.marker([lat,lng]).addTo(map);
+            setTimeout(() => {
+                m.invalidateSize();
+                m.setView([lat, lng], 13);
+            }, 200);
+
+        }, 100);
+    }
+
+    function scanAndInit() {
+        document.querySelectorAll(".mini-map").forEach(initMiniMap);
+    }
+
+    // Initial load
+    setTimeout(scanAndInit, 500);
+
+    // On every tab change — reinitialise visible maps
+    document.querySelectorAll('input[name="tabs"]').forEach(tab => {
+        tab.addEventListener("change", () => {
+            setTimeout(scanAndInit, 400);
+        });
+    });
+
+    // On window resize
+    window.addEventListener("resize", () => {
+        setTimeout(scanAndInit, 300);
+    });
 
 });
-
-});
-
 </script>
 
 <script src="{% static 'js/comments.js' %}"></script>

@@ -51,6 +51,8 @@ class CategoryAdmin(admin.ModelAdmin):
             "cloud": "☁",
             "rain": "🌧",
             "snow": "❄",
+            "storm": "⛈",
+            "wind": "💨",
         }
 
         if obj.weather:

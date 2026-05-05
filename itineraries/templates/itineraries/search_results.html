@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container text-light py-5">
+
+  <h2 class="mb-4">
+    Results for "{{ query }}"
+  </h2>
+
+  {% if results %}
+
+    <div class="row">
+      {% for itinerary in results %}
+        <div class="col-md-4 mb-4">
+          <div class="card bg-dark text-light p-3">
+
+            <h5>{{ itinerary.title }}</h5>
+            <p>{{ itinerary.city }}, {{ itinerary.country }}</p>
+
+            <a href="{% url 'itineraries:itinerary_detail' itinerary.slug itinerary.country %}" 
+               class="btn btn-outline-light btn-sm">
+              View Itinerary
+            </a>
+
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  {% else %}
+
+    <div class="text-center mt-5">
+
+      <p class="mb-3">
+        No itineraries found for <strong>{{ query }}</strong>
+      </p>
+
+      <a href="{% url 'itineraries:itinerary_list' %}" 
+         class="btn btn-outline-light me-2">
+        Explore Itineraries
+      </a>
+
+      <a href="{% url 'trips:create_trip' %}" 
+         class="btn btn-warning">
+        Create Your Own for {{ query }}
+      </a>
+
+    </div>
+
+  {% endif %}
+
+</div>
+
+{% endblock %}

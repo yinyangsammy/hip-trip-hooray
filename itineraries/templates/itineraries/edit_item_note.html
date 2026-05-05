@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-5">
+    <h2>Edit Note</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="user_note" class="form-label">Your Note</label>
+            <textarea
+                name="user_note"
+                id="user_note"
+                class="form-control"
+                rows="5"
+            >{{ item.user_note }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-dark">
+            Save
+        </button>
+
+        <a href="{{ itinerary.get_absolute_url }}">
+    {{ itinerary.title }}
+</a>
+           class="btn btn-outline-secondary">
+           Cancel
+        </a>
+    </form>
+</div>
+
+{% endblock %}
