@@ -317,4 +317,4 @@ Users can:
 
 HipTripHooray is being developed as a **portfolio-ready, scalable travel platform**, with future ambitions for real-world deployment and expansion.
 
-<h4 align="center">Brother Tao 2026</h4>
+<h4 align="center">yinyangsammy 2026</h4>
