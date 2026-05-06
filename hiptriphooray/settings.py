@@ -76,7 +76,26 @@ INSTALLED_APPS = [
 
     # Forms
     'crispy_forms',
-    'crispy_bootstrap5'
+    'crispy_bootstrap5',
+]
+
+# =========================
+# MEDIA STORAGE (LOCAL vs HEROKU)
+# =========================
+
+if os.environ.get("DATABASE_URL"):
+    # 🚀 PRODUCTION (Heroku → Cloudinary)
+    CLOUDINARY_STORAGE = {
+        "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
+        "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+        "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+    }
+
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+else:
+    # 🧑‍💻 LOCAL (SQLite → local media folder)
+    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 
 SITE_ID = 1
 
