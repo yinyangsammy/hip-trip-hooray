@@ -242,7 +242,6 @@ class TripList(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return Trip.objects.filter(owner=self.request.user)
 
-
 # -----------------------------
 # CREATE TRIP
 # -----------------------------
@@ -256,12 +255,10 @@ def trip_create(request):
 
         form = TripForm(request.POST, request.FILES)
 
-        temp_trip = Trip(owner=request.user)
-
+        # ✅ FIX: No instance= on POST — avoids unsaved FK reference
         formset = TripItemCreateFormSet(
             request.POST,
             request.FILES,
-            instance=temp_trip,
             prefix="items"
         )
 
@@ -285,10 +282,9 @@ def trip_create(request):
 
             trip.latitude = request.POST.get("latitude") or None
             trip.longitude = request.POST.get("longitude") or None
-
             trip.country_code = request.POST.get("country_code") or ""
 
-            trip.save()
+            trip.save()  # ✅ Real PK exists from this point on
 
             items = sorted(
                 formset.save(commit=False),
@@ -297,7 +293,7 @@ def trip_create(request):
 
             for index, item in enumerate(items):
 
-                item.trip = trip
+                item.trip = trip  # ✅ Assign the saved trip with a real PK
                 item.display_order = index + 1
 
                 # ✅ Category safety fallback
@@ -327,6 +323,7 @@ def trip_create(request):
 
         form = TripForm()
 
+        # ✅ GET branch: instance=Trip() is fine — only renders empty form fields
         formset = TripItemCreateFormSet(
             instance=Trip(),
             prefix="items"
@@ -341,7 +338,6 @@ def trip_create(request):
             "categories": categories,
         },
     )
-
 
 # -----------------------------
 # EDIT TRIP
