@@ -19,7 +19,6 @@ import os
 import sys
 from django.contrib.messages import constants as messages
 import dj_database_url
-import env
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
