@@ -200,7 +200,6 @@ class TripItem(models.Model):
 
     class Meta:
         ordering = ["display_order"]
-        unique_together = ["trip", "display_order"]
 
     def __str__(self):
         return self.story_title or "Trip Stop"

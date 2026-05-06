@@ -183,7 +183,6 @@ class ItineraryItem(models.Model):
 
     class Meta:
         ordering = ["display_order"]
-        unique_together = ["itinerary", "display_order"]
 
     def __str__(self):
         return self.story_title
