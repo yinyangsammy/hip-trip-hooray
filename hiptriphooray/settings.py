@@ -1,3 +1,11 @@
+from pathlib import Path
+import os
+import sys
+from django.contrib.messages import constants as messages
+import dj_database_url
+
+
+
 """
 Django settings for hiptriphooray project.
 
@@ -13,12 +21,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 """
-
-from pathlib import Path
-import os
-import sys
-from django.contrib.messages import constants as messages
-import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -74,16 +76,7 @@ INSTALLED_APPS = [
 
     # Forms
     'crispy_forms',
-    'crispy_bootstrap5',
-]
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
-}
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    'crispy_bootstrap5'
 
 SITE_ID = 1
 
@@ -158,7 +151,7 @@ else:
 if 'test' in sys.argv:
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 
-    
+
 # Media files
 
 MEDIA_URL = "/media/"
