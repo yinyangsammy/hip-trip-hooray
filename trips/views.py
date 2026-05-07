@@ -438,6 +438,42 @@ def trip_edit(request, pk):
 
             formset.save_m2m()
 
+            # ✅ Sync linked itinerary if one exists
+            linked_itinerary = trip.published_itineraries.first()
+
+            if linked_itinerary:
+
+                # Sync top-level fields
+                linked_itinerary.title = trip.title
+                linked_itinerary.description = trip.description
+                linked_itinerary.location_name = trip.destination
+                linked_itinerary.country_code = trip.country_code
+                linked_itinerary.country_name = trip.country_name or trip.destination or ""
+                linked_itinerary.save()
+
+                # Wipe and resync all items
+                linked_itinerary.items.all().delete()
+
+                for item in trip.items.all().order_by("display_order"):
+                    if not item.category:
+                        continue
+                    ItineraryItem.objects.create(
+                        itinerary=linked_itinerary,
+                        category=item.category,
+                        context_title=item.context_title or item.description,
+                        context_description=item.context_description,
+                        story_title=item.story_title,
+                        story_description=item.story_description,
+                        image=item.image,
+                        user_note=item.user_note,
+                        travel_date=item.travel_date,
+                        day_night=item.day_night,
+                        weather=item.weather,
+                        latitude=item.latitude,
+                        longitude=item.longitude,
+                        display_order=item.display_order,
+                    )
+
             messages.success(
                 request,
                 "Trip updated successfully!"
