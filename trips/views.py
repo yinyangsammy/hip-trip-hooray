@@ -251,6 +251,9 @@ def trip_create(request):
     # ✅ Always load categories first (used in both GET + POST)
     categories = Category.objects.order_by("display_order")
 
+    # Add this:
+    category_map = {cat.name.lower(): cat.id for cat in categories}
+
     if request.method == "POST":
 
         form = TripForm(request.POST, request.FILES)
@@ -353,6 +356,9 @@ def trip_edit(request, pk):
 
     # Always load categories first
     categories = Category.objects.order_by("display_order")
+
+    # Add this:
+    category_map = {cat.name.lower(): cat.id for cat in categories}
 
     if request.method == "POST":
 
