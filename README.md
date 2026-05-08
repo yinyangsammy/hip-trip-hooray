@@ -1,6 +1,6 @@
 <h1 align="center" bold>Hip Trip Hooray</h1>
 
-<h3 align="center"><img src="assets/readme/mockup.png"></h3>
+<h3 align="center"><img src="static/readme/mockup.png"></h3>
 
 Hip Trip Hooray is your go-to platform for planning, publishing and sharing travel itineraries with the people who matter most.
 
