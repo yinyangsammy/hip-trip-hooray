@@ -86,7 +86,7 @@ data-country="{{ itinerary.country_code }}"
 <div class="carousel-glass">
 <div class="carousel">
 
-<button class="carousel-btn prev">&#10094;</button>
+<button class="carousel-btn prev" aria-label="Previous slide" style="display: none;">&#10094;</button>
 
 <div class="carousel-track">
 
@@ -215,8 +215,7 @@ data-lng="{{ item.longitude }}">
 
 </div>
 
-<button class="carousel-btn next">&#10095;</button>
-
+<button class="carousel-btn next" aria-label="Next slide" style="display: none;">&#10095;</button>
 </div>
 
 </div>
@@ -353,6 +352,7 @@ Delete comment?
 <button
 type="button"
 class="btn-close"
+aria-label="Close"
 data-bs-dismiss="modal">
 </button>
 

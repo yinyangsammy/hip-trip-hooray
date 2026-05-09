@@ -55,8 +55,8 @@
     <div class="carousel-glass">
         <div class="carousel">
 
-            <button class="carousel-btn prev" style="display:none;">&#10094;</button>
-
+            
+            <button class="carousel-btn prev" aria-label="Previous slide" style="display: none;">&#10094;</button>
             <div class="carousel-track">
 
                 {% for item in block.items %}
@@ -228,7 +228,7 @@
     {% endfor %}
 </div>
 
-<button class="carousel-btn next" style="display:none;">&#10095;</button>
+<button class="carousel-btn next" aria-label="Next slide" style="display: none;">&#10095;</button>
 
 
         </div>
