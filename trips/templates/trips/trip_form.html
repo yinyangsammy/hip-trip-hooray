@@ -1627,4 +1627,42 @@ document.addEventListener("change", function(e){
   </div>
 </div>
 
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.querySelector("form");
+
+    if (!form) return;
+
+    form.addEventListener("submit", function () {
+
+        form.querySelectorAll('input[type="text"], textarea')
+            .forEach(field => {
+
+                // Skip hidden/system fields just in case
+                if (
+                    field.closest("#empty-form-template") ||
+                    field.name?.includes("latitude") ||
+                    field.name?.includes("longitude")
+                ) {
+                    return;
+                }
+
+                if (field.value.trim()) {
+
+                    field.value = field.value
+                        .toLowerCase()
+                        .replace(/\b\w/g, char => char.toUpperCase());
+
+                }
+
+            });
+
+    });
+
+});
+
+</script>
+
 {% endblock %}

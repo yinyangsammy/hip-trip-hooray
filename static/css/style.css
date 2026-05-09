@@ -723,11 +723,12 @@ color:#555;
     padding: 0.25rem 0.7rem;
     margin-right: 0.3rem;
     border-radius: 999px;
-    background: linear-gradient(
+    /*background: linear-gradient(
         135deg,
         rgba(255,255,255,0.12),
         rgba(255,255,255,0.04)
-    );
+    );*/
+    background: linear-gradient(to bottom, rgb(0 0 0 / 87%), rgb(6 6 6 / 33%));
     color: #f3f4f6;
     font-weight: 600;
     font-size: 0.85rem;
@@ -1218,6 +1219,7 @@ width:90px;
 margin:10px auto 25px;
 
 background:rgba(255,255,255,0.55);
+ -webkit-backdrop-filter:blur(10px);
 backdrop-filter:blur(10px);
 
 border-radius:14px;
@@ -1768,7 +1770,8 @@ border-radius:8px;
     margin-top: 30px;
     transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-     backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
     background: rgba(255,255,255,0.45);
     border-radius: 16px;
     border: 1px solid rgba(255,255,255,0.6);
@@ -1847,10 +1850,6 @@ overflow:hidden;
 .location-title{
 text-align:center;
 margin-bottom:5px;
-}
-
-.form-control {
-  text-transform: capitalize;
 }
 
 .flag{
@@ -2193,6 +2192,8 @@ font-size: 0.95rem;
     text-transform: capitalize;
 }
 
+
+
 .tab-panel {
     display: none;
 }
@@ -2419,15 +2420,13 @@ h5 {
 
 .slide-story {
    background: linear-gradient(to bottom, /* 👈 key change */ rgb(249 171 61 / 35%), /* slightly richer at top */ rgba(239, 119, 119, 0.06) /* fades out nicely */);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     border-radius: 18px;
     padding: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.35);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    
-    backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    
 
     border-radius: 18px;
     padding: 2rem;
@@ -2652,8 +2651,7 @@ h5 {
     transform: translateX(3px);
 }
 
-.trip-create-container,
-.container {
+.trip-create-container {
     max-width: 100%;
     overflow-x: hidden;
 }
@@ -3318,7 +3316,7 @@ h5 {
     padding: 1.3rem 1.5rem;
 
     border-radius: 24px;
-
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 
     border: 1px solid rgba(255,255,255,0.08);
@@ -3488,3 +3486,11 @@ h5 {
     }
 }
 
+.trip-card-full {
+    width: 100%;
+}
+
+.card {
+    width: 100%;
+    min-width: 0;
+}

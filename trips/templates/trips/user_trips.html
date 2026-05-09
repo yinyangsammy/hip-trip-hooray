@@ -17,12 +17,13 @@
 
   {% if trips %}
 
-    <div class="row">
+    <div class="row justify-content-center">
       {% for trip in trips %}
-        <div class="col-md-4 mb-4">
+        <div class="col-12 col-sm-10 col-md-6 col-lg-5 mb-4 d-flex">
 
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100 w-100 shadow-sm">
             <div class="card-body">
+
 
               <!-- Trip info -->
               <h5 class="card-title">{{ trip.title }}</h5>

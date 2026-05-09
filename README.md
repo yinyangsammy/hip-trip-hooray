@@ -78,6 +78,7 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 - :x: *choose from beautifully crafted templates when building my trip*.
 - :x: *add more than one stop per category tab*.
 - :x: *receive AI-generated travel suggestions based on my destination*.
+- :x: *buddy up with fellow travellers looking to do similar itineraries*.
 - :x: *book accommodation or tours directly from an itinerary*.
 
 
@@ -87,7 +88,7 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
     -   The colour palette for Hip Trip Hooray draws on warm, earthy, travel-inspired tones — sepia maps, warm whites and deep charcoals — designed to evoke the feeling of a well-worn travel journal. The palette is clean and sophisticated, letting the user's own photos and stories take centre stage.
 
-    <h3 align="center"><img src="assets/readme/colour-palette.png"></h3>
+    <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
 
 
 -   ## Typography
@@ -98,13 +99,13 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
          -   The primary font is used for all major headings, the logo and key branding elements, giving the site its distinctive personality.
 
-        <h3 align="center"><img src="assets/readme/font-primary.png"></h3>
+        <h3 align="center"><img src="static/readme/font-primary.png"></h3>
 
     2) **Body Font**
 
          -   A clean, highly-readable sans-serif is used for all body text, form labels, descriptions and navigation — ensuring the site is comfortable to read on any device.
 
-        <h3 align="center"><img src="assets/readme/font-body.png"></h3>
+        <h3 align="center"><img src="static/readme/font-body.png"></h3>
 
 
     -   ## Imagery
@@ -117,13 +118,13 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
         An interactive OpenStreetMap is embedded in the trip creation form, allowing users to search for their destination and set the precise location for their trip and each individual stop.
 
-        <h3 align="center"><img src="assets/readme/trip-create-map.png"></h3>
+        <h3 align="center"><img src="static/readme/trip-create-map.png"></h3>
 
         #### Itinerary Detail Mini Maps
 
         Each published itinerary slide features a mini map showing the exact location of that stop, rendered using Leaflet.js.
 
-        <h3 align="center"><img src="assets/readme/itinerary-mini-map.png"></h3>
+        <h3 align="center"><img src="static/readme/itinerary-mini-map.png"></h3>
 
         ## Icons
 
@@ -141,13 +142,13 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
         A country flag is automatically displayed on each itinerary detail page, sourced dynamically from [flagcdn.com](https://flagcdn.com) using the country code stored against the itinerary.
 
-        <h3 align="center"><img src="assets/readme/country-flag.png"></h3>
+        <h3 align="center"><img src="static/readme/country-flag.png"></h3>
 
         ### Calendar Badge
 
         Each stop displays a calendar badge showing the travel date in a clean Month / Day / Year format.
 
-        <h3 align="center"><img src="assets/readme/calendar-badge.png"></h3>
+        <h3 align="center"><img src="static/readme/calendar-badge.png"></h3>
 
 
 # Structure
@@ -177,25 +178,25 @@ Hip Trip Hooray is structured as a Django full-stack web application, with the f
 
 The homepage greets users with a full-width hero image, the Hip Trip Hooray tagline — *Explore · Share · Hooray* — and clear calls to action to explore itineraries or register.
 
-<h3 align="center"><img src="assets/readme/landing-page.png"></h3>
+<h3 align="center"><img src="static/readme/landing-page.png"></h3>
 
 ### Navigation
 
 A clean, responsive navigation bar provides links to all key sections of the site. When a user is logged in, the nav updates to show their personal dashboards and a logout option.
 
-<h3 align="center"><img src="assets/readme/navigation.png"></h3>
+<h3 align="center"><img src="static/readme/navigation.png"></h3>
 
 ### Explore Itineraries
 
 A browsable list of all published itineraries, each displayed as a card with the trip title, destination and country flag. Users can search and filter by destination.
 
-<h3 align="center"><img src="assets/readme/explore-itineraries.png"></h3>
+<h3 align="center"><img src="static/readme/explore-itineraries.png"></h3>
 
 ### Itinerary Detail — Category Tabs & Carousel
 
 The centrepiece of the platform. Each published itinerary is presented with tabbed categories — Sights, Flavours, Experiences, Vibes, Seasons — and a smooth carousel within each tab. Each slide features the user's photo, weather cube, calendar badge, story title and story description.
 
-<h3 align="center"><img src="assets/readme/itinerary-detail.png"></h3>
+<h3 align="center"><img src="static/readme/itinerary-detail.png"></h3>
 
 ### Trip Builder — Create & Edit
 
@@ -208,51 +209,51 @@ The trip creation form is a fully interactive builder, featuring:
 - **Image upload** — users can upload a photo for each stop
 - **Date, weather & time of day** — selectable for each stop
 
-<h3 align="center"><img src="assets/readme/trip-builder.png"></h3>
+<h3 align="center"><img src="static/readme/trip-builder.png"></h3>
 
-<h3 align="center"><img src="assets/readme/trip-builder-preview.png"></h3>
+<h3 align="center"><img src="static/readme/trip-builder-preview.png"></h3>
 
 ### Publish Trip as Itinerary
 
 Once a user is happy with their trip, a single click publishes it as a public itinerary, visible to all users on the Explore page.
 
-<h3 align="center"><img src="assets/readme/publish-trip.png"></h3>
+<h3 align="center"><img src="static/readme/publish-trip.png"></h3>
 
 ### Use as Template
 
 Any published itinerary can be used as a template by any logged-in user. One click creates a new personal trip pre-populated with all the stops from that itinerary, ready to edit and personalise.
 
-<h3 align="center"><img src="assets/readme/use-template.png"></h3>
+<h3 align="center"><img src="static/readme/use-template.png"></h3>
 
 ### My Trips Dashboard
 
 A personal dashboard listing all of the logged-in user's trips, with options to view, edit, publish/unpublish or delete each one.
 
-<h3 align="center"><img src="assets/readme/my-trips.png"></h3>
+<h3 align="center"><img src="static/readme/my-trips.png"></h3>
 
 ### Comments
 
 Authenticated users can leave comments on any published itinerary. Comments are subject to approval before appearing publicly. Users can edit and delete their own comments.
 
-<h3 align="center"><img src="assets/readme/comments.png"></h3>
+<h3 align="center"><img src="static/readme/comments.png"></h3>
 
 ### Contact Page
 
 A simple contact form allowing any visitor to get in touch with the Hip Trip Hooray team.
 
-<h3 align="center"><img src="assets/readme/contact.png"></h3>
+<h3 align="center"><img src="static/readme/contact.png"></h3>
 
 ### Authentication
 
 Full user authentication is handled by [django-allauth](https://django-allauth.readthedocs.io/), including registration, login, logout and password management.
 
-<h3 align="center"><img src="assets/readme/sign-in.png"></h3>
+<h3 align="center"><img src="static/readme/sign-in.png"></h3>
 
 ### Responsive Design
 
 Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet and desktop.
 
-<h3 align="center"><img src="assets/readme/responsive.png"></h3>
+<h3 align="center"><img src="static/readme/responsive.png"></h3>
 
 
 ## Future Features
@@ -269,11 +270,11 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 
 # Wireframes
 
-<h3 align="center"><img src="assets/readme/wireframe-home.png"></h3>
+<h3 align="center"><img src="static/readme/wireframe-home.png"></h3>
 
-<h3 align="center"><img src="assets/readme/wireframe-trip-builder.png"></h3>
+<h3 align="center"><img src="static/readme/wireframe-trip-builder.png"></h3>
 
-<h3 align="center"><img src="assets/readme/wireframe-itinerary-detail.png"></h3>
+<h3 align="center"><img src="static/readme/wireframe-itinerary-detail.png"></h3>
 
 
 # Technologies
@@ -358,19 +359,19 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 
 ### HTML — W3C Validator
 
-<h3 align="center"><img src="assets/readme/html-validator.png"></h3>
+<h3 align="center"><img src="static/readme/html-validator.png"></h3>
 
 ### CSS — W3C Jigsaw Validator
 
-<h3 align="center"><img src="assets/readme/css-validator.png"></h3>
+<h3 align="center"><img src="static/readme/css-validator.png"></h3>
 
 ### JavaScript — JSHint
 
-<h3 align="center"><img src="assets/readme/jshint.png"></h3>
+<h3 align="center"><img src="static/readme/jshint.png"></h3>
 
 ### Python — PEP8 / flake8
 
-<h3 align="center"><img src="assets/readme/pep8.png"></h3>
+<h3 align="center"><img src="static/readme/pep8.png"></h3>
 
 ## Bugs & Fixes
 
