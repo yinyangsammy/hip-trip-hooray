@@ -2,6 +2,8 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block meta_description %}{{ itinerary.title }} — {{ itinerary.description|truncatewords:20 }}{% endblock %}
+
 {% block content %}
 
 <article class="itinerary-detail">

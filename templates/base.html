@@ -11,6 +11,8 @@
     <title>Hip Trip Hooray</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="description" content="{% block meta_description %}Hip Trip Hooray — plan trips, publish itineraries and share your travel stories with the world.{% endblock %}">
+
     <style>
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -92,59 +94,56 @@ body.wide-page main {
     </style>
 
     <!-- Google Fonts CSS -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap"
-      rel="stylesheet"
-    />
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" 
-      rel="stylesheet"
-    />
-    <link
-       href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" 
-       rel="stylesheet"
-    />
-    <link 
-        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" 
-        rel="stylesheet"
-    />
+    <!-- Preconnect for performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- ✅ Font Awesome 6 Free -->
+<!-- ✅ ALL Google Fonts combined into ONE request (big performance win) -->
 <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Lato:wght@300;700&family=Lobster&family=Pacifico&family=DM+Serif+Display:ital@0;1&display=swap"
+    media="print"
+    onload="this.media='all'"
+>
+<noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Lato:wght@300;700&family=Lobster&family=Pacifico&family=DM+Serif+Display:ital@0;1&display=swap">
+</noscript>
+
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    media="print"
+    onload="this.media='all'"
+/>
+<noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+</noscript>
+
+<!-- Bootstrap CSS -->
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+    crossorigin="anonymous"
 />
 
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-      crossorigin="anonymous"
-    />
+<!-- Leaflet CSS -->
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
 
-
-
-    <!-- Leaflet Map -->
-    <link rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
-<script
-src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-</script>
+<!-- Leaflet JS — load early as maps need it -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <meta name="referrer" content="no-referrer-when-downgrade">
-
    
     {% block extra_css %}
     {% endblock %}
@@ -173,6 +172,8 @@ src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarNav"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
         title="navbar-toggler">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -289,7 +290,7 @@ src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
       <a class="footer-icons" href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Find us on Instagram (link opens in a new tab)">
       <i class="fa-brands fa-instagram"></i>
       </a>
-      <a class="footer-icons icon-box" href="https://www.tiktok.com" target="_blank" target="_blank" rel="noopener" aria-label="Find us on TikTok (link opens in a new tab)">
+      <a class="footer-icons icon-box" href="https://www.tiktok.com" target="_blank" rel="noopener" aria-label="Find us on TikTok (link opens in a new tab)">
       <i class="fa-brands fa-tiktok"></i>
       </a>
       
@@ -302,15 +303,12 @@ src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
       <a class="footer-icons" href="https://www.youtube.com" target="_blank" rel="noopener" aria-label="Find us on YouTube (link opens in a new tab)"> 
       <i class="fa-brands fa-square-youtube"></i>
       </a>
-      </a>
       <a class="footer-icons" href="https://www.pinterest.com" target="_blank" rel="noopener" aria-label="Find us on Pinterest (link opens in a new tab)">
       <i class="fa-brands fa-pinterest-p"></i>
       </a>
 </footer>
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 {% block extras %}
 
