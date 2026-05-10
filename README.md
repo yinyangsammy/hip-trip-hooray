@@ -105,13 +105,19 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
          -   The primary font, DM Serif Display, is used for all major headings, lending an air of sophistication to an otherwise playful site..
 
-        <h3 align="center"><img src="assets/readme/pacifico.jpg"></h3>
+        <h3 align="center"><img src="assets/readme/dm-serif-display.jpg"></h3>
+
+     2) **Navbar Font**
+
+         -   The primary font, DM Serif Display, is used for all major headings, lending an air of sophistication to an otherwise playful site..
+
+        <h3 align="center"><img src="assets/readme/lato.jpg"></h3> 
 
     3) **Body Font**
 
          -   A clean, highly-readable sans-serif is used for all body text, form labels, descriptions and navigation — ensuring the site is comfortable to read on any device.
 
-        <h3 align="center"><img src="assets/readme/font-body.png"></h3>
+        <h3 align="center"><img src="assets/readme/.png"></h3>
 
 
     -   ## Imagery
@@ -505,17 +511,17 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 -   Rachel Furlong, my Academic Supervisor and Lecturer, for the great lessons, inspirational pep talks, kind guidance, helpful feedback and recommended tools.
 
--   My mentor, Marcel Mulders, for all the kind advice, encouragement, helpful feedback and recommended tools.
-
 -   Thank you to my fellow students for their friendly tips and guidance.
 
 -   Thank you to the tutors and staff at Code Institute for all their support.
 
--   Thank you to the Code Institute Slack Community.
+-   Thank you to the Code Institute Discord Community.
 
 -   Thank you to the YouTube community.
 
 -   Thank you to the Stack Overflow community.
+
+-   Thank you to the Reddit community.
 
 
 # Root
