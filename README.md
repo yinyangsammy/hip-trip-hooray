@@ -86,26 +86,32 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
 -   ## Colour Scheme
 
-    -   The colour palette for Hip Trip Hooray draws on warm, earthy, travel-inspired tones — sepia maps, warm whites and deep charcoals — designed to evoke the feeling of a well-worn travel journal. The palette is clean and sophisticated, letting the user's own photos and stories take centre stage.
+    -   The color palette for Hip Trip Hooray draws on calm, earthy, travel-inspired tones — sepia greys, warm whites, deep charcoals and a range of blues — designed to evoke the minimalist feeling of a well-worn travel journal. The palette is clean and sophisticated, letting the user's own photos and stories take do the story-telling.
 
-    <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
+    <h3 align="center"><img src="assets/readme/colour-palette.png"></h3>
 
 
 -   ## Typography
 
-    -   The typography for Hip Trip Hooray is chosen to feel human, warm and slightly adventurous — like handwritten notes in a travel diary brought to life on screen.
+    -   The typography for Hip Trip Hooray is chosen to feel playful, sophisticated yet slightly adventurous — think 1980s Miami Vice vibes meets classic Vogue Travel. 
 
-    1) **Primary Font**
+    1) **Title Font**
 
-         -   The primary font is used for all major headings, the logo and key branding elements, giving the site its distinctive personality.
+         -   The title font, Pacifico, is used for all major headings, the logo and key branding elements, giving the site its distinctive personality.
 
-        <h3 align="center"><img src="static/readme/font-primary.png"></h3>
+        <h3 align="center"><img src="assets/readme/pacifico.jpg"></h3>
 
-    2) **Body Font**
+    2) **Primary Font**
+
+         -   The primary font, DM Serif Display, is used for all major headings, lending an air of sophistication to an otherwise playful site..
+
+        <h3 align="center"><img src="assets/readme/pacifico.jpg"></h3>
+
+    3) **Body Font**
 
          -   A clean, highly-readable sans-serif is used for all body text, form labels, descriptions and navigation — ensuring the site is comfortable to read on any device.
 
-        <h3 align="center"><img src="static/readme/font-body.png"></h3>
+        <h3 align="center"><img src="assets/readme/font-body.png"></h3>
 
 
     -   ## Imagery
