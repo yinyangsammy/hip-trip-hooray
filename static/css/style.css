@@ -2723,7 +2723,7 @@ h5 {
 
 .about-hero {
     position: relative;
-    min-height: 85vh; /* 👈 flexible instead of fixed */
+    min-height: 700px; /* 👈 flexible instead of fixed */
     padding-top: 80px;
     padding-bottom: 120px; /* 👈 space for floating cards */
 
@@ -2798,7 +2798,9 @@ h5 {
 /* MOBILE */
 @media (max-width: 768px) {
     .about-hero {
-        height: 60vh;
+        min-height: auto;
+        padding-top: 60px;
+        padding-bottom: 180px;
     }
 
     .hero-content h1 {
@@ -2889,7 +2891,7 @@ h5 {
 
 .about-fireplace {
     position: relative;
-    height: 70vh;
+    min-height: 700px;
 
 
     background:
@@ -3493,4 +3495,18 @@ h5 {
 .card {
     width: 100%;
     min-width: 0;
+}
+
+@media (max-width: 768px) {
+
+    .hero-values {
+        position: absolute;
+        bottom: -120px;
+        padding: 0 15px;
+    }
+
+    .about-story {
+        margin-top: 180px;
+    }
+
 }
