@@ -4,7 +4,7 @@
 
 Hip Trip Hooray is your go-to platform for planning, publishing and sharing travel itineraries with the people who matter most.
 
-From seasoned globetrotters documenting their adventures to families planning a first trip abroad together, Hip Trip Hooray is so simple and so intuitive to use, anyone anywhere can start planning and sharing their journeys.
+From seasoned globetrotters documenting their adventures to families planning a first trip abroad, Hip Trip Hooray is so simple and so intuitive to use, anyone anywhere can start planning and sharing their journeys.
 
 Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.herokuapp.com/))
 
@@ -45,55 +45,55 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
 ## Visitor Goals
 
-"**_As a user of Hip Trip Hooray, I would like to** _______________"
+"**As a user of Hip Trip Hooray, I would like ** _______________"
 
 :white_check_mark: *successfully implemented*
 
 :x: *not yet implemented*
 
 - :white_check_mark: *an interface layout that can be immediately understood, irrespective of age and nationality, without the need for complicated instructions or a key*.
-- :white_check_mark: *register for an account and log in securely*.
-- :white_check_mark: *create a trip, filling in details about my destination, the sights I saw, the food I ate, the experiences I had, the vibes I felt and the seasons I travelled in*.
-- :white_check_mark: *upload photos to accompany each stop on my trip*.
-- :white_check_mark: *add a story title and story description to each stop so I can tell my travel story in my own words*.
-- :white_check_mark: *record the date, weather and time of day for each stop*.
-- :white_check_mark: *use an interactive map to set a location for my trip and each stop*.
-- :white_check_mark: *see a live preview of my trip as I build it*.
-- :white_check_mark: *save a trip as a draft before publishing*.
-- :white_check_mark: *publish my trip as a public itinerary for others to explore*.
-- :white_check_mark: *edit my trip after saving it*.
-- :white_check_mark: *delete my trip if I no longer want it*.
-- :white_check_mark: *browse a list of published itineraries from other travelers*.
-- :white_check_mark: *view a published itinerary in a beautifully presented carousel format, organised by category tabs*.
-- :white_check_mark: *use an existing itinerary as a template to plan my own trip to the same destination*.
-- :white_check_mark: *leave comments on itineraries I enjoy*.
-- :white_check_mark: *edit and delete my own comments*.
-- :white_check_mark: *see a country flag displayed alongside each itinerary*.
-- :white_check_mark: *view mini maps showing the location of each stop within an itinerary*.
-- :white_check_mark: *use the site on any device — mobile, tablet or desktop*.
-- :white_check_mark: *get in touch with the Hip Trip Hooray team via a contact form*.
+- :white_check_mark: *to register for an account and log in securely*.
+- :white_check_mark: *to create a trip, filling in details about my destination, the sights I saw, the food I ate, the experiences I had, the vibes I felt and the seasons I travelled in*.
+- :white_check_mark: *to upload photos to accompany each stop on my trip*.
+- :white_check_mark: *to add a story title and story description to each stop so I can tell my travel story in my own words*.
+- :white_check_mark: *to record the date, weather and time of day for each stop*.
+- :white_check_mark: *to use an interactive map to set a location for my trip and each stop*.
+- :white_check_mark: *to see a live preview of my trip as I build it*.
+- :white_check_mark: *to save a trip as a draft before publishing*.
+- :white_check_mark: *to publish my trip as a public itinerary for others to explore*.
+- :white_check_mark: *to edit my trip after saving it*.
+- :white_check_mark: *to delete my trip if I no longer want it*.
+- :white_check_mark: *to browse a list of published itineraries from other travelers*.
+- :white_check_mark: *to view a published itinerary in a beautifully presented carousel format, organised by category tabs*.
+- :white_check_mark: *to use an existing itinerary as a template to plan my own trip to the same destination*.
+- :white_check_mark: *to leave comments on itineraries I enjoy*.
+- :white_check_mark: *to edit and delete my own comments*.
+- :white_check_mark: *to see a country flag displayed alongside each itinerary*.
+- :white_check_mark: *to view mini maps showing the location of each stop within an itinerary*.
+- :white_check_mark: *to use the site on any device — mobile, tablet or desktop*.
+- :white_check_mark: *to get in touch with the Hip Trip Hooray team via a contact form*.
 
-- :x: *follow other travelers and get notified when they publish new itineraries*.
-- :x: *add video content (vlogs) to my trip stops*.
-- :x: *choose from beautifully crafted templates when building my trip*.
-- :x: *add more than one stop per category tab*.
-- :x: *receive AI-generated travel suggestions based on my destination*.
-- :x: *buddy up with fellow travelers looking to do similar itineraries*.
-- :x: *book accommodation or tours directly from an itinerary*.
+- :x: *to follow other travelers and get notified when they publish new itineraries*.
+- :x: *to add video content (vlogs) to my trip stops*.
+- :x: *to choose from beautifully crafted templates when building my trip*.
+- :x: *to add more than one stop per category tab*.
+- :x: *to receive AI-generated travel suggestions based on my destination*.
+- :x: *to buddy up with fellow travelers looking to do similar itineraries*.
+- :x: *to book accommodation or tours directly from an itinerary*.
 
 
 # Design
 
 -   ## Colour Scheme
 
-    -   The color palette for Hip Trip Hooray draws on calm, earthy, travel-inspired tones — sepia greys, warm whites, deep charcoals and a range of blues — designed to evoke the minimalist feeling of a well-worn travel journal. The palette is clean and sophisticated, letting the user's own photos and stories take do the story-telling.
+    -   The color palette for Hip Trip Hooray draws on calm, earthy, travel-inspired tones — sepia greys, warm whites, deep charcoals and a range of blues — designed to evoke the minimalist feel of a well-worn travel journal. The palette is clean and sophisticated, letting the user's own photos and stories do the story-telling.
 
     <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
 
 
 -   ## Typography
 
-    -   The typography for Hip Trip Hooray is chosen to feel retro, sophisticated and fun — think 1980s Miami Vice vibes with a touch of Condé Nast class. 
+    -   The typography for Hip Trip Hooray is chosen to feel retro, sophisticated and fun — think Miami Vice vibes with a touch of Condé Nast class. 
 
     1) **Title Font**
 
@@ -109,7 +109,7 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
      2) **Navbar Font**
 
-         -   The navbar and footer font, Lato, is used to look chic, whilst also optimizing readability in confined spaces.
+         -   The navbar and footer font, Lato, is used to look chic, whilst also optimizing readability for confined spaces.
 
         <h3 align="center"><img src="static/readme/lato.jpg"></h3> 
 
@@ -117,7 +117,7 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
          -   A clean, highly-readable sans-serif is used for all body text, form labels, descriptions and navigation — ensuring the site is comfortable to read on any device. Using Bootstrap's sans-serif font stack ensures that all browsers will display professionally.
 
-        <h3 align="center"><img src="static/readme/.png"></h3>
+        <h3 align="center"><img src="static/readme/sans-serif-fonts.jpg"></h3>
 
 
     -   ## Imagery
