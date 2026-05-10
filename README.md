@@ -93,29 +93,29 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
 -   ## Typography
 
-    -   The typography for Hip Trip Hooray is chosen to feel playful, sophisticated yet slightly adventurous — think 1980s Miami Vice vibes meets classic Vogue Travel. 
+    -   The typography for Hip Trip Hooray is chosen to feel retro, sophisticated and fun — think 1980s Miami Vice vibes with a touch of Condé Nast class. 
 
     1) **Title Font**
 
-         -   The title font, Pacifico, is used for all major headings, the logo and key branding elements, giving the site its distinctive personality.
+         -   The title font, Pacifico, is used for the logo and key branding elements, giving the site its distinctive personality.
 
         <h3 align="center"><img src="static/readme/pacifico.jpg"></h3>
 
     2) **Primary Font**
 
-         -   The primary font, DM Serif Display, is used for all major headings, lending an air of sophistication to an otherwise playful site..
+         -   The primary font, DM Serif Display, is used for all major headings, lending an air of sophistication to an otherwise playful and inviting site.
 
         <h3 align="center"><img src="static/readme/dm-serif-display.jpg"></h3>
 
      2) **Navbar Font**
 
-         -   The primary font, DM Serif Display, is used for all major headings, lending an air of sophistication to an otherwise playful site..
+         -   The navbar and footer font, Lato, is used to look chic, whilst also optimizing readability in confined spaces.
 
         <h3 align="center"><img src="static/readme/lato.jpg"></h3> 
 
-    3) **Body Font**
+    3) **Body Fonts**
 
-         -   A clean, highly-readable sans-serif is used for all body text, form labels, descriptions and navigation — ensuring the site is comfortable to read on any device.
+         -   A clean, highly-readable sans-serif is used for all body text, form labels, descriptions and navigation — ensuring the site is comfortable to read on any device. Using Bootstrap's sans-serif font stack ensures that all browsers will display professionally.
 
         <h3 align="center"><img src="static/readme/.png"></h3>
 
