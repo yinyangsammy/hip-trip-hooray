@@ -63,7 +63,7 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 - :white_check_mark: *publish my trip as a public itinerary for others to explore*.
 - :white_check_mark: *edit my trip after saving it*.
 - :white_check_mark: *delete my trip if I no longer want it*.
-- :white_check_mark: *browse a list of published itineraries from other travellers*.
+- :white_check_mark: *browse a list of published itineraries from other travelers*.
 - :white_check_mark: *view a published itinerary in a beautifully presented carousel format, organised by category tabs*.
 - :white_check_mark: *use an existing itinerary as a template to plan my own trip to the same destination*.
 - :white_check_mark: *leave comments on itineraries I enjoy*.
@@ -73,12 +73,12 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 - :white_check_mark: *use the site on any device — mobile, tablet or desktop*.
 - :white_check_mark: *get in touch with the Hip Trip Hooray team via a contact form*.
 
-- :x: *follow other travellers and get notified when they publish new itineraries*.
+- :x: *follow other travelers and get notified when they publish new itineraries*.
 - :x: *add video content (vlogs) to my trip stops*.
 - :x: *choose from beautifully crafted templates when building my trip*.
 - :x: *add more than one stop per category tab*.
 - :x: *receive AI-generated travel suggestions based on my destination*.
-- :x: *buddy up with fellow travellers looking to do similar itineraries*.
+- :x: *buddy up with fellow travelers looking to do similar itineraries*.
 - :x: *book accommodation or tours directly from an itinerary*.
 
 
@@ -258,7 +258,7 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 
 ## Future Features
 
-- :x: *Follow other travellers and receive notifications when they publish*
+- :x: *Follow other travelers and receive notifications when they publish*
 - :x: *Vlog support — embed video content within trip stops*
 - :x: *Beautifully designed trip templates to choose from*
 - :x: *Multiple stops per category tab*

@@ -2798,9 +2798,7 @@ h5 {
 /* MOBILE */
 @media (max-width: 768px) {
     .about-hero {
-        min-height: auto;
-        padding-top: 60px;
-        padding-bottom: 180px;
+        height: 60vh;
     }
 
     .hero-content h1 {
@@ -2891,7 +2889,7 @@ h5 {
 
 .about-fireplace {
     position: relative;
-    min-height: 700px;
+    height: 70vh;
 
 
     background:
@@ -3495,18 +3493,4 @@ h5 {
 .card {
     width: 100%;
     min-width: 0;
-}
-
-@media (max-width: 768px) {
-
-    .hero-values {
-        position: absolute;
-        bottom: -120px;
-        padding: 0 15px;
-    }
-
-    .about-story {
-        margin-top: 180px;
-    }
-
 }
