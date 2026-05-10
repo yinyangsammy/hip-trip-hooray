@@ -88,7 +88,7 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
     -   The color palette for Hip Trip Hooray draws on calm, earthy, travel-inspired tones — sepia greys, warm whites, deep charcoals and a range of blues — designed to evoke the minimalist feeling of a well-worn travel journal. The palette is clean and sophisticated, letting the user's own photos and stories take do the story-telling.
 
-    <h3 align="center"><img src="assets/readme/colour-palette.png"></h3>
+    <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
 
 
 -   ## Typography
@@ -99,25 +99,25 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
          -   The title font, Pacifico, is used for all major headings, the logo and key branding elements, giving the site its distinctive personality.
 
-        <h3 align="center"><img src="assets/readme/pacifico.jpg"></h3>
+        <h3 align="center"><img src="static/readme/pacifico.jpg"></h3>
 
     2) **Primary Font**
 
          -   The primary font, DM Serif Display, is used for all major headings, lending an air of sophistication to an otherwise playful site..
 
-        <h3 align="center"><img src="assets/readme/dm-serif-display.jpg"></h3>
+        <h3 align="center"><img src="static/readme/dm-serif-display.jpg"></h3>
 
      2) **Navbar Font**
 
          -   The primary font, DM Serif Display, is used for all major headings, lending an air of sophistication to an otherwise playful site..
 
-        <h3 align="center"><img src="assets/readme/lato.jpg"></h3> 
+        <h3 align="center"><img src="static/readme/lato.jpg"></h3> 
 
     3) **Body Font**
 
          -   A clean, highly-readable sans-serif is used for all body text, form labels, descriptions and navigation — ensuring the site is comfortable to read on any device.
 
-        <h3 align="center"><img src="assets/readme/.png"></h3>
+        <h3 align="center"><img src="static/readme/.png"></h3>
 
 
     -   ## Imagery
