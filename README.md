@@ -126,13 +126,13 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
 -   ## Imagery
 
--   ### Homepage Hero
+    ### Homepage Hero
         
-    The homepage features a colourful and self-explanatory hero landing image, inviting the user to explore sights around the globe and giving a search bar to do just that. I replaced the search bar and bottom icons with real code, but this was the initial template.
+    The homepage features a colourful and self-explanatory hero landing image, inviting the user to explore sights around the globe and directing them to a search bar to do just that. 
         
-      <h3 align="center"><img src="static/readme/landing-page-hero.png"></h3>
+      <h3 align="center"><img src="static/readme/landing-page-hero.jpg"></h3>
 
--   ### About Page Hero
+    ### About Page Hero
         
     The about page features a striking and self-explanatory hero image, of photos being uploaded all over the planet as a boat sails in and a plane takes off, illustrating the nature of the site to the user. 
         
@@ -142,13 +142,13 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
       <h3 align="center"><img src="static/readme/family-fireplace-tablets.png"></h3>
 
--   ### Comment Section Map
+    ### Comment Section Map
         
     A sepia world map, then covered in a frosted grey glass, serves as the background to the comment section, reinforcing the travel journal aesthetic.
 
       <h3 align="center"><img src="static/readme/sepia_world_map.jpg"></h3>
 
--   ### User Images
+    ### User Images
 
       Otherwise, imagery on Hip Trip Hooray is almost entirely user-generated: Users upload their own photos for each category of their trip, (Sights | Flavours | Experiences | Vibes | Seasons), which are then displayed in their saved trip and / or published itinerary.
 
@@ -157,33 +157,29 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
 -   ## Icons
 
-        ### Weather Icons
+    ### Weather Icons
 
-        Each stop on a trip can be assigned a weather condition. These are displayed as emoji icons within a stylized weather cube on both the trip builder preview and the published itinerary:
+       Each stop on a trip can be assigned a weather condition. These are displayed as emoji icons within a stylized weather cube on both the trip builder preview and the published itinerary:
 
-        ☀ Sunny · ☁ Cloudy · 🌧 Rainy · ❄ Snowy · 💨 Windy · ⛈ Stormy
+    ☀ Sunny · ☁ Cloudy · 🌧 Rainy · ❄ Snowy · 💨 Windy · ⛈ Stormy
 
-        ### Time of Day Icons
+    ### Country Flag
 
-        Each stop can also be assigned a time of day — 🌅 Sunrise · ☀ Day · 🌇 Sunset · 🌙 Night — displayed alongside the weather cube.
+    A country flag is automatically displayed on each saved trip or  page, sourced dynamically from [flagcdn.com](https://flagcdn.com) using the country code stored against the itinerary.
 
-        ### Country Flag
+    <h3 align="center"><img src="static/readme/gb.png"></h3>
 
-        A country flag is automatically displayed on each itinerary detail page, sourced dynamically from [flagcdn.com](https://flagcdn.com) using the country code stored against the itinerary.
-
-        <h3 align="center"><img src="static/readme/country-flag.png"></h3>
-
-        ### Calendar Badge
-
-        Each stop displays a calendar badge showing the travel date in a clean Month / Day / Year format.
-
-        <h3 align="center"><img src="static/readme/calendar-badge.png"></h3>
-
-
-        ### Font Awesome Icons
+    ### Font Awesome Icons
         
-        I used icons from Font Awesome for navbar icons, page title icons and social media links in the footer, to add a little charm and improve clarity and efficiency for my users.
+    I used icons from Font Awesome for navbar icons, page header icons and social media links in the footer, to add a little charm and improve clarity and efficiency for my users.
 
+-   #### Navbar & Page Header    
+
+    <h3 align="center"><img src="static/readme/font-awesome.png"></h3>
+
+-   #### Footer Socials
+
+    <h3 align="center"><img src="static/readme/footer-socials.png"></h3>
 
 # Structure
 
@@ -191,22 +187,25 @@ Hip Trip Hooray is structured as a Django full-stack web application, with the f
 
 | Page | Description |
 |------|-------------|
-| Home | Landing page with hero image and tagline |
-| About | Mission statement and platform description |
-| Explore Itineraries | Browse all published itineraries |
-| Itinerary Detail | View a single published itinerary in carousel format |
-| Create Trip | Build a new trip using the tabbed stop builder |
-| Edit Trip | Edit an existing trip |
-| Trip Detail | Private preview of a saved trip |
-| My Trips | Dashboard of all trips belonging to the logged-in user |
-| My Itineraries | Dashboard of all published itineraries belonging to the logged-in user |
-| Contact | Contact form |
+| Home | Landing page with hero image, tagline & search bar |
 | Sign In / Register | Authentication pages powered by django-allauth |
+| Profile | Profile details |
+| Explore Itineraries | Browse all published itineraries |
+| My Itineraries | Dashboard of all published itineraries belonging to  the logged-in user giving them CRUD and Publish / Unpublish options |
+| Itinerary Detail | View a single published itinerary |
+| Create Itinerary | Build a new itinerary using the tabbed stop builder |
+| My Trips | Dashboard of all trips belonging to the logged-in user giving them CRUD options | |
+| Trip Detail | Private preview of a saved trip with the option to publish |
+| Create Trip | Build a new trip using the tabbed stop builder |
+| Sign Out | Log out of the website |
+| About | Mission statement and platform description |
+| Contact | Contact form |
+
 
 
 # Features
 
-## Current Features
+-   ## Current Features
 
 ### Landing Page
 
@@ -214,7 +213,7 @@ The homepage greets users with a full-width hero image, the Hip Trip Hooray tagl
 
 <h3 align="center"><img src="static/readme/landing-page.png"></h3>
 
-### Navigation
+### Hamburger Navigation
 
 A clean, responsive navigation bar provides links to all key sections of the site. When a user is logged in, the nav updates to show their personal dashboards and a logout option.
 
@@ -304,7 +303,7 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 <h3 align="center"><img src="static/readme/responsive.png"></h3>
 
 
-## Future Features
+-   ## Future Features
 
 - :x: *Follow other travelers and receive notifications when they publish*
 - :x: *Vlog support — embed video content within trip stops*
@@ -387,7 +386,18 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 | Use site on mobile, tablet and desktop | :white_check_mark: |
 | Contact the team via a form | :white_check_mark: |
 
-## Manual Testing
+## Django Testing
+
+For Django tests for the itineraries app and the trips app, please check itineraries/test.py and trips/tests.py
+
+Run them with
+
+python manage.py test
+
+### or for a specific app
+
+python manage.py test trips
+python manage.py test itineraries
 
 ### Browser Compatibility
 
