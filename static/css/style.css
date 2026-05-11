@@ -2729,7 +2729,7 @@ h5 {
 
     background:
         linear-gradient(rgba(2,6,23,0.3), rgba(2,6,23,0.5)),
-        url("/static/images/hero-image-hiptriphooray-about-m.webp") center/cover no-repeat;
+        url("/static/images/hero-image-hiptriphooray-about.webp") center/cover no-repeat;
 
     display: flex;
     align-items: center;
@@ -2894,7 +2894,7 @@ h5 {
 
     background:
         linear-gradient(rgba(2,6,23,0.4), rgba(2,6,23,0.7)),
-        url("/static/images/family-fireplace-tablets.webp-m") center/cover no-repeat;
+        url("/static/images/family-fireplace-tablets.webp") center/cover no-repeat;
 
     display: flex;
     align-items: center;
