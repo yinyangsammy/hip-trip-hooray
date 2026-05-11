@@ -150,7 +150,9 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
 -   ### User Images
 
-      Otherwise, imagery on Hip Trip Hooray is almost entirely user-generated: Users upload their own photos for each category of their trip, (Sights | Flavours | Experiences | Vibes | Seasons), which are then displayed in their saved trip and / or published itinerary. 
+      Otherwise, imagery on Hip Trip Hooray is almost entirely user-generated: Users upload their own photos for each category of their trip, (Sights | Flavours | Experiences | Vibes | Seasons), which are then displayed in their saved trip and / or published itinerary.
+
+      <h3 align="center"><img src="static/readme/user-image.png"></h3>
         
 
 -   ## Icons
