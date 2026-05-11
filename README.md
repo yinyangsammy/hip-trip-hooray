@@ -25,6 +25,7 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
     + [Current Features](#current-features)
     + [Future Features](#future-features)
 - [Wireframes](#wireframes)
+- [ERD](#erd)
 - [Technologies](#technologies)
   + [Languages](#languages)
   + [Frameworks Libraries Programs](#frameworks-libraries-programs)
@@ -52,6 +53,9 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 :x: *not yet implemented*
 
 - :white_check_mark: *an interface layout that can be immediately understood, irrespective of age and nationality, without the need for complicated instructions or a key*.
+- :white_check_mark: *an easy navigation system whereby I can see exactly where I want to get at the click of a nav link*.
+- :white_check_mark: *a homepage where I easily search for travel itineraries for different locations*.
+- :white_check_mark: *a page which clearly lists the itineraries for the location I have searched, and if none are available for that location, the option to write my own*.
 - :white_check_mark: *to register for an account and log in securely*.
 - :white_check_mark: *to create a trip, filling in details about my destination, the sights I saw, the food I ate, the experiences I had, the vibes I felt and the seasons I travelled in*.
 - :white_check_mark: *to upload photos to accompany each stop on my trip*.
@@ -93,11 +97,11 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
 -   ## Typography
 
-    -   The typography for Hip Trip Hooray is chosen to feel retro, sophisticated and fun — think Miami Vice vibes with a touch of Condé Nast class. 
+    -   The typography for Hip Trip Hooray is chosen to feel adventurous, sophisticated and fun — think Miami Art Deco vibes with a touch of Condé Nast class. 
 
     1) **Title Font**
 
-         -   The title font, Pacifico, is used for the logo and key branding elements, giving the site its distinctive personality.
+         -   The title font, Pacifico, is used for the logo and key branding elements, giving the site its distinctive and playful personality.
 
         <h3 align="center"><img src="static/readme/pacifico.jpg"></h3>
 
@@ -115,34 +119,45 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
     3) **Body Fonts**
 
-         -   A clean, highly-readable sans-serif is used for all body text, form labels, descriptions and navigation — ensuring the site is comfortable to read on any device. Using Bootstrap's sans-serif font stack ensures that all browsers will display professionally.
+         -   A clean, highly-readable sans-serif is used for all body text, form labels, descriptions and navigation — ensuring the site is comfortable to read on any device. Using Bootstrap's sans-serif font stack and a few imported Google sans-serif fonts ensures that all browsers will display professionally.
 
         <h3 align="center"><img src="static/readme/sans-serif-fonts.jpg"></h3>
 
 
-    -   ## Imagery
+-   ## Imagery
 
-        -   Imagery on Hip Trip Hooray is almost entirely user-generated. Users upload their own photos to each stop of their trip, which are then displayed in the published itinerary carousel. The homepage features a hero landing image and a sepia world map background, both chosen to reinforce the travel journal aesthetic.
+-   ### Homepage Hero
+        
+    The homepage features a colourful and self-explanatory hero landing image, inviting the user to explore sights around the globe and giving a search bar to do just that. I replaced the search bar and bottom icons with real code, but this was the initial template.
+        
+      <h3 align="center"><img src="static/readme/landing-page-hero.png"></h3>
 
-        ### Maps
+-   ### About Page Hero
+        
+    The about page features a striking and self-explanatory hero image, of photos being uploaded all over the planet as a boat sails in and a plane takes off, illustrating the nature of the site to the user. 
+        
+      <h3 align="center"><img src="static/readme/hero-image-hiptriphooray-about.png"></h3>
 
-        #### Trip Creation Map
+    Additionally, a 'vibe' image is displayed at the bottom of the page, of a family sat around the fireplace sharing travel photos, to really imbue the emotional energy behind Hip Trip Hooray
 
-        An interactive OpenStreetMap is embedded in the trip creation form, allowing users to search for their destination and set the precise location for their trip and each individual stop.
+      <h3 align="center"><img src="static/readme/family-fireplace-tablets.png"></h3>
 
-        <h3 align="center"><img src="static/readme/trip-create-map.png"></h3>
+-   ### Comment Section Map
+        
+    A sepia world map, then covered in a frosted grey glass, serves as the background to the comment section, reinforcing the travel journal aesthetic.
 
-        #### Itinerary Detail Mini Maps
+      <h3 align="center"><img src="static/readme/sepia_world_map.jpg"></h3>
 
-        Each published itinerary slide features a mini map showing the exact location of that stop, rendered using Leaflet.js.
+-   ### User Images
 
-        <h3 align="center"><img src="static/readme/itinerary-mini-map.png"></h3>
+      Otherwise, imagery on Hip Trip Hooray is almost entirely user-generated: Users upload their own photos for each category of their trip, (Sights | Flavours | Experiences | Vibes | Seasons), which are then displayed in their saved trip and / or published itinerary. 
+        
 
-        ## Icons
+-   ## Icons
 
         ### Weather Icons
 
-        Each stop on a trip can be assigned a weather condition. These are displayed as emoji icons within a stylised weather cube on both the trip builder preview and the published itinerary:
+        Each stop on a trip can be assigned a weather condition. These are displayed as emoji icons within a stylized weather cube on both the trip builder preview and the published itinerary:
 
         ☀ Sunny · ☁ Cloudy · 🌧 Rainy · ❄ Snowy · 💨 Windy · ⛈ Stormy
 
@@ -161,6 +176,11 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
         Each stop displays a calendar badge showing the travel date in a clean Month / Day / Year format.
 
         <h3 align="center"><img src="static/readme/calendar-badge.png"></h3>
+
+
+        ### Font Awesome Icons
+        
+        I used icons from Font Awesome for navbar icons, page title icons and social media links in the footer, to add a little charm and improve clarity and efficiency for my users.
 
 
 # Structure
@@ -225,6 +245,20 @@ The trip creation form is a fully interactive builder, featuring:
 
 <h3 align="center"><img src="static/readme/trip-builder-preview.png"></h3>
 
+ -   ### Maps
+
+ -   #### Trip Creation Map
+
+        An interactive OpenStreetMap is embedded in the trip creation form, allowing users to search for their destination and set the precise location for their trip and each individual stop.
+
+        <h3 align="center"><img src="static/readme/trip-create-map.png"></h3>
+
+        #### Itinerary Detail Mini Maps
+
+        Each published itinerary slide features a mini map showing the exact location of that stop, rendered using Leaflet.js.
+
+        <h3 align="center"><img src="static/readme/itinerary-mini-map.png"></h3>
+
 ### Publish Trip as Itinerary
 
 Once a user is happy with their trip, a single click publishes it as a public itinerary, visible to all users on the Explore page.
@@ -287,6 +321,9 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 <h3 align="center"><img src="static/readme/wireframe-trip-builder.png"></h3>
 
 <h3 align="center"><img src="static/readme/wireframe-itinerary-detail.png"></h3>
+
+
+# ERD
 
 
 # Technologies

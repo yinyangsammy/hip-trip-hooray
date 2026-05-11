@@ -84,6 +84,7 @@
                                 {% elif item.weather == "snow" %}❄
                                 {% elif item.weather == "cloud" %}☁
                                 {% elif item.weather == "wind" %}💨
+                                {% elif item.weather == "storm" %}⛈
                                 {% else %}🌤
                                 {% endif %}
                             </div>
@@ -131,7 +132,7 @@
 </h2>
 
 <p>
-    By <span class="itinerary-author-bubble">{{ itinerary.author.username }}</span>
+    By <span class="itinerary-author-bubble">{{ trip.owner.username }}</span>
 </p>
 
 {% if itinerary.original_author and itinerary.original_author != itinerary.author %}
