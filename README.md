@@ -2,11 +2,16 @@
 
 <h3 align="center"><img src="static/readme/mockup.png"></h3>
 
+<br>
+
 Hip Trip Hooray is your go-to platform for planning, publishing and sharing travel itineraries with the people who matter most.
 
 From seasoned globetrotters documenting their adventures to families planning a first trip abroad, Hip Trip Hooray is so simple and so intuitive to use, anyone anywhere can start planning and sharing their journeys.
 
 Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.herokuapp.com/))
+
+<br>
+<br>
 
 
 # Table of Contents
@@ -41,6 +46,8 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
   + [Content](#content)
   + [Acknowledgements](#acknowledgements)
 
+<br>
+<br>
 
 # User Stories
 
@@ -84,7 +91,12 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 - :x: *to receive AI-generated travel suggestions based on my destination*.
 - :x: *to buddy up with fellow travelers looking to do similar itineraries*.
 - :x: *to book accommodation or tours directly from an itinerary*.
+itineraries*.
+- :x: *mosaic tiling as a background for the trip and itinerary cards*.
+- :x: *a tile image, uploaded by the user, which displays when the user hovers over the mosaic tiles of the trip and itinerary cards*.
 
+<br>
+<br>
 
 # Design
 
@@ -128,7 +140,7 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
     ### Homepage Hero
         
-    The homepage features a colourful and self-explanatory hero landing image, inviting the user to explore sights around the globe and directing them to a search bar to do just that. 
+    The homepage features a colourful and self-explanatory hero landing image, suggesting the user explore itineraries from around the globe, leading to a search bar beneath to do just that. 
         
       <h3 align="center"><img src="static/readme/landing-page-hero.jpg"></h3>
 
@@ -138,13 +150,13 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
         
       <h3 align="center"><img src="static/readme/hero-image-hiptriphooray-about.png"></h3>
 
-    Additionally, a 'vibe' image is displayed at the bottom of the page, of a family sat around the fireplace sharing travel photos, to really imbue the emotional energy behind Hip Trip Hooray
+    Additionally, a 'vibe' image is displayed at the bottom of the page, of a family sat around the fireplace sharing travel photos, to really imbue the emotional energy behind Hip Trip Hooray.
 
       <h3 align="center"><img src="static/readme/family-fireplace-tablets.png"></h3>
 
     ### Comment Section Map
         
-    A sepia world map, then covered in a frosted grey glass, serves as the background to the comment section, reinforcing the travel journal aesthetic.
+    A sepia world map serves as the background to the comment section, reinforcing the travel journal aesthetic.
 
       <h3 align="center"><img src="static/readme/sepia_world_map.jpg"></h3>
 
@@ -171,7 +183,7 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
     ### Font Awesome Icons
         
-    I used icons from Font Awesome for navbar icons, page header icons and social media links in the footer, to add a little charm and improve clarity and efficiency for my users.
+    I used icons from Font Awesome for navbar icons, page header icons and social media links in the footer, to add a little charm and improve clarity and efficiency for users.
 
 -   #### Navbar & Page Header    
 
@@ -181,9 +193,12 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 
     <h3 align="center"><img src="static/readme/footer-socials.png"></h3>
 
+<br>
+<br>
+
 # Structure
 
-Hip Trip Hooray is structured as a Django full-stack web application, with the following main sections:
+-   Hip Trip Hooray is structured as a Django full-stack web application, with the following main sections:
 
 | Page | Description |
 |------|-------------|
@@ -201,7 +216,20 @@ Hip Trip Hooray is structured as a Django full-stack web application, with the f
 | About | Mission statement and platform description |
 | Contact | Contact form |
 
+# Irregular Structure
 
+
+## Embedded CSS
+
+Most of my css is in my stylesheet - but I have kept embedded css in my templates, in order to better control how my page displays within Bootstrap's framework.
+
+## Embedded Javascript
+
+I have kept the js styling inline for all templates until I have successfully added more stops to each category, as this will involve editing the javascript that exists right now and I find it much more efficient to swap just the templates within my IDE, than having to swap templates and corresponding .js files. Once, the site has future features implemented, I will create trips.js, itineraries.js etc.
+
+
+<br>
+<br>
 
 # Features
 
@@ -313,6 +341,11 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 - :x: *In-app booking for accommodation and tours*
 - :x: *Social sharing buttons on itinerary pages*
 - :x: *Likes and reactions on itineraries*
+- :x: *to buddy up with fellow travelers looking to do similar itineraries*.
+- :x: *to book accommodation or tours directly from an itinerary*.
+itineraries*.
+- :x: *mosaic tiling as a background for the trip and itinerary cards*.
+- :x: *a tile image, uploaded by the user, which displays when the user hovers over the mosaic tiles of the trip and itinerary cards*.
 
 
 # Wireframes
@@ -360,6 +393,64 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 
 # Testing
 
+The Snapshot Location website has been tested using the following methods:
+
+- [Testing](#testing)
+- [Testing Functionality](#testing-functionality)
+- [Code Validation](#code-validation)
+    - [W3C HTML Validator](#w3c-html-validator)
+        - [Homepage](#homepage)
+        - [Safety](#safety-page)
+        - [Weather Page](#weather-page)
+    - [W3C CSS Validator](#w3c-css-validator)
+    - [JSHint Javascript Validator](#jslint-js-validator)
+- [Lighthouse](#lighthouse)
+    - [Desktop](#desktop)
+    - [Mobile](#mobile)
+- [Browser Compatibility](#browser-compatibility)
+- [Responsiveness](#responsiveness)
+    - [Iphone](#iphone)
+    - [Ipad](#ipad)
+    - [Nest Hub Max](#nest-hub-max)
+    - [FHD (1920x1080)](#fhd-1920x1080)
+    - [2k (2560x1440)](#2k-2560x1440)
+    - [4K (3840 x 2160)](#4k-3840-x-2160)
+- [Manual Testing](#manual-testing)
+- [Debugging](#debugging)
+    - [Resolved](#resolved)    
+    - [Unresolved](#unresolved)
+- [Testing User Stories](#testing-user-stories)
+    - [Testing Visitor Goals](#testing-visitor-goals)
+
+
+## Importance of Automated & Manual Testing
+
+### Automated
+
+**Using automated testing to test code has several advantages over manual testing:**
+
+* Quicker - Multiple tests can be run on the same piece of code concurrently, and in a short space of time.
+
+* More Holistic - The ability to very quickly establish how the site will perform as a whole.
+
+* More Exact - The ability to find more bugs, including unknown bugs.
+
+* More Accurate - Less room for human error -- tests are only as good as the tester(s), and can therefore end up being purely decorative.
+
+* More Honest - Less prone to manipulation or corruption.
+
+### Manual
+
+**Using manual testing to test code has several advantages over automated testing:**
+
+* More Precise - No waiting for other tests to finish - one specific piece can be perfected.
+
+* More Initiative - Tests can be written while programming, so that errors can be picked up as early as possible during development.
+
+* More Adaptive / Flexible - Tests can remain within our code for the future (*regressive testing*), so that if ever future developments conflict with our current functionality, the programmer can be alerted with immediate effect.
+
+* More Organic - Automated tests don't test the User Experience beyond the performative, so manual testing is essential to get a full understanding of the user experience (UX).
+
 ## Testing User Stories
 
 ### Testing Visitor Goals
@@ -386,53 +477,168 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 | Use site on mobile, tablet and desktop | :white_check_mark: |
 | Contact the team via a form | :white_check_mark: |
 
-## Django Testing
+## Django App Tests
 
-For Django tests for the itineraries app and the trips app, please check itineraries/test.py and trips/tests.py
+For Django tests for the itineraries app and the trips app, please check itineraries/tests.py and trips/tests.py respectively.
 
 Run them with
 
+
 python manage.py test
 
-### or for a specific app
+- or for a specific app
 
 python manage.py test trips
 python manage.py test itineraries
 
-### Browser Compatibility
+# Testing Functionality
 
-| Browser | Result |
-|---------|--------|
-| Google Chrome | :white_check_mark: |
-| Mozilla Firefox | :white_check_mark: |
-| Microsoft Edge | :white_check_mark: |
-| Safari | :white_check_mark: |
+The W3C Markup Validator and W3C CSS Validator Services were used to validate every page of the project to ensure there were no syntax errors in the project.
 
-### Responsiveness
+-   [W3C Markup Validator](https://validator.w3.org/#validate_by_input)
+-   [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input)
+   
 
-| Device | Result |
-|--------|--------|
-| Mobile (320px) | :white_check_mark: |
-| Tablet (768px) | :white_check_mark: |
-| Desktop (1200px+) | :white_check_mark: |
+## Code Validation
 
-## Validators
+## W3C HTML Validator
 
-### HTML — W3C Validator
+The Snapshot Location website passed all tests using the W3C HTML Validator tool
 
-<h3 align="center"><img src="static/readme/html-validator.png"></h3>
+-   ### Homepage / Location
 
-### CSS — W3C Jigsaw Validator
+<h2 align="right"><img src="assets/readme/homepage.png"></h2> 
 
-<h3 align="center"><img src="static/readme/css-validator.png"></h3>
+-   ### Safety Page 
 
-### JavaScript — JSHint
+<h2 align="right"><img src="assets/readme/safety.png"></h2> 
 
-<h3 align="center"><img src="static/readme/jshint.png"></h3>
+-   ### Weather Page 
 
-### Python — PEP8 / flake8
+<h2 align="right"><img src="assets/readme/weather.png"></h2> 
 
-<h3 align="center"><img src="static/readme/pep8.png"></h3>
+
+## W3C CSS Validator
+
+The Snapshot Location website passed all tests using the W3C CSS Validator tool
+<h2 align="center"><img src="assets/readme/css.png"></h2>
+
+
+## JSHint Javascript Validator
+
+The Snapshot Location website passed all tests using the JSHint JS Validator, with only warnings and no errors reported.
+
+<h2 align="center"><img src="assets/readme/javascript.png"></h2>
+
+## Lighthouse
+
+I used the Lighthouse reports in Google Developer Tools to examine the pages of the website for the following:
+
+- Performance
+- Accessibility
+- Best Practices 
+- SEO
+
+### Desktop:
+
+Homepage scored:
+- Performance - 98
+- Accessibility - 100
+- Best Practices - 100
+- SEO - 100
+
+### Lighthouse Report for Homepage (Desktop)
+    
+<h2 align="center"><img src="assets/readme/lighthouse-homepage-desktop.png"></h2>
+
+### Mobile:
+
+Homepage scored:
+- Performance - 81
+- Accessibility -98
+- Best Practices -75
+- SEO - 100
+
+### Lighthouse Report for Homepage (Mobile)
+    
+<h2 align="center"><img src="assets/readme/lighthouse-homepage-mobile.png"></h2>
+
+I didn't use Lighthouse for the other pages, i.e. Safety & Weather, on account of the third party scripts attached to those maps which I cannot change unless I approach their respective developers. (*Please see below for future improvements.*)
+
+I have improved the header, navbar, contact section and footer to the best of my abilities for all pages.
+
+Overall, I am happy with the speed the site runs on every device I've tried (various laptops, desktops, tablets and mobile phones). The pages load fast and all the functions run smoothly.
+
+I am also more inclined to develop an app for tablets and mobile devices.
+
+## Future Improvements
+
+### Desktop Improvements
+
+#### Safety & Weather Pages
+  
+-  I will work to improve the Safety & Weather pages by implementing better practices, such as lazy loading and referrerpolicy, and by better integrating third party cookies and functions. I will know more after I have spoken to the developers.
+
+### Mobile Improvements
+  
+#### Homepage
+  
+- The Homepage ***Performance*** score could be improved by decreasing the *Largest contentful paint element*.
+
+- The Homepage ***Best Practices*** score could be improved by better integrating the wise widget and its trackers and third party cookies.
+
+#### Safety & Weather Pages
+  
+-  I will work to improve the Safety & Weather pages by implementing better practices, such as lazy loading and referrerpolicy, and by better integrating third party cookies and functions. 
+   
+## Browser Compatibility
+
+The site was tested in Brave, Google Chrome, Microsoft Edge and Mozilla Firefox on Desktop.
+
+The site was tested in Brave, Google Chrome and Firefox on Mobile and Tablet.
+
+No issues arose during browser testing. 
+
+Appearance, functionality and responsiveness were largely consistent across browsers and devices, adapting fluidly when changing from portrait to landscape mode.
+
+## Responsiveness
+
+Responsiveness tests were carried out using Google Chrome DevTools & Microsoft Edge DevTools. Device screen sizes covered include:
+
+- iPhone SE
+- iPhone XR
+- iPhone 12 Pro
+- Pixel 5
+- Samsung Galaxy S8+
+- Samsung Galaxy S20 Ultra
+- iPad Mini
+- iPad Air
+- Surface Pro 7
+- Surface Duo
+- Galaxy Fold
+- Samsung Galaxy A51/71
+- Nest Hub
+- Nest Hub Max
+
+### Iphone 
+<h2 align="center"><img src="assets/readme/iphone-best.png"></h2>
+
+### Ipad 
+<h2 align="center"><img src="assets/readme/ipad-best.png"></h2>
+
+### Nest Hub Max 
+<h2 align="center"><img src="assets/readme/nest-hub-max.png"></h2>
+
+I also created custom settings for FHD (1920x1080), 2k (2560x1440) & 4K (3840 x 2160) screens to verify the web pages would work across monitor sizes. 
+
+### FHD (1920x1080) 
+<h2 align="center"><img src="assets/readme/snapshot-location-fhd.png"></h2>
+
+### 2k (2560x1440)
+<h2 align="center"><img src="assets/readme/snapshot-location-2k.png"></h2>
+
+### 4K (3840 x 2160)
+<h2 align="center"><img src="assets/readme/snapshot-location-4k.png"></h2>
 
 ## Bugs & Fixes
 
