@@ -293,7 +293,7 @@ Once a user is happy with their trip, a single click publishes it as a public it
 
 Any published itinerary can be used as a template by any logged-in user. One click creates a new personal trip pre-populated with all the stops from that itinerary, ready to edit and personalise.
 
-<h3 align="center"><img src="static/readme/use-template.jpeg"></h3>
+<h3 align="center"><img src="static/readme/use-template.png"></h3>
 
 ### My Trips Dashboard
 
