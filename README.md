@@ -75,7 +75,7 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 - :white_check_mark: *to edit my trip after saving it*.
 - :white_check_mark: *to delete my trip if I no longer want it*.
 - :white_check_mark: *to browse a list of published itineraries from other travelers*.
-- :white_check_mark: *to view a published itinerary in a beautifully presented carousel format, organised by category tabs*.
+- :white_check_mark: *to view a published itinerary, organised by category tabs*.
 - :white_check_mark: *to use an existing itinerary as a template to plan my own trip to the same destination*.
 - :white_check_mark: *to leave comments on itineraries I enjoy*.
 - :white_check_mark: *to edit and delete my own comments*.
@@ -254,7 +254,7 @@ A browseable list of all published itineraries, each displayed as a card with th
 
 ### Itinerary Detail — Category Tabs & Carousel
 
-The centerpiece of the platform. Each published itinerary is presented with tabbed categories — Sights, Flavours, Experiences, Vibes, Seasons — and a smooth carousel within each tab. Each slide features the user's photo, weather cube, calendar badge, story title and story description.
+The centerpiece of the platform. Each published itinerary is presented with tabbed categories — Sights, Flavours, Experiences, Vibes, Seasons. Each slide features the user's photo, weather cube, calendar badge, story title and story description.
 
 <h3 align="center"><img src="static/readme/itinerary-detail.png"></h3>
 
@@ -289,7 +289,7 @@ Once a user is happy with their trip, a single click publishes it as a public it
 
 Any published itinerary can be used as a template by any logged-in user. One click creates a new personal trip pre-populated with all the stops from that itinerary, ready to edit and personalise.
 
-<h3 align="center"><img src="static/readme/use-template.png"></h3>
+<h3 align="center"><img src="static/readme/use-template.jpeg"></h3>
 
 ### My Trips Dashboard
 
@@ -474,7 +474,7 @@ The Hip Trip Hooray website has been tested using the following methods:
 | Edit a saved trip | :white_check_mark: |
 | Delete a trip | :white_check_mark: |
 | Browse published itineraries | :white_check_mark: |
-| View an itinerary in carousel format with category tabs | :white_check_mark: |
+| View an itinerary with category tabs | :white_check_mark: |
 | Use an itinerary as a template | :white_check_mark: |
 | Leave, edit and delete comments | :white_check_mark: |
 | View mini maps on itinerary stops | :white_check_mark: |
