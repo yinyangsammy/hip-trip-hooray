@@ -293,13 +293,13 @@ Any published itinerary can be used as a template by any logged-in user. One cli
 
 ### My Trips Dashboard
 
-A personal dashboard listing all of the logged-in user's trips, with options to view, edit, publish/unpublish or delete each one.
+A personal dashboard listing all of the logged-in user's trips, with options to view, edit or delete each one.
 
 <h3 align="center"><img src="static/readme/my-trips.png"></h3>
 
 ### My Itineraries Dashboard
 
-A personal dashboard listing all of the logged-in user's trips, with options to view, edit, publish/unpublish or delete each one.
+A personal dashboard listing all of the logged-in user's itineraries, with options to view, edit, publish/unpublish or delete each one.
 
 <h3 align="center"><img src="static/readme/my-itineraries.png"></h3>
 
@@ -321,11 +321,11 @@ Full user authentication is handled by [django-allauth](https://django-allauth.r
 
 <h3 align="center"><img src="static/readme/sign-in.png"></h3>
 
+<br>
+
 ### Responsive Design
 
-Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet and desktop.
-
-<h3 align="center"><img src="static/readme/responsive.png"></h3>
+Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet and desktop. Please see images under testing.
 
 
 -   ## Future Features
