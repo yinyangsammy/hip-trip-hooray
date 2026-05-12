@@ -3493,6 +3493,7 @@ h5 {
 
 .card {
     width: 100%;
-    min-width: 0;
+    min-width: 280px;
+    max-width: 100%;
 }
 

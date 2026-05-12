@@ -252,7 +252,7 @@ A clean, responsive navigation bar provides links to all key sections of the sit
 A browseable list of all published itineraries, each displayed as a card with the trip title, destination and country flag. Users can search and filter by destination.
 
 
-### Itinerary Detail — Category Tabs & Carousel
+### Itinerary Detail — 5 Category Tabs + Context + Story
 
 The centerpiece of the platform. Each published itinerary is presented with tabbed categories — Sights, Flavours, Experiences, Vibes, Seasons. Each slide features the user's photo, weather cube, calendar badge, story title and story description.
 
@@ -274,9 +274,13 @@ The trip creation form is a fully interactive builder, featuring:
 
  -   ### Maps
 
- -   #### Trip Creation Map
+ -   #### Trip Creation Map + Preview Map
 
-        An interactive OpenStreetMap is embedded in the trip creation form, allowing users to search for their destination and set the precise location for their trip and each individual stop.
+        2 interactive OpenStreetMap maps are embedded in the trip creation form, one at the top and one in live preview, allowing users to search for their destination and set the precise location for their trip and each individual stop.
+
+-   #### Saved Trip / Published Itinerary Map
+
+        The same OpenStreetMap map seen is saved and embedded in the saved trip and published itinerary.
 
 
 ### Publish Trip as Itinerary
