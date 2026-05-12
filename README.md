@@ -249,13 +249,13 @@ A clean, responsive navigation bar provides links to all key sections of the sit
 
 ### Explore Itineraries
 
-A browsable list of all published itineraries, each displayed as a card with the trip title, destination and country flag. Users can search and filter by destination.
+A browseable list of all published itineraries, each displayed as a card with the trip title, destination and country flag. Users can search and filter by destination.
 
 <h3 align="center"><img src="static/readme/explore-itineraries.png"></h3>
 
 ### Itinerary Detail — Category Tabs & Carousel
 
-The centrepiece of the platform. Each published itinerary is presented with tabbed categories — Sights, Flavours, Experiences, Vibes, Seasons — and a smooth carousel within each tab. Each slide features the user's photo, weather cube, calendar badge, story title and story description.
+The centerpiece of the platform. Each published itinerary is presented with tabbed categories — Sights, Flavours, Experiences, Vibes, Seasons — and a smooth carousel within each tab. Each slide features the user's photo, weather cube, calendar badge, story title and story description.
 
 <h3 align="center"><img src="static/readme/itinerary-detail.png"></h3>
 
@@ -347,17 +347,23 @@ itineraries*.
 - :x: *mosaic tiling as a background for the trip and itinerary cards*.
 - :x: *a tile image, uploaded by the user, which displays when the user hovers over the mosaic tiles of the trip and itinerary cards*.
 
+<br>
 
 # Wireframes
 
-<h3 align="center"><img src="static/readme/wireframe-home.png"></h3>
+-   ## Landing Page
 
-<h3 align="center"><img src="static/readme/wireframe-trip-builder.png"></h3>
+<h3 align="center"><img src="static/readme/hip-trip-hooray-landing-wireframe.png"></h3>
 
-<h3 align="center"><img src="static/readme/wireframe-itinerary-detail.png"></h3>
+-   ## Create Trip
 
+<h3 align="center"><img src="static/readme/hip-trip-hooray-create-a-trip-wireframe.jpg"></h3>
+
+<br>
 
 # ERD
+
+<h3 align="center"><img src="static/readme/hiptriphooray-erd.png"></h3>
 
 
 # Technologies
@@ -453,6 +459,8 @@ The Snapshot Location website has been tested using the following methods:
 
 ## Testing User Stories
 
+<br>
+
 ### Testing Visitor Goals
 
 | User Story | Result |
@@ -477,19 +485,34 @@ The Snapshot Location website has been tested using the following methods:
 | Use site on mobile, tablet and desktop | :white_check_mark: |
 | Contact the team via a form | :white_check_mark: |
 
+<br>
+
 ## Django App Tests
 
-For Django tests for the itineraries app and the trips app, please check itineraries/tests.py and trips/tests.py respectively.
+<br>
 
-Run them with
+For Django tests for the itineraries app and the trips app, please check:
 
+- `itineraries/tests.py`
+- `trips/tests.py`
 
+Run all Django tests with:
+
+```bash
 python manage.py test
+```
 
-- or for a specific app
+or for a specific app
 
+```bash
 python manage.py test trips
+```
+
+```bash
 python manage.py test itineraries
+```
+
+<br>
 
 # Testing Functionality
 
@@ -642,6 +665,8 @@ I also created custom settings for FHD (1920x1080), 2k (2560x1440) & 4K (3840 x 
 
 ## Bugs & Fixes
 
+These include the bugs I was encountering when incorporating more than one stop per category, hence the removal of that functionality for the time being. 
+
 1. **500 error on trip creation (Heroku / PostgreSQL)** — The trip creation view was binding the formset to an unsaved `Trip` instance with no primary key. When Django attempted to save the inline items, the foreign key reference pointed to a non-existent row, causing a database integrity error. Fixed by removing the `instance=temp_trip` binding on POST and assigning `item.trip = trip` within the save loop after the parent trip had been committed to the database.
 
 2. **Cloudinary config vars missing** — The settings file was reading three separate Cloudinary environment variables (`CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`), but only `CLOUDINARY_URL` had been set in the Heroku config vars. Fixed by adding all three required vars to the Heroku dashboard.
@@ -653,6 +678,34 @@ I also created custom settings for FHD (1920x1080), 2k (2560x1440) & 4K (3840 x 
 5. **Itinerary not updating after trip edit** — When a user edited their trip, the linked published itinerary was not being synced. The itinerary was only ever written once, at the point of publication. Fixed by adding a sync block at the end of the `trip_edit` view, which detects any linked itinerary via `trip.published_itineraries.first()`, updates its top-level fields and rebuilds all its items from the current state of the trip.
 
 6. **`unique_together` constraint on `TripItem`** — The `TripItem` model had a `unique_together = ["trip", "display_order"]` constraint. PostgreSQL enforces this strictly at the row level on every write, meaning that saving multiple new items (all defaulting to `display_order=0`) caused an integrity error on the second save. SQLite silently ignored this collision. Fixed by removing the `unique_together` constraint.
+
+7. **Trip preview image not updating for dynamically added stops** — Newly added stop cards could upload images successfully, but the live preview panel was only listening to the original static file inputs rendered on page load. Fixed by switching to delegated event listeners using `document.addEventListener("change")`, allowing dynamically created stop image inputs to update the preview correctly.
+
+8. **Trip stop coordinates not syncing across category tabs** — Clicking the Leaflet map only updated the currently active stop card, meaning the “stop zero” cards in other category tabs were missing coordinates and failed to render maps later. Fixed by looping through all `.stop-0` cards and writing latitude/longitude values to each hidden coordinate field whenever the map or search location changed.
+
+9. **Story preview showing incorrect content after switching tabs** — The live trip preview sometimes continued displaying content from a previously selected stop after changing category tabs. The active preview state was not being reset correctly. Fixed by introducing an `activeStops` object keyed by category and restoring the correct active stop when tabs changed.
+
+10. **Dynamic stop numbering breaking after deletion** — Removing a stop card caused gaps or duplicate numbering in the remaining trip stops because `display_order` values were not recalculated after DOM removal. Fixed by rebuilding stop numbering through `updateStopNumbers()` whenever stops were added or removed.
+
+11. **Trip title not propagating to dynamically added stop forms** — Additional stop forms created from the hidden template were not inheriting the parent trip title before submission, causing blank titles in saved `TripItem` records. Fixed by adding a final submit hook that loops through all `.stop-card` elements and injects the current trip title into each hidden `.stop-title` field before form submission.
+
+12. **Location search not updating trip destination fields correctly** — Searching for a city with the OpenStreetMap Nominatim API updated the map marker but did not consistently populate the hidden destination and country fields required elsewhere in the app. Fixed by extracting `display_name`, city-level address data, and `country_code` from the API response and writing them directly into the relevant form inputs after every successful search.
+
+13. **Published itineraries visible to all users** — Early itinerary queries returned every published itinerary in the database, including content owned by other users. Fixed by filtering queryset results against the authenticated user where appropriate and separating public discovery views from owner-only dashboard views.
+
+14. **Delete actions triggering accidental removals** — Trips and itineraries could initially be deleted immediately from dashboard buttons with no confirmation step. Fixed by introducing Bootstrap confirmation modals that dynamically inject the correct delete URL before submission.
+
+15. **Heroku static assets not updating after deployment** — CSS and JavaScript changes occasionally appeared missing in production because stale static files were still being served. Fixed by ensuring `collectstatic` ran during deployment and by clearing cached static assets after major frontend updates.
+
+16. **Trip cards collapsing into narrow columns on dashboard pages** — When only one trip or itinerary existed, Bootstrap grid constraints caused cards to render as small centred columns instead of stretching across the available width. Fixed by removing restrictive column sizing (`col-lg-5`) and centring row classes in favour of full-width responsive columns.
+
+17. **Trip form capitalisation inconsistencies** — Users could submit trip titles and destinations in inconsistent formats such as `paris`, `NEW YORK`, or `hidden gems of tokyo`. Fixed by adding a pre-submit JavaScript formatter that converts text inputs and textareas into title case immediately before form submission.
+
+18. **Firefox and Chrome rendering different map behaviours** — Certain OpenStreetMap and Leaflet interactions behaved differently across browsers due to stricter Firefox security and referrer handling policies. Fixed by aligning referrer policies and testing tile-loading behaviour consistently across both browsers.
+
+19. **Dynamic formset fields not saving correctly after adding new forms** — Newly generated formset entries were sometimes ignored during submission because `TOTAL_FORMS` was not being updated after DOM insertion. Fixed by incrementing the management form count every time a new dynamic form was added.
+
+20. **Live preview panel failing after dynamically added content** — Event listeners attached directly to page-load elements did not apply to dynamically injected trip form fields, causing preview updates to stop working for newly added content. Fixed by replacing direct listeners with delegated document-level listeners.
 
 
 # Deployment
