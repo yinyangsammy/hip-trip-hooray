@@ -331,6 +331,7 @@ Full user authentication is handled by [django-allauth](https://django-allauth.r
 
 Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet and desktop. Please see images under testing.
 
+<br>
 
 -   ## Future Features
 
