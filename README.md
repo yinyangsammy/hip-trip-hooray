@@ -221,11 +221,11 @@ itineraries*.
 
 ## Embedded CSS
 
-Most of my css is in my stylesheet - but I have kept embedded css in my templates, in order to better control how my page displays within Bootstrap's framework.
+Most of my css is in my stylesheet - but I have kept embedded css in my templates, in order to better control how my page displays within Bootstrap's frameworks.
 
 ## Embedded Javascript
 
-I have kept the js styling inline for all templates until I have successfully added more stops to each category, as this will involve editing the javascript that exists right now and I find it much more efficient to swap just the templates within my IDE, than having to swap templates and corresponding .js files. Once, the site has future features implemented, I will create trips.js, itineraries.js etc.
+I have kept the js styling inline for all templates until I have successfully added more stops to each category, as this will involve editing the javascript that exists right now and I find it much more efficient to swap just the templates within my IDE, than having to swap templates and corresponding .js files. Once the site has these future features implemented, I will create trips.js, itineraries.js etc.
 
 
 <br>
@@ -421,7 +421,6 @@ The Snapshot Location website has been tested using the following methods:
     - [FHD (1920x1080)](#fhd-1920x1080)
     - [2k (2560x1440)](#2k-2560x1440)
     - [4K (3840 x 2160)](#4k-3840-x-2160)
-- [Manual Testing](#manual-testing)
 - [Debugging](#debugging)
     - [Resolved](#resolved)    
     - [Unresolved](#unresolved)
@@ -513,6 +512,7 @@ python manage.py test itineraries
 ```
 
 <br>
+<br>
 
 # Testing Functionality
 
@@ -520,7 +520,6 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate ev
 
 -   [W3C Markup Validator](https://validator.w3.org/#validate_by_input)
 -   [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input)
-   
 
 ## Code Validation
 
@@ -540,18 +539,20 @@ The Snapshot Location website passed all tests using the W3C HTML Validator tool
 
 <h2 align="right"><img src="assets/readme/weather.png"></h2> 
 
-
 ## W3C CSS Validator
 
 The Snapshot Location website passed all tests using the W3C CSS Validator tool
 <h2 align="center"><img src="assets/readme/css.png"></h2>
 
+<br>
 
 ## JSHint Javascript Validator
 
 The Snapshot Location website passed all tests using the JSHint JS Validator, with only warnings and no errors reported.
 
 <h2 align="center"><img src="assets/readme/javascript.png"></h2>
+
+<br>
 
 ## Lighthouse
 
@@ -594,25 +595,21 @@ Overall, I am happy with the speed the site runs on every device I've tried (var
 
 I am also more inclined to develop an app for tablets and mobile devices.
 
+<br>
+
 ## Future Improvements
 
 ### Desktop Improvements
-
-#### Safety & Weather Pages
   
--  I will work to improve the Safety & Weather pages by implementing better practices, such as lazy loading and referrerpolicy, and by better integrating third party cookies and functions. I will know more after I have spoken to the developers.
+-  I will work to improve Accessibility across all pages.
 
 ### Mobile Improvements
   
-#### Homepage
+#### About Page
   
-- The Homepage ***Performance*** score could be improved by decreasing the *Largest contentful paint element*.
+- The About Page ***Performance*** score could be improved by decreasing the *Largest contentful paint element*.
 
-- The Homepage ***Best Practices*** score could be improved by better integrating the wise widget and its trackers and third party cookies.
-
-#### Safety & Weather Pages
-  
--  I will work to improve the Safety & Weather pages by implementing better practices, such as lazy loading and referrerpolicy, and by better integrating third party cookies and functions. 
+<br>
    
 ## Browser Compatibility
 
@@ -623,6 +620,8 @@ The site was tested in Brave, Google Chrome and Firefox on Mobile and Tablet.
 No issues arose during browser testing. 
 
 Appearance, functionality and responsiveness were largely consistent across browsers and devices, adapting fluidly when changing from portrait to landscape mode.
+
+<br>
 
 ## Responsiveness
 
@@ -663,9 +662,13 @@ I also created custom settings for FHD (1920x1080), 2k (2560x1440) & 4K (3840 x 
 ### 4K (3840 x 2160)
 <h2 align="center"><img src="assets/readme/snapshot-location-4k.png"></h2>
 
-## Bugs & Fixes
+<br>
 
-These include the bugs I was encountering when incorporating more than one stop per category, hence the removal of that functionality for the time being. 
+## Debugging
+
+These include the bugs I was encountering when incorporating more than one stop per category, hence the removal of that functionality for the time being. You can find these bugs in the unresolved section.
+
+-   ## Resolved
 
 1. **500 error on trip creation (Heroku / PostgreSQL)** — The trip creation view was binding the formset to an unsaved `Trip` instance with no primary key. When Django attempted to save the inline items, the foreign key reference pointed to a non-existent row, causing a database integrity error. Fixed by removing the `instance=temp_trip` binding on POST and assigning `item.trip = trip` within the save loop after the parent trip had been committed to the database.
 
@@ -679,34 +682,40 @@ These include the bugs I was encountering when incorporating more than one stop 
 
 6. **`unique_together` constraint on `TripItem`** — The `TripItem` model had a `unique_together = ["trip", "display_order"]` constraint. PostgreSQL enforces this strictly at the row level on every write, meaning that saving multiple new items (all defaulting to `display_order=0`) caused an integrity error on the second save. SQLite silently ignored this collision. Fixed by removing the `unique_together` constraint.
 
-7. **Trip preview image not updating for dynamically added stops** — Newly added stop cards could upload images successfully, but the live preview panel was only listening to the original static file inputs rendered on page load. Fixed by switching to delegated event listeners using `document.addEventListener("change")`, allowing dynamically created stop image inputs to update the preview correctly.
+7. **Story preview showing incorrect content after switching tabs** — The live trip preview sometimes continued displaying content from a previously selected stop after changing category tabs. The active preview state was not being reset correctly. Fixed by introducing an `activeStops` object keyed by category and restoring the correct active stop when tabs changed.
 
-8. **Trip stop coordinates not syncing across category tabs** — Clicking the Leaflet map only updated the currently active stop card, meaning the “stop zero” cards in other category tabs were missing coordinates and failed to render maps later. Fixed by looping through all `.stop-0` cards and writing latitude/longitude values to each hidden coordinate field whenever the map or search location changed.
+8. **Location search not updating trip destination fields correctly** — Searching for a city with the OpenStreetMap Nominatim API updated the map marker but did not consistently populate the hidden destination and country fields required elsewhere in the app. Fixed by extracting `display_name`, city-level address data, and `country_code` from the API response and writing them directly into the relevant form inputs after every successful search.
 
-9. **Story preview showing incorrect content after switching tabs** — The live trip preview sometimes continued displaying content from a previously selected stop after changing category tabs. The active preview state was not being reset correctly. Fixed by introducing an `activeStops` object keyed by category and restoring the correct active stop when tabs changed.
+9. **Published itineraries visible to all users** — Early itinerary queries returned every published itinerary in the database, including content owned by other users. Fixed by filtering queryset results against the authenticated user where appropriate and separating public discovery views from owner-only dashboard views.
 
-10. **Dynamic stop numbering breaking after deletion** — Removing a stop card caused gaps or duplicate numbering in the remaining trip stops because `display_order` values were not recalculated after DOM removal. Fixed by rebuilding stop numbering through `updateStopNumbers()` whenever stops were added or removed.
+10. **Delete actions triggering accidental removals** — Trips and itineraries could initially be deleted immediately from dashboard buttons with no confirmation step. Fixed by introducing Bootstrap confirmation modals that dynamically inject the correct delete URL before submission.
 
-11. **Trip title not propagating to dynamically added stop forms** — Additional stop forms created from the hidden template were not inheriting the parent trip title before submission, causing blank titles in saved `TripItem` records. Fixed by adding a final submit hook that loops through all `.stop-card` elements and injects the current trip title into each hidden `.stop-title` field before form submission.
+11. **Heroku static assets not updating after deployment** — CSS and JavaScript changes occasionally appeared missing in production because stale static files were still being served. Fixed by ensuring `collectstatic` ran during deployment and by clearing cached static assets after major frontend updates.
 
-12. **Location search not updating trip destination fields correctly** — Searching for a city with the OpenStreetMap Nominatim API updated the map marker but did not consistently populate the hidden destination and country fields required elsewhere in the app. Fixed by extracting `display_name`, city-level address data, and `country_code` from the API response and writing them directly into the relevant form inputs after every successful search.
+12. **Trip cards collapsing into narrow columns on dashboard pages** — When only one trip or itinerary existed, Bootstrap grid constraints caused cards to render as small centred columns instead of stretching across the available width. Fixed by removing restrictive column sizing (`col-lg-5`) and centring row classes in favour of full-width responsive columns.
 
-13. **Published itineraries visible to all users** — Early itinerary queries returned every published itinerary in the database, including content owned by other users. Fixed by filtering queryset results against the authenticated user where appropriate and separating public discovery views from owner-only dashboard views.
+13. **Trip form capitalisation inconsistencies** — Users could submit trip titles and destinations in inconsistent formats such as `paris`, `NEW YORK`, or `hidden gems of tokyo`. Fixed by adding a pre-submit JavaScript formatter that converts text inputs and textareas into title case immediately before form submission.
 
-14. **Delete actions triggering accidental removals** — Trips and itineraries could initially be deleted immediately from dashboard buttons with no confirmation step. Fixed by introducing Bootstrap confirmation modals that dynamically inject the correct delete URL before submission.
+14. **Firefox and Chrome rendering different map behaviours** — Certain OpenStreetMap and Leaflet interactions behaved differently across browsers due to stricter Firefox security and referrer handling policies. 403 errors & referrer requests were fixed by aligning referrer policies and testing tile-loading behaviour consistently across both browsers.
 
-15. **Heroku static assets not updating after deployment** — CSS and JavaScript changes occasionally appeared missing in production because stale static files were still being served. Fixed by ensuring `collectstatic` ran during deployment and by clearing cached static assets after major frontend updates.
+15. **Dynamic formset fields not saving correctly after adding new forms** — Newly generated formset entries were sometimes ignored during submission because `TOTAL_FORMS` was not being updated after DOM insertion. Fixed by incrementing the management form count every time a new dynamic form was added.
 
-16. **Trip cards collapsing into narrow columns on dashboard pages** — When only one trip or itinerary existed, Bootstrap grid constraints caused cards to render as small centred columns instead of stretching across the available width. Fixed by removing restrictive column sizing (`col-lg-5`) and centring row classes in favour of full-width responsive columns.
+16. **Live preview panel failing after dynamically added content** — Event listeners attached directly to page-load elements did not apply to dynamically injected trip form fields, causing preview updates to stop working for newly added content. Fixed by replacing direct listeners with delegated document-level listeners.
 
-17. **Trip form capitalisation inconsistencies** — Users could submit trip titles and destinations in inconsistent formats such as `paris`, `NEW YORK`, or `hidden gems of tokyo`. Fixed by adding a pre-submit JavaScript formatter that converts text inputs and textareas into title case immediately before form submission.
+<br>
 
-18. **Firefox and Chrome rendering different map behaviours** — Certain OpenStreetMap and Leaflet interactions behaved differently across browsers due to stricter Firefox security and referrer handling policies. Fixed by aligning referrer policies and testing tile-loading behaviour consistently across both browsers.
+-   ## Unresolved
 
-19. **Dynamic formset fields not saving correctly after adding new forms** — Newly generated formset entries were sometimes ignored during submission because `TOTAL_FORMS` was not being updated after DOM insertion. Fixed by incrementing the management form count every time a new dynamic form was added.
+1. **Trip preview image not updating for dynamically added stops** — Newly added stop cards could upload images successfully, but the live preview panel was only listening to the original static file inputs rendered on page load. Fixed by switching to delegated event listeners using `document.addEventListener("change")`, allowing dynamically created stop image inputs to update the preview correctly.
 
-20. **Live preview panel failing after dynamically added content** — Event listeners attached directly to page-load elements did not apply to dynamically injected trip form fields, causing preview updates to stop working for newly added content. Fixed by replacing direct listeners with delegated document-level listeners.
+2. **Trip stop coordinates not syncing across category tabs** — Clicking the Leaflet map only updated the currently active stop card, meaning the “stop zero” cards in other category tabs were missing coordinates and failed to render maps later. Fixed by looping through all `.stop-0` cards and writing latitude/longitude values to each hidden coordinate field whenever the map or search location changed.
 
+3. **Dynamic stop numbering breaking after deletion** — Removing a stop card caused gaps or duplicate numbering in the remaining trip stops because `display_order` values were not recalculated after DOM removal. Fixed by rebuilding stop numbering through `updateStopNumbers()` whenever stops were added or removed.
+
+4. **Trip title not propagating to dynamically added stop forms** — Additional stop forms created from the hidden template were not inheriting the parent trip title before submission, causing blank titles in saved `TripItem` records. Fixed by adding a final submit hook that loops through all `.stop-card` elements and injects the current trip title into each hidden `.stop-title` field before form submission.
+
+<br>
+<br>
 
 # Deployment
 
