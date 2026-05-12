@@ -280,7 +280,7 @@ The trip creation form is a fully interactive builder, featuring:
 
 -   #### Saved Trip / Published Itinerary Map
 
-        The same OpenStreetMap map seen is saved and embedded in the saved trip and published itinerary.
+    The same OpenStreetMap map seen is saved and embedded in the saved trip and published itinerary.
 
 
 ### Publish Trip as Itinerary
