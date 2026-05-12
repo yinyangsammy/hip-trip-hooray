@@ -239,7 +239,7 @@ I have kept the js styling inline for all templates until I have successfully ad
 
 The homepage greets users with a full-width hero image, the Hip Trip Hooray tagline — *Explore · Share · Hooray* — and clear calls to action to explore itineraries or register.
 
-<h3 align="center"><img src="static/readme/landing-page.png"></h3>
+<h3 align="center"><img src="static/readme/hip-trip-hooray-landing.png"></h3>
 
 ### Hamburger Navigation
 
@@ -251,7 +251,6 @@ A clean, responsive navigation bar provides links to all key sections of the sit
 
 A browseable list of all published itineraries, each displayed as a card with the trip title, destination and country flag. Users can search and filter by destination.
 
-<h3 align="center"><img src="static/readme/explore-itineraries.png"></h3>
 
 ### Itinerary Detail — Category Tabs & Carousel
 
@@ -272,7 +271,6 @@ The trip creation form is a fully interactive builder, featuring:
 
 <h3 align="center"><img src="static/readme/trip-builder.png"></h3>
 
-<h3 align="center"><img src="static/readme/trip-builder-preview.png"></h3>
 
  -   ### Maps
 
@@ -280,13 +278,6 @@ The trip creation form is a fully interactive builder, featuring:
 
         An interactive OpenStreetMap is embedded in the trip creation form, allowing users to search for their destination and set the precise location for their trip and each individual stop.
 
-        <h3 align="center"><img src="static/readme/trip-create-map.png"></h3>
-
-        #### Itinerary Detail Mini Maps
-
-        Each published itinerary slide features a mini map showing the exact location of that stop, rendered using Leaflet.js.
-
-        <h3 align="center"><img src="static/readme/itinerary-mini-map.png"></h3>
 
 ### Publish Trip as Itinerary
 
@@ -305,6 +296,12 @@ Any published itinerary can be used as a template by any logged-in user. One cli
 A personal dashboard listing all of the logged-in user's trips, with options to view, edit, publish/unpublish or delete each one.
 
 <h3 align="center"><img src="static/readme/my-trips.png"></h3>
+
+### My Itineraries Dashboard
+
+A personal dashboard listing all of the logged-in user's trips, with options to view, edit, publish/unpublish or delete each one.
+
+<h3 align="center"><img src="static/readme/my-itineraries.png"></h3>
 
 ### Comments
 
@@ -399,15 +396,18 @@ itineraries*.
 
 # Testing
 
-The Snapshot Location website has been tested using the following methods:
+The Hip Trip Hooray website has been tested using the following methods:
 
 - [Testing](#testing)
+- [Testing User Stories](#testing-user-stories)
+    - [Testing Visitor Goals](#testing-visitor-goals)
+- [Django Apps Test](#django-app-tests)
 - [Testing Functionality](#testing-functionality)
 - [Code Validation](#code-validation)
     - [W3C HTML Validator](#w3c-html-validator)
         - [Homepage](#homepage)
-        - [Safety](#safety-page)
-        - [Weather Page](#weather-page)
+        - [About](#about-page)
+        - [Explore Itineraries](#explore-itineraries)
     - [W3C CSS Validator](#w3c-css-validator)
     - [JSHint Javascript Validator](#jslint-js-validator)
 - [Lighthouse](#lighthouse)
@@ -424,8 +424,6 @@ The Snapshot Location website has been tested using the following methods:
 - [Debugging](#debugging)
     - [Resolved](#resolved)    
     - [Unresolved](#unresolved)
-- [Testing User Stories](#testing-user-stories)
-    - [Testing Visitor Goals](#testing-visitor-goals)
 
 
 ## Importance of Automated & Manual Testing
@@ -525,7 +523,7 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate ev
 
 ## W3C HTML Validator
 
-The Snapshot Location website passed all tests using the W3C HTML Validator tool
+The Hip Trip Hooray website passed all tests using the W3C HTML Validator tool
 
 -   ### Homepage / Location
 
@@ -541,14 +539,14 @@ The Snapshot Location website passed all tests using the W3C HTML Validator tool
 
 ## W3C CSS Validator
 
-The Snapshot Location website passed all tests using the W3C CSS Validator tool
+The Hip Trip Hooray website passed all tests using the W3C CSS Validator tool
 <h2 align="center"><img src="assets/readme/css.png"></h2>
 
 <br>
 
 ## JSHint Javascript Validator
 
-The Snapshot Location website passed all tests using the JSHint JS Validator, with only warnings and no errors reported.
+The Hip Trip Hooray website passed all tests using the JSHint JS Validator, with only warnings and no errors reported.
 
 <h2 align="center"><img src="assets/readme/javascript.png"></h2>
 
