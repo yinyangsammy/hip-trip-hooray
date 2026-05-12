@@ -363,7 +363,239 @@ itineraries*.
 
 <br>
 
-# ERD
+
+# Database Schema & Security Overview
+
+## Schema Rationale
+
+HipTripHooray was designed around a modular travel-planning architecture that separates user-created trips from publicly shared itineraries, but loops the two, allowing saved trips to become published itineraries and published itineraries to be used as templates for new trips.
+
+This approach allows users to:
+
+- privately build and edit trips,
+- organise stops into themed categories,
+- later publish selected trips as public itineraries,
+- and safely interact with community content through comments and templates.
+
+The database structure prioritizes:
+
+- scalability,
+- ownership security,
+- flexible content relationships,
+- and future expansion for itinerary sequencing and collaborative travel planning.
+
+---
+
+# Entity Relationship Diagram (ERD)
+
+```text
++------------------+
+| User             |
++------------------+
+| id               |
+| username         |
+| email            |
+| password         |
++------------------+
+         |
+         | 1-to-many
+         v
+
++------------------+
+| Trip             |
++------------------+
+| id               |
+| owner_id (FK)    |
+| title            |
+| description      |
+| destination      |
+| latitude         |
+| longitude        |
+| country_code     |
+| weather          |
+| travel_date      |
+| is_published     |
+| created_at       |
++------------------+
+         |
+         | 1-to-many
+         v
+
++------------------+
+| TripItem         |
++------------------+
+| id               |
+| trip_id (FK)     |
+| category_id (FK) |
+| title            |
+| description      |
+| image            |
+| stop_order       |
+| display_order    |
++------------------+
+         |
+         | many-to-1
+         v
+
++------------------+
+| Category         |
++------------------+
+| id               |
+| name             |
+| icon             |
++------------------+
+
+
+Trip
+  |
+  | 1-to-1 / linked publish
+  v
+
++------------------+
+| Itinerary        |
++------------------+
+| id               |
+| owner_id (FK)    |
+| source_trip_id   |
+| title            |
+| description      |
+| destination      |
+| created_at       |
++------------------+
+         |
+         | 1-to-many
+         v
+
++------------------+
+| ItineraryItem    |
++------------------+
+| id               |
+| itinerary_id(FK) |
+| category_id (FK) |
+| title            |
+| description      |
+| image            |
++------------------+
+
+
+Itinerary
+   |
+   | 1-to-many
+   v
+
++------------------+
+| Comment          |
++------------------+
+| id               |
+| itinerary_id(FK) |
+| author_id (FK)   |
+| body             |
+| approved         |
+| created_at       |
++------------------+
+```
+# Core Architectural Decisions
+
+## 1. Separation of Trips and Published Itineraries
+
+Trips and itineraries are intentionally stored as separate models.
+
+### Rationale
+
+This allows users to:
+
+- maintain private editable drafts
+- experiment freely without affecting public content
+- publish snapshots of trips
+- and continue editing after publishing
+
+When a trip is published:
+
+- a linked itinerary is generated
+- trip items are duplicated into itinerary items
+- and the itinerary becomes independently viewable by the public
+- slugs are also introduced at this stage for optimized SEO
+
+This architecture avoids accidental public exposure of unfinished content.
+
+---
+
+## 2. Modular TripItem Structure
+
+Each trip contains multiple `TripItems` grouped into categories such as:
+
+- Sights
+- Flavours
+- Experiences
+- Vibes
+- Seasons
+
+### Rationale
+
+This design supports:
+
+- flexible itinerary storytelling,
+- dynamic category tabs,
+- scalable stop management (*to be implemented in the future*)
+- and future drag-and-drop ordering systems.
+
+
+The planned `stop_order` system separates:
+
+- user travel sequence
+
+from:
+
+- admin/UI display ordering
+
+This improves long-term maintainability.
+
+---
+
+## 3. Category Abstraction
+
+Categories are stored in their own model rather than hardcoded.
+
+### Rationale
+
+This enables:
+
+- reusable category logic
+- easier styling/icon management
+- database consistency
+- and future category expansion without schema changes
+
+---
+
+# Security Design
+
+## Authentication Security
+
+HipTripHooray uses Django’s built-in authentication framework.
+
+### Features
+
+- hashed passwords
+- session authentication
+- CSRF protection
+- protected authenticated routes
+- secure login/logout handling
+
+Unauthenticated users are redirected when attempting to access protected pages.
+
+---
+
+## Ownership-Based Permissions
+
+Trips are always filtered by ownership.
+
+### Example Logic
+
+```python
+Trip.objects.get(pk=pk, owner=request.user)
+```
+
+# ERD better displayed in dbdiagram.io
 
 <h3 align="center"><img src="static/readme/hiptriphooray-erd.png"></h3>
 
@@ -397,6 +629,7 @@ itineraries*.
 - [Heroku](https://www.heroku.com/) — cloud deployment platform
 - [Git](https://git-scm.com/) — version control
 - [GitHub](https://github.com/) — code repository
+- [dbdiagram.io](https://dbdiagram.io/home) — ERD creator
 
 
 # Testing
@@ -488,6 +721,97 @@ The Hip Trip Hooray website has been tested using the following methods:
 | Contact the team via a form | :white_check_mark: |
 
 <br>
+
+## Manual Testing
+
+### Trip Creation
+
+| Test | Action | Expected Result | Pass/Fail |
+|---|---|---|---|
+| Create trip with all 5 category tabs filled | Fill in Sights, Flavours, Experiences, Vibes and Seasons tabs and submit | All 5 trip items saved correctly with correct categories | ✅ Pass |
+| Create trip with only Sights tab filled | Fill Sights only, leave other tabs empty | Only Sights item saved, empty tabs skipped | ✅ Pass |
+| Create trip without selecting a location on the map | Submit form without searching or clicking map | Trip saves with null coordinates | ✅ Pass |
+| Live preview updates on typing | Type in description field | Preview panel updates in real time | ✅ Pass |
+| Live preview updates weather cube | Select weather from dropdown | Weather icon and label update immediately in preview | ✅ Pass |
+| Live preview updates calendar badge | Select a travel date | Calendar badge updates with correct month/day/year | ✅ Pass |
+| Category tab switching | Click between Sights, Flavours etc | Active tab panel shows, others hide | ✅ Pass |
+| Image upload preview | Upload an image on any stop | Preview image appears in live preview panel | ✅ Pass |
+| Map search populates destination | Type a city in location search | Map flies to city, destination and title fields auto-populated | ✅ Pass |
+| Country code saved on trip | Search for a city | Correct country flag displayed on trip detail | ✅ Pass |
+
+---
+
+### Trip Publishing
+
+| Test | Action | Expected Result | Pass/Fail |
+|---|---|---|---|
+| Publish trip creates itinerary | Click Publish Trip as Itinerary | New itinerary created with matching title, destination and items | ✅ Pass |
+| Published itinerary appears on Explore page | Publish a trip | Itinerary visible on Explore Itineraries page | ✅ Pass |
+| Trip marked as published after publish | Publish a trip | Published badge shown on trip detail, publish button replaced | ✅ Pass |
+| Edit trip syncs published itinerary | Edit a published trip and save | Linked itinerary title, description and all items updated | ✅ Pass |
+| Author name displayed on published itinerary | View published itinerary | Correct username shown on each slide | ✅ Pass |
+| Author name displayed on saved trip | View saved trip detail | Owner username shown on each slide | ✅ Pass |
+
+---
+
+### Authentication & Permissions
+
+| Test | Action | Expected Result | Pass/Fail |
+|---|---|---|---|
+| Logged out user cannot access trip create | Navigate to `/trips/create/` while logged out | Redirected to login page | ✅ Pass |
+| User cannot view another user's trip | Enter another user's trip URL directly | 404 returned | ✅ Pass |
+| User cannot edit another user's trip | Enter another user's trip edit URL | 404 returned | ✅ Pass |
+| Register new account | Complete registration form | Account created, redirected to itinerary list | ✅ Pass |
+| Login with valid credentials | Submit login form | Logged in, redirected correctly | ✅ Pass |
+| Logout | Click Sign Out | Session ended, redirected to home | ✅ Pass |
+
+---
+
+### Comments
+
+| Test | Action | Expected Result | Pass/Fail |
+|---|---|---|---|
+| Submit comment | Submit comment form on itinerary | Success message shown, comment awaiting approval | ✅ Pass |
+| Comment not visible before approval | Submit comment, view as different user | Comment not visible until approved | ✅ Pass |
+| Edit own comment | Click Edit on own comment | Comment text becomes editable, saves correctly | ✅ Pass |
+| Delete own comment | Click Delete on own comment | Delete modal appears, comment deleted on confirm | ✅ Pass |
+| Non-author cannot see edit/delete buttons | View itinerary as different user | Edit/Delete buttons not visible on others' comments | ✅ Pass |
+
+---
+
+### Use as Template
+
+| Test | Action | Expected Result | Pass/Fail |
+|---|---|---|---|
+| Use itinerary as template | Click Create a Trip Using This Itinerary | New trip created pre-populated with all stops from itinerary | ✅ Pass |
+| Template trip is editable | Open the newly created template trip | All fields editable, can be saved and published | ✅ Pass |
+
+---
+
+### Responsive Design
+
+| Test | Device/Width | Expected Result | Pass/Fail |
+|---|---|---|---|
+| Navigation burger menu | Mobile (< 768px) | Hamburger menu appears, links accessible | ✅ Pass |
+| Trip builder tabs | Mobile | Tabs wrap cleanly, all accessible | ✅ Pass |
+| Carousel slides | Mobile | Full width slides, no overflow | ✅ Pass |
+| Weather cube + calendar badge | Mobile | Both display correctly side by side | ✅ Pass |
+| My Trips card grid | Desktop | 3 cards per row | ✅ Pass |
+| My Trips card grid | Tablet | 2 cards per row | ✅ Pass |
+| My Trips card grid | Mobile | 1 card per row | ✅ Pass |
+
+---
+
+### Weather Icons
+
+| Test | Action | Expected Result | Pass/Fail |
+|---|---|---|---|
+| Sunny icon displays | Set weather to Sunny | ☀ displayed in weather cube | ✅ Pass |
+| Cloudy icon displays | Set weather to Cloudy | ☁ displayed | ✅ Pass |
+| Rainy icon displays | Set weather to Rainy | 🌧 displayed | ✅ Pass |
+| Snowy icon displays | Set weather to Snowy | ❄ displayed | ✅ Pass |
+| Windy icon displays | Set weather to Windy | 💨 displayed | ✅ Pass |
+| Stormy icon displays | Set weather to Stormy | ⛈ displayed | ✅ Pass |
 
 ## Django App Tests
 
