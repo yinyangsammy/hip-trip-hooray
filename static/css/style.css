@@ -2358,7 +2358,7 @@ TRIP FORM CLEANUP
     font-size: 18px;
 }
 
-h5 {
+h4 {
   text-align: center;
 }
 
@@ -3026,7 +3026,7 @@ h3 {
     font-size: clamp(1rem, 2.5vw, 1.5rem);
 }
 
-h5 {
+h4 {
     font-size: clamp(0.9rem, 2vw, 1.1rem);
 }
 
@@ -3461,7 +3461,7 @@ h5 {
     font-size: 1.4rem;
   }
 
-  .feature-card h6 {
+  .feature-card h2 {
     font-size: 0.75rem;
   }
 

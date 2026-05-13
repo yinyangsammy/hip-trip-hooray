@@ -65,12 +65,12 @@ body.auth-page main {
 
         @media (min-width: 1800px) {
 
-   .hero-content
- {
-    margin-top: 15vh !important;
-}
+          .hero-content
+        {
+            margin-top: 15vh !important;
+        }
 
-}
+        }
 
         
           
@@ -217,6 +217,12 @@ body.wide-page main {
   </a>
 </li>
 
+<li class="nav-item">
+    <a class="nav-link text-white" href="{% url 'itineraries:itinerary_list' %}">
+    <i class="fas fa-map-location-dot me-2"></i>Explore Itineraries
+    </a>
+</li>
+
 
 {% if user.is_authenticated %}
 
@@ -232,11 +238,6 @@ body.wide-page main {
   </a>
 </li>
 
-<li class="nav-item">
-    <a class="nav-link text-white" href="{% url 'itineraries:itinerary_list' %}">
-    <i class="fas fa-map-location-dot me-2"></i>Explore Itineraries
-    </a>
-</li>
 
 <li class="nav-item">
   <a class="nav-link text-white" href="{% url 'itineraries:user_itineraries' %}">

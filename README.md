@@ -874,14 +874,25 @@ The Hip Trip Hooray website passed all tests using the W3C HTML Validator tool
 
 <h2 align="right"><img src="static/readme/homepage-valid.png"></h2>
 
+<br>
 
 -   ### About Page 
 
-<h2 align="right"><img src="static/readme/about-valid.png"></h2> 
+<h2 align="right"><img src="static/readme/about-valid.png"></h2>
+
+<br>
 
 -   ### Contact Page 
 
 <h2 align="right"><img src="static/readme/contact-valid.png"></h2> 
+
+<br>
+
+-   ### Ideas / Explore Itineraries Page 
+
+<h2 align="right"><img src="static/readme/ideas-valid.png"></h2>
+
+<br>
 
 ## W3C CSS Validator
 

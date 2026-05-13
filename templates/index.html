@@ -4,7 +4,7 @@
 
 {% block meta_description %}Explore inspiring travel itineraries from around the world. Plan your next adventure with Hip Trip Hooray.{% endblock %}
 
-{% block content %}
+{% block extra_css %}
 
 <style>
 body {
@@ -82,7 +82,23 @@ section {
 .feature-card {
   padding: 15px;
 }
+
+.feature-card h2 {
+    
+    font-size: clamp(0.7rem, 1.1rem, 1.4rem);
+        margin-top: 5px;
+    font-weight: 600;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+}
 </style>
+
+{% endblock %}
+
+
+{% block content %}
+
+
 
 
 <div class="landing-page text-light">
@@ -97,8 +113,6 @@ section {
     <img
     src="{% static 'images/hip-trip-hooray-landing.webp' %}"
     alt="Landing Page Hero Image"
-    max-width="1086"
-    width="100%"
     height="700"
     loading="eager"
     fetchpriority="high"
@@ -147,22 +161,22 @@ section {
 
     <div class="col-3 feature-card">
       <i class="fas fa-briefcase text-warning"></i>
-      <h6>Curated Trips</h6>
+      <h2>Curated Trips</h2>
     </div>
 
     <div class="col-3 feature-card">
       <i class="fas fa-heart text-success"></i>
-      <h6>Hidden Gems</h6>
+      <h2>Hidden Gems</h2>
     </div>
 
     <div class="col-3 feature-card">
       <i class="fas fa-location-dot text-primary"></i>
-      <h6>Tailored Itineraries</h6>
+      <h2>Tailored Itineraries</h2>
     </div>
 
     <div class="col-3 feature-card">
       <i class="fas fa-camera text-info"></i>
-      <h6>Human Stories</h6>
+      <h2>Human Stories</h2>
     </div>
 
   </div>

@@ -3,7 +3,7 @@
 
 {% block meta_description %}Hip Trip Hooray — plan trips, publish itineraries and share your travel stories across generations and across the world.{% endblock %}
 
-{% block content %}
+{% block extra_css %}
 
 <style>
 
@@ -19,8 +19,31 @@ main {
   padding: 0;
 }
 
-  
+.about-card h3 {
+    font-size: 1.1rem;
+        margin-top: 5px;
+    font-weight: 600;
+    color: white;
+}
+
+.about-hero h2 {
+    font-size: 1.4rem;
+        margin-top: 5px;
+    font-weight: 400;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
 </style>
+
+{% endblock %}
+
+
+{% block content %}
+
+
 
 <div class="about-page text-light">
 
@@ -34,9 +57,9 @@ main {
 
       <hr class="my-3">
 
-      <h5 class="lead mb-4">
+      <h2 class="lead mb-4">
         <i>home to your trips & travel stories</i>
-      </h5>
+      </h2>
     </div>
 
     <!-- FLOATING TOP CARDS - GENERAL VALUES -->
@@ -46,21 +69,21 @@ main {
         <div class="col-md-4">
           <div class="about-card text-center">
             <i class="fas fa-heart fa-2x mb-2"></i>
-            <h6>Sharing is Caring</h6>
+            <h3>Sharing is Caring</h3>
           </div>
         </div>
 
         <div class="col-md-4">
           <div class="about-card text-center">
             <i class="fas fa-people-group fa-2x mb-2"></i>
-            <h6>Across Generations</h6>
+            <h3>Across Generations</h3>
           </div>
         </div>
 
         <div class="col-md-4">
           <div class="about-card text-center">
             <i class="fas fa-globe fa-2x mb-2"></i>
-            <h6>Across the World</h6>
+            <h3>Across the World</h3>
           </div>
         </div>
 
@@ -185,7 +208,7 @@ main {
         <div class="col-md-5">
           <div class="about-card text-center">
             <i class="fas fa-user-secret fa-2x mb-3"></i>
-            <h5>No Spying</h5>
+            <h4>No Spying</h4>
             <p>No tracking. No nonsense. Just travel stories.</p>
           </div>
         </div>
@@ -193,7 +216,7 @@ main {
         <div class="col-md-5">
           <div class="about-card text-center">
             <i class="fas fa-feather fa-2x mb-3"></i>
-            <h5>Keep It Simple</h5>
+            <h4>Keep It Simple</h4>
             <p>Clean, easy, and built for sharing — not selling.</p>
           </div>
         </div>
