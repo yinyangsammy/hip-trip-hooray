@@ -870,9 +870,10 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate ev
 
 The Hip Trip Hooray website passed all tests using the W3C HTML Validator tool
 
--   ### Homepage / Location
+-   ### Homepage
 
-<h2 align="right"><img src="static/readme/homepage-valid.png"></h2> 
+<h2 align="right"><img src="static/readme/homepage-valid.png"></h2>
+
 
 -   ### About Page 
 
@@ -908,7 +909,9 @@ I used the Lighthouse reports in Google Developer Tools to examine the pages of 
 
 ### Desktop:
 
+
 ### Lighthouse Report for Homepage
+
 Homepage scored:
 - Performance - 99
 - Accessibility - 93
@@ -916,6 +919,17 @@ Homepage scored:
 - SEO - 100
 
 <h2 align="center"><img src="static/readme/lighthouse-index.png"></h2>
+
+
+-   ### Ideas / Explore Itineraries Page
+
+Homepage scored:
+- Performance - 97
+- Accessibility - 92
+- Best Practices - 100
+- SEO - 100
+
+<h2 align="center"><img src="static/readme/lighthouse-ideas.png"></h2>
 
 
 ### Lighthouse Report for About Page
@@ -945,7 +959,6 @@ Homepage scored:
     
 <h2 align="center"><img src="static/readme/lighthouse-contact.png"></h2>
 
-
 ### Lighthouse Report for Homepage (Mobile)
 
 ### Mobile:
@@ -971,6 +984,7 @@ Homepage scored:
 
 
 <br>
+
    
 ## Browser Compatibility
 
@@ -1029,6 +1043,7 @@ I also created custom settings for FHD (1920x1080), 2k (2560x1440) & 4K (3840 x 
 
 These include the bugs I was encountering when incorporating more than one stop per category, hence the removal of that functionality for the time being. You can find these bugs in the unresolved section.
 
+
 -   ## Resolved
 
 1. **500 error on trip creation (Heroku / PostgreSQL)** — The trip creation view was binding the formset to an unsaved `Trip` instance with no primary key. When Django attempted to save the inline items, the foreign key reference pointed to a non-existent row, causing a database integrity error. Fixed by removing the `instance=temp_trip` binding on POST and assigning `item.trip = trip` within the save loop after the parent trip had been committed to the database.
@@ -1065,7 +1080,7 @@ These include the bugs I was encountering when incorporating more than one stop 
 
 <br>
 
--   ## Resolved (Temporarily Removed)
+-   ## Resolved (Future Feature - Stops - Related)
 
 1. **Trip preview image not updating for dynamically added stops** — Newly added stop cards could upload images successfully, but the live preview panel was only listening to the original static file inputs rendered on page load. Fixed by switching to delegated event listeners using `document.addEventListener("change")`, allowing dynamically created stop image inputs to update the preview correctly.
 
@@ -1076,6 +1091,27 @@ These include the bugs I was encountering when incorporating more than one stop 
 4. **Trip title not propagating to dynamically added stop forms** — Additional stop forms created from the hidden template were not inheriting the parent trip title before submission, causing blank titles in saved `TripItem` records. Fixed by adding a final submit hook that loops through all `.stop-card` elements and injects the current trip title into each hidden `.stop-title` field before form submission.
 
 <br>
+
+## Heroku Free Dynos Cold Start Bug
+
+-   Please be aware that the website takes a while to load and that sometimes on first page load, the user will get a 500 error. If the user reloads the page, all functionality returns, but it is frustrating that performance is hit so badly.
+
+Using 
+
+heroku logs --tail --app hip-trip-hooray 
+
+proves as much with the following logs;
+
+heroku[web.1]: Idling
+heroku[web.1]: State changed from up to down
+
+heroku[web.1]: Unidling
+State changed from down to starting
+
+Starting process with command `gunicorn hiptriphooray.wsgi`
+
+These prove that the free dyno package from HEROKU is really only suitable for initial dev work - it does not provide a satisfactory live website experience.
+
 <br>
 
 # Deployment
