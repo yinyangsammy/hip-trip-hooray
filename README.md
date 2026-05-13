@@ -697,6 +697,9 @@ The Hip Trip Hooray website has been tested using the following methods:
 
 * More Organic - Automated tests don't test the User Experience beyond the performative, so manual testing is essential to get a full understanding of the user experience (UX).
 
+<br>
+<br>
+
 ## Testing User Stories
 
 <br>
@@ -869,20 +872,20 @@ The Hip Trip Hooray website passed all tests using the W3C HTML Validator tool
 
 -   ### Homepage / Location
 
-<h2 align="right"><img src="assets/readme/homepage.png"></h2> 
+<h2 align="right"><img src="static/readme/homepage.png"></h2> 
 
 -   ### Safety Page 
 
-<h2 align="right"><img src="assets/readme/safety.png"></h2> 
+<h2 align="right"><img src="static/readme/about.png"></h2> 
 
 -   ### Weather Page 
 
-<h2 align="right"><img src="assets/readme/weather.png"></h2> 
+<h2 align="right"><img src="static/readme/contact.png"></h2> 
 
 ## W3C CSS Validator
 
 The Hip Trip Hooray website passed all tests using the W3C CSS Validator tool
-<h2 align="center"><img src="assets/readme/css.png"></h2>
+<h2 align="center"><img src="static/readme/css.png"></h2>
 
 <br>
 
@@ -890,7 +893,7 @@ The Hip Trip Hooray website passed all tests using the W3C CSS Validator tool
 
 The Hip Trip Hooray website passed all tests using the JSHint JS Validator, with only warnings and no errors reported.
 
-<h2 align="center"><img src="assets/readme/javascript.png"></h2>
+<h2 align="center"><img src="static/readme/javascript.png"></h2>
 
 <br>
 
@@ -912,7 +915,7 @@ Homepage scored:
 - Best Practices - 96
 - SEO - 100
 
-<h2 align="center"><img src="assets/readme/lighthouse-index.png"></h2>
+<h2 align="center"><img src="static/readme/lighthouse-index.png"></h2>
 
 
 ### Lighthouse Report for About Page
@@ -926,7 +929,7 @@ Homepage scored:
 - SEO - 100
 
     
-<h2 align="center"><img src="assets/readme/lighthouse-about.png"></h2>
+<h2 align="center"><img src="static/readme/lighthouse-about.png"></h2>
 
 
 ### Lighthouse Report for Contact Page
@@ -940,7 +943,7 @@ Homepage scored:
 - SEO - 100
 
     
-<h2 align="center"><img src="assets/readme/lighthouse-contact.png"></h2>
+<h2 align="center"><img src="static/readme/lighthouse-contact.png"></h2>
 
 
 ### Lighthouse Report for Homepage (Mobile)
@@ -953,7 +956,7 @@ Homepage scored:
 - Best Practices - 96
 - SEO - 100
     
-<h2 align="center"><img src="assets/readme/lighthouse-index-m.png"></h2>
+<h2 align="center"><img src="static/readme/lighthouse-index-m.png"></h2>
 
 <br>
 
@@ -1001,24 +1004,24 @@ Responsiveness tests were carried out using Google Chrome DevTools & Microsoft E
 - Nest Hub Max
 
 ### Iphone 
-<h2 align="center"><img src="assets/readme/iphone-best.png"></h2>
+<h2 align="center"><img src="static/readme/iphone-best.png"></h2>
 
 ### Ipad 
-<h2 align="center"><img src="assets/readme/ipad-best.png"></h2>
+<h2 align="center"><img src="static/readme/ipad-best.png"></h2>
 
 ### Nest Hub Max 
-<h2 align="center"><img src="assets/readme/nest-hub-max.png"></h2>
+<h2 align="center"><img src="static/readme/nest-hub-max.png"></h2>
 
 I also created custom settings for FHD (1920x1080), 2k (2560x1440) & 4K (3840 x 2160) screens to verify the web pages would work across monitor sizes. 
 
 ### FHD (1920x1080) 
-<h2 align="center"><img src="assets/readme/snapshot-location-fhd.png"></h2>
+<h2 align="center"><img src="static/readme/snapshot-location-fhd.png"></h2>
 
 ### 2k (2560x1440)
-<h2 align="center"><img src="assets/readme/snapshot-location-2k.png"></h2>
+<h2 align="center"><img src="static/readme/snapshot-location-2k.png"></h2>
 
 ### 4K (3840 x 2160)
-<h2 align="center"><img src="assets/readme/snapshot-location-4k.png"></h2>
+<h2 align="center"><img src="static/readme/snapshot-location-4k.png"></h2>
 
 <br>
 
