@@ -1080,7 +1080,7 @@ These include the bugs I was encountering when incorporating more than one stop 
 
 <br>
 
--   ## Resolved (Future Feature - Stops - Related)
+-   ## Resolved (Future Feature - Stops)
 
 1. **Trip preview image not updating for dynamically added stops** — Newly added stop cards could upload images successfully, but the live preview panel was only listening to the original static file inputs rendered on page load. Fixed by switching to delegated event listeners using `document.addEventListener("change")`, allowing dynamically created stop image inputs to update the preview correctly.
 
@@ -1094,7 +1094,7 @@ These include the bugs I was encountering when incorporating more than one stop 
 
 -   ## Heroku Free Dynos Cold Start Bug
 
--   Please be aware that the website takes a while to load and that sometimes on first page load, the user will get a 500 error. If the user reloads the page, all functionality returns, but it is frustrating that performance is hit so badly.
+-   The website takes a while to load, and sometimes on first page load the user will get a 500 error. If the user reloads the page, all functionality will return, but it is frustrating that performance is hit so badly by the cold start of using a Heroku free dynos package.
 
     Using 
 
@@ -1137,6 +1137,7 @@ Hip Trip Hooray is deployed to [Heroku](https://www.heroku.com/) using the follo
     - `Procfile` containing: `web: gunicorn hiptriphooray.wsgi`
     - `requirements.txt` with all dependencies listed
     - `.python-version` containing: `3.11`
+    - `.gitignore` including at least: `env.py` and `.sqlite3` 
 
 4. Connect the Heroku app to your GitHub repository under **Deploy → GitHub**.
 5. Enable **Automatic Deploys** from the `main` branch, or click **Deploy Branch** to deploy manually.
