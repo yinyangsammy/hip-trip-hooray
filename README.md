@@ -1029,13 +1029,13 @@ Responsiveness tests were carried out using Google Chrome DevTools & Microsoft E
 I also created custom settings for FHD (1920x1080), 2k (2560x1440) & 4K (3840 x 2160) screens to verify the web pages would work across monitor sizes. 
 
 ### FHD (1920x1080) 
-<h2 align="center"><img src="static/readme/snapshot-location-fhd.png"></h2>
+<h2 align="center"><img src="static/readme/hiptriphooray-fhd.png"></h2>
 
 ### 2k (2560x1440)
-<h2 align="center"><img src="static/readme/snapshot-location-2k.png"></h2>
+<h2 align="center"><img src="static/readme/hiptriphooray-2k.png"></h2>
 
 ### 4K (3840 x 2160)
-<h2 align="center"><img src="static/readme/snapshot-location-4k.png"></h2>
+<h2 align="center"><img src="static/readme/hiptriphooray-4k.png"></h2>
 
 <br>
 
@@ -1092,25 +1092,25 @@ These include the bugs I was encountering when incorporating more than one stop 
 
 <br>
 
-## Heroku Free Dynos Cold Start Bug
+-   ## Heroku Free Dynos Cold Start Bug
 
 -   Please be aware that the website takes a while to load and that sometimes on first page load, the user will get a 500 error. If the user reloads the page, all functionality returns, but it is frustrating that performance is hit so badly.
 
-Using 
+    Using 
 
-heroku logs --tail --app hip-trip-hooray 
+    heroku logs --tail --app hip-trip-hooray 
 
-proves as much with the following logs;
+    proves as much with the following logs;
 
-heroku[web.1]: Idling
-heroku[web.1]: State changed from up to down
+    heroku[web.1]: Idling
+    heroku[web.1]: State changed from up to down
 
-heroku[web.1]: Unidling
-State changed from down to starting
+    heroku[web.1]: Unidling
+    State changed from down to starting
 
-Starting process with command `gunicorn hiptriphooray.wsgi`
+    Starting process with command `gunicorn hiptriphooray.wsgi`
 
-These prove that the free dyno package from HEROKU is really only suitable for initial dev work - it does not provide a satisfactory live website experience.
+    These prove that the free dyno package from HEROKU is really only suitable for initial dev work - it does not provide a satisfactory live website experience.
 
 <br>
 
