@@ -30,6 +30,8 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
     + [Current Features](#current-features)
     + [Future Features](#future-features)
 - [Wireframes](#wireframes)
+- [Database Schema](#database-schema)
+- [Security Overview](#security-overview)
 - [ERD](#erd)
 - [Technologies](#technologies)
   + [Languages](#languages)
@@ -92,6 +94,8 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 - :x: *to buddy up with fellow travelers looking to do similar itineraries*.
 - :x: *to book accommodation or tours directly from an itinerary*.
 itineraries*.
+- :x: *to review itineraries and travel prizes for the best rated*.
+- :x: *to filter itineraries using certain parameters*.
 - :x: *mosaic tiling as a background for the trip and itinerary cards*.
 - :x: *a tile image, uploaded by the user, which displays when the user hovers over the mosaic tiles of the trip and itinerary cards*.
 
@@ -345,7 +349,8 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 - :x: *Likes and reactions on itineraries*
 - :x: *to buddy up with fellow travelers looking to do similar itineraries*.
 - :x: *to book accommodation or tours directly from an itinerary*.
-itineraries*.
+- :x: *to review itineraries and travel prizes for the best rated*.
+- :x: *to filter itineraries using certain parameters*.
 - :x: *mosaic tiling as a background for the trip and itinerary cards*.
 - :x: *a tile image, uploaded by the user, which displays when the user hovers over the mosaic tiles of the trip and itinerary cards*.
 
@@ -353,18 +358,18 @@ itineraries*.
 
 # Wireframes
 
--   ## Landing Page
+-   ## Landing Page & Results Page
 
 <h3 align="center"><img src="static/readme/hip-trip-hooray-landing-wireframe.png"></h3>
 
--   ## Create Trip
+-   ## Create Trip Form
 
 <h3 align="center"><img src="static/readme/hip-trip-hooray-create-a-trip-wireframe.jpg"></h3>
 
 <br>
 
 
-# Database Schema & Security Overview
+# Database Schema
 
 ## Schema Rationale
 
@@ -567,7 +572,7 @@ This enables:
 
 ---
 
-# Security Design
+# Security Overview
 
 ## Authentication Security
 
@@ -595,7 +600,7 @@ Trips are always filtered by ownership.
 Trip.objects.get(pk=pk, owner=request.user)
 ```
 
-# ERD better displayed in dbdiagram.io
+# ERD
 
 <h3 align="center"><img src="static/readme/hiptriphooray-erd.png"></h3>
 
@@ -852,6 +857,14 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate ev
 
 ## W3C HTML Validator
 
+## HTML Validation
+
+- Due to the use of Django templating syntax, direct validation of raw template files produced false-positive errors within the W3C validator.
+
+- To ensure accurate validation, rendered HTML output from the browser was validated instead using the W3C Markup Validation Service.
+
+- The application was tested page-by-page after rendering dynamic Django content.
+
 The Hip Trip Hooray website passed all tests using the W3C HTML Validator tool
 
 -   ### Homepage / Location
@@ -892,49 +905,67 @@ I used the Lighthouse reports in Google Developer Tools to examine the pages of 
 
 ### Desktop:
 
+### Lighthouse Report for Homepage
 Homepage scored:
-- Performance - 98
-- Accessibility - 100
+- Performance - 99
+- Accessibility - 93
+- Best Practices - 96
+- SEO - 100
+
+<h2 align="center"><img src="assets/readme/lighthouse-index.png"></h2>
+
+
+### Lighthouse Report for About Page
+
+### Desktop:
+
+Homepage scored:
+- Performance - 95
+- Accessibility - 92
 - Best Practices - 100
 - SEO - 100
 
-### Lighthouse Report for Homepage (Desktop)
     
-<h2 align="center"><img src="assets/readme/lighthouse-homepage-desktop.png"></h2>
+<h2 align="center"><img src="assets/readme/lighthouse-about.png"></h2>
+
+
+### Lighthouse Report for Contact Page
+
+### Desktop:
+
+Homepage scored:
+- Performance - 99
+- Accessibility - 92
+- Best Practices - 100
+- SEO - 100
+
+    
+<h2 align="center"><img src="assets/readme/lighthouse-contact.png"></h2>
+
+
+### Lighthouse Report for Homepage (Mobile)
 
 ### Mobile:
 
 Homepage scored:
-- Performance - 81
-- Accessibility -98
-- Best Practices -75
+- Performance - 95
+- Accessibility - 93
+- Best Practices - 96
 - SEO - 100
-
-### Lighthouse Report for Homepage (Mobile)
     
-<h2 align="center"><img src="assets/readme/lighthouse-homepage-mobile.png"></h2>
+<h2 align="center"><img src="assets/readme/lighthouse-index-m.png"></h2>
 
-I didn't use Lighthouse for the other pages, i.e. Safety & Weather, on account of the third party scripts attached to those maps which I cannot change unless I approach their respective developers. (*Please see below for future improvements.*)
+<br>
 
-I have improved the header, navbar, contact section and footer to the best of my abilities for all pages.
-
-Overall, I am happy with the speed the site runs on every device I've tried (various laptops, desktops, tablets and mobile phones). The pages load fast and all the functions run smoothly.
-
-I am also more inclined to develop an app for tablets and mobile devices.
+-   All pages load fast and perform well for desktop and mobile.
 
 <br>
 
 ## Future Improvements
 
-### Desktop Improvements
   
--  I will work to improve Accessibility across all pages.
+-  I will work to improve Accessibility & Best Practices even more across all pages.
 
-### Mobile Improvements
-  
-#### About Page
-  
-- The About Page ***Performance*** score could be improved by decreasing the *Largest contentful paint element*.
 
 <br>
    
@@ -1031,7 +1062,7 @@ These include the bugs I was encountering when incorporating more than one stop 
 
 <br>
 
--   ## Unresolved
+-   ## Resolved (Temporarily Removed)
 
 1. **Trip preview image not updating for dynamically added stops** — Newly added stop cards could upload images successfully, but the live preview panel was only listening to the original static file inputs rendered on page load. Fixed by switching to delegated event listeners using `document.addEventListener("change")`, allowing dynamically created stop image inputs to update the preview correctly.
 
@@ -1172,4 +1203,4 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 Hip Trip Hooray has been created as part of the developer's portfolio and will continue to be developed with new features in the future.
 
-<h4 align="center">yinyangsammy 2025</h4>
+<h4 align="center">yinyangsammy 2026</h4>

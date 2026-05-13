@@ -29,7 +29,6 @@ h1 {
     text-align: center;
     text-decoration: none;
     letter-spacing: 3.5px;
-    text-underline-offset: below;
     margin-bottom: 2vh;
 }
 
@@ -2829,13 +2828,12 @@ h5 {
 
 .about-story p {
   color: silver;
-  text-shadow: #fff 1px;
+
 }
 
 .about-story h2 {
   color: #dedada;
   color: #cce8f4;
-  text-shadow: #fff 1px;
 }
 
 .about-story p {

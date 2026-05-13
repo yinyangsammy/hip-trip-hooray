@@ -20,10 +20,27 @@
     </div>
   {% endif %}
 
-  <h2 class="mb-5 text-center">
+ <h2 class="mb-4 text-center">
   <i class="fa-solid fa-map-location me-2"></i>
-    Explore Itineraries
+  Explore Itineraries
 </h2>
+{% if user.is_authenticated %}
+
+<div class="text-center mb-5">
+    <a href="{% url 'trips:trip_create' %}" class="btn btn-signup">
+        + Create Your Own Adventure
+    </a>
+</div>
+
+{% else %}
+
+<div class="text-center mb-5">
+    <a href="{% url 'account_signup' %}" class="btn btn-signup">
+        Sign Up to Create Your Own
+    </a>
+</div>
+
+{% endif %}
 
   {% if itineraries %}
 
