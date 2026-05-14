@@ -391,7 +391,9 @@ The database structure prioritizes:
 
 ---
 
-# Entity Relationship Diagram (ERD)
+# ERD
+
+## Entity Relationship Diagram (ERD)
 
 ```text
 +------------------+
@@ -499,6 +501,12 @@ Itinerary
 | created_at       |
 +------------------+
 ```
+
+<h3 align="center"><img src="static/readme/hiptriphooray-erd.png"></h3>
+
+<br>
+<br>
+
 # Core Architectural Decisions
 
 ## 1. Separation of Trips and Published Itineraries
@@ -600,9 +608,8 @@ Trips are always filtered by ownership.
 Trip.objects.get(pk=pk, owner=request.user)
 ```
 
-# ERD
-
-<h3 align="center"><img src="static/readme/hiptriphooray-erd.png"></h3>
+<br>
+<br>
 
 
 # Technologies
@@ -870,9 +877,29 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate ev
 
 The Hip Trip Hooray website passed all tests using the W3C HTML Validator tool
 
+<br>
+
 -   ### Homepage
 
 <h2 align="right"><img src="static/readme/homepage-valid.png"></h2>
+
+<br>
+
+-   ### Ideas / Explore Itineraries Page 
+
+<h2 align="right"><img src="static/readme/ideas-valid.png"></h2>
+
+<br>
+
+-   ### Your Itineraries Page 
+
+<h2 align="right"><img src="static/readme/user-itineraries-valid.png"></h2>
+
+<br>
+
+-   ### Your Trips Page 
+
+<h2 align="right"><img src="static/readme/user-trips-valid.png"></h2>
 
 <br>
 
@@ -885,12 +912,6 @@ The Hip Trip Hooray website passed all tests using the W3C HTML Validator tool
 -   ### Contact Page 
 
 <h2 align="right"><img src="static/readme/contact-valid.png"></h2> 
-
-<br>
-
--   ### Ideas / Explore Itineraries Page 
-
-<h2 align="right"><img src="static/readme/ideas-valid.png"></h2>
 
 <br>
 
@@ -920,8 +941,9 @@ I used the Lighthouse reports in Google Developer Tools to examine the pages of 
 
 ### Desktop:
 
+<br>
 
-### Lighthouse Report for Homepage
+### Homepage
 
 Homepage scored:
 - Performance - 99
@@ -931,8 +953,9 @@ Homepage scored:
 
 <h2 align="center"><img src="static/readme/lighthouse-index.png"></h2>
 
+<br>
 
--   ### Ideas / Explore Itineraries Page
+### Ideas / Explore Itineraries Page
 
 Homepage scored:
 - Performance - 97
@@ -942,8 +965,9 @@ Homepage scored:
 
 <h2 align="center"><img src="static/readme/lighthouse-ideas.png"></h2>
 
+<br>
 
-### Lighthouse Report for About Page
+### About Page
 
 ### Desktop:
 
@@ -956,8 +980,9 @@ Homepage scored:
     
 <h2 align="center"><img src="static/readme/lighthouse-about.png"></h2>
 
+<br>
 
-### Lighthouse Report for Contact Page
+### Contact Page
 
 ### Desktop:
 
@@ -970,9 +995,13 @@ Homepage scored:
     
 <h2 align="center"><img src="static/readme/lighthouse-contact.png"></h2>
 
-### Lighthouse Report for Homepage (Mobile)
+<br>
 
 ### Mobile:
+
+<br>
+
+### Homepage (Mobile)
 
 Homepage scored:
 - Performance - 95
