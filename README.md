@@ -934,19 +934,19 @@ The Hip Trip Hooray website passed all tests using the JSHint JS Validator, with
 
 ### Trip Form Create
 
-h2 align="center"><img src="static/readme/jshint-trip_form.png"></h2>
+<h2 align="center"><img src="static/readme/jshint-trip_form.png"></h2>
 
 <br>
 
 ### Trip Detail
 
-h2 align="center"><img src="static/readme/jshint-trip_detail.png"></h2>
+<h2 align="center"><img src="static/readme/jshint-trip_detail.png"></h2>
 
 <br>
 
 ### Itinerary Detail
 
-h2 align="center"><img src="static/readme/jshint-itinerary_detail.png"></h2>
+<h2 align="center"><img src="static/readme/jshint-itinerary_detail.png"></h2>
 
 <br>
 
@@ -1151,23 +1151,19 @@ These include the bugs I was encountering when incorporating more than one stop 
 
 -   ## Heroku Free Dynos Cold Start Bug
 
--   The website takes a while to load, and sometimes on first page load the user will get a 500 error. If the user reloads the page, all functionality will return, but it is frustrating that performance is hit so badly by the cold start of using a Heroku free dynos package.
+-   The website takes seconds to load, and sometimes on first page load the user will get a 500 Internal Server Error. If the user reloads the page, all functionality will resume, but it is frustrating that performance is hit so badly by the cold start of using a Heroku free dynos package.
 
     Using 
 
-    heroku logs --tail --app hip-trip-hooray 
+    `heroku logs --tail --app hip-trip-hooray`
 
     proves as much with the following logs;
 
-    heroku[web.1]: Idling
-    heroku[web.1]: State changed from up to down
+    `heroku[web.1]: Idling`
+    `heroku[web.1]: State changed from up to down`
 
-    heroku[web.1]: Unidling
-    State changed from down to starting
-
-    Starting process with command `gunicorn hiptriphooray.wsgi`
-
-    These prove that the free dyno package from HEROKU is really only suitable for initial dev work - it does not provide a satisfactory live website experience.
+    `heroku[web.1]: Unidling`
+    `State changed from down to starting`
 
 <br>
 
@@ -1300,6 +1296,6 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 # Root
 
-Hip Trip Hooray has been created as part of the developer's portfolio and will continue to be developed with new features in the future.
+Hip Trip Hooray has been created as part of the developer's portfolio and will continue to be developed with new features being added in the future.
 
 <h4 align="center">yinyangsammy 2026</h4>
