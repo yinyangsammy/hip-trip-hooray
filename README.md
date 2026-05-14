@@ -643,6 +643,8 @@ Trip.objects.get(pk=pk, owner=request.user)
 - [GitHub](https://github.com/) — code repository
 - [dbdiagram.io](https://dbdiagram.io/home) — ERD creator
 
+<br>
+<br>
 
 # Testing
 
@@ -675,6 +677,8 @@ The Hip Trip Hooray website has been tested using the following methods:
     - [Resolved](#resolved)    
     - [Unresolved](#unresolved)
 
+<br>
+<br>
 
 ## Importance of Automated & Manual Testing
 
@@ -736,6 +740,8 @@ The Hip Trip Hooray website has been tested using the following methods:
 | Contact the team via a form | :white_check_mark: |
 
 <br>
+<br>
+
 
 ## Manual Testing
 
@@ -827,6 +833,9 @@ The Hip Trip Hooray website has been tested using the following methods:
 | Snowy icon displays | Set weather to Snowy | ❄ displayed | ✅ Pass |
 | Windy icon displays | Set weather to Windy | 💨 displayed | ✅ Pass |
 | Stormy icon displays | Set weather to Stormy | ⛈ displayed | ✅ Pass |
+
+<br>
+<br>
 
 ## Django App Tests
 
@@ -921,6 +930,7 @@ The Hip Trip Hooray website passed all tests using the W3C CSS Validator tool
 <h2 align="center"><img src="static/readme/css.png"></h2>
 
 <br>
+<br>
 
 ## JSHint Javascript Validator
 
@@ -949,7 +959,7 @@ The Hip Trip Hooray website passed all tests using the JSHint JS Validator, with
 <h2 align="center"><img src="static/readme/jshint-itinerary_detail.png"></h2>
 
 <br>
-
+<br>
 
 ## Lighthouse
 
@@ -1039,9 +1049,8 @@ Homepage scored:
   
 -  I will work to improve Accessibility & Best Practices even more across all pages.
 
-
 <br>
-
+<br>
    
 ## Browser Compatibility
 
@@ -1053,6 +1062,7 @@ No issues arose during browser testing.
 
 Appearance, functionality and responsiveness were largely consistent across browsers and devices, adapting fluidly when changing from portrait to landscape mode.
 
+<br>
 <br>
 
 ## Responsiveness
@@ -1095,11 +1105,13 @@ I also created custom settings for FHD (1920x1080), 2k (2560x1440) & 4K (3840 x 
 <h2 align="center"><img src="static/readme/hiptriphooray-4k.png"></h2>
 
 <br>
+<br>
 
 ## Debugging
 
 These include the bugs I was encountering when incorporating more than one stop per category, hence the removal of that functionality for the time being. You can find these bugs in the unresolved section.
 
+<br>
 
 -   ## Resolved
 
@@ -1148,6 +1160,7 @@ These include the bugs I was encountering when incorporating more than one stop 
 4. **Trip title not propagating to dynamically added stop forms** — Additional stop forms created from the hidden template were not inheriting the parent trip title before submission, causing blank titles in saved `TripItem` records. Fixed by adding a final submit hook that loops through all `.stop-card` elements and injects the current trip title into each hidden `.stop-title` field before form submission.
 
 <br>
+<br>
 
 -   ## Heroku Free Dynos Cold Start Bug
 
@@ -1165,6 +1178,7 @@ These include the bugs I was encountering when incorporating more than one stop 
     `heroku[web.1]: Unidling`
     `State changed from down to starting`
 
+<br>
 <br>
 
 # Deployment
@@ -1202,6 +1216,7 @@ Hip Trip Hooray is deployed to [Heroku](https://www.heroku.com/) using the follo
     ```
     heroku run python manage.py createsuperuser -a your-app-name
     ```
+<br>
 
 ## Forking the GitHub Repository
 
@@ -1210,6 +1225,8 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 1. Log in to GitHub and locate the [GitHub Repository](https://github.com/).
 2. At the top of the Repository (not top of page) just above the **Settings** Button on the menu, locate the **Fork** Button.
 3. You should now have a copy of the original repository in your GitHub account.
+
+<br>
 
 ## Cloning the Repository
 
@@ -1237,8 +1254,12 @@ By forking the GitHub Repository we make a copy of the original repository on ou
     python manage.py runserver
     ```
 
+<br>
+<br>
 
 # Credits
+
+<br>
 
 ## Code
 
@@ -1256,6 +1277,7 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 -   [Mozilla Developer Network](https://developer.mozilla.org/): Referenced for JavaScript, CSS and HTML questions.
 
+<br>
 
 ## Content
 
@@ -1263,6 +1285,7 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 -   About page copy was written by the developer.
 
+<br>
 
 ## Media
 
@@ -1274,6 +1297,7 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 -   User-uploaded trip images are stored and served via [Cloudinary](https://cloudinary.com/).
 
+<br>
 
 ## Acknowledgements
 
@@ -1293,6 +1317,7 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 -   Thank you to the Reddit community.
 
+<br>
 
 # Root
 
