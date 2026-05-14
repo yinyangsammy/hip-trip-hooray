@@ -659,7 +659,7 @@ The Hip Trip Hooray website has been tested using the following methods:
         - [About](#about-page)
         - [Explore Itineraries](#explore-itineraries)
     - [W3C CSS Validator](#w3c-css-validator)
-    - [JSHint Javascript Validator](#jslint-js-validator)
+    - [JSHint Javascript Validator](#jshint-javascript-validator)
 - [Lighthouse](#lighthouse)
     - [Desktop](#desktop)
     - [Mobile](#mobile)
@@ -926,9 +926,30 @@ The Hip Trip Hooray website passed all tests using the W3C CSS Validator tool
 
 The Hip Trip Hooray website passed all tests using the JSHint JS Validator, with only warnings and no errors reported.
 
-<h2 align="center"><img src="static/readme/javascript.png"></h2>
+### Homepage
+
+<h2 align="center"><img src="static/readme/jshint-index.png"></h2>
 
 <br>
+
+### Trip Form Create
+
+h2 align="center"><img src="static/readme/jshint-trip_form.png"></h2>
+
+<br>
+
+### Trip Detail
+
+h2 align="center"><img src="static/readme/jshint-trip_detail.png"></h2>
+
+<br>
+
+### Itinerary Detail
+
+h2 align="center"><img src="static/readme/jshint-itinerary_detail.png"></h2>
+
+<br>
+
 
 ## Lighthouse
 
@@ -969,8 +990,6 @@ Homepage scored:
 
 ### About Page
 
-### Desktop:
-
 Homepage scored:
 - Performance - 95
 - Accessibility - 92
@@ -983,8 +1002,6 @@ Homepage scored:
 <br>
 
 ### Contact Page
-
-### Desktop:
 
 Homepage scored:
 - Performance - 99
@@ -1272,9 +1289,11 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 -   Thank you to the Code Institute Discord Community.
 
--   Thank you to the YouTube community.
+-   Thank you to the Code Institute Slack Community.
 
 -   Thank you to the Stack Overflow community.
+
+-   Thank you to the YouTube community.
 
 -   Thank you to the Reddit community.
 
