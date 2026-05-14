@@ -107,18 +107,18 @@ itineraries*.
 
 -   ## Colour Scheme
 
-    -   The color palette for Hip Trip Hooray draws on calm, earthy, travel-inspired tones — sepia greys, warm whites, deep charcoals and a range of blues — designed to evoke the minimalist feel of a well-worn travel journal. The palette is clean and sophisticated, letting the user's own photos and stories do the story-telling.
+    -   The color palette for Hip Trip Hooray draws on calm, earthy, travel-inspired tones — sepia greys, warm whites, sandy browns, coral pinks and oceanic blues — designed to evoke the minimalist feel of a well-worn travel journal. The palette is clean and sophisticated, letting the user's own photos and stories do the story-telling.
 
     <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
 
 
 -   ## Typography
 
-    -   The typography for Hip Trip Hooray is chosen to feel adventurous, sophisticated and fun — think Miami Art Deco vibes with a touch of Condé Nast class. 
+    -   The typography for Hip Trip Hooray is chosen to feel adventurous, sophisticated and fun — think 80s Miami Deco vibes with a touch of Condé Nast class. 
 
     1) **Title Font**
 
-         -   The title font, Pacifico, is used for the logo and key branding elements, giving the site its distinctive and playful personality.
+         -   The title font, Pacifico, is used for the logo and key branding elements, offsetting the more traditional tone and giving the site its distinctive and playful personality.
 
         <h3 align="center"><img src="static/readme/pacifico.jpg"></h3>
 
