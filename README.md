@@ -112,8 +112,6 @@ itineraries*.
 
     <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
 
-    [Palette URL](https://coolors.co/e6a57e-f4c7ab-fafafa-807979-111111-a7fae8-add8e6-23849a)
-
 
 -   ## Typography
 
@@ -351,7 +349,6 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 - :x: *AI-generated travel suggestions based on destination*
 - :x: *In-app booking for accommodation and tours*
 - :x: *Social sharing buttons on itinerary pages*
-- :x: *Likes and reactions on itineraries*
 - :x: *Buddy up with fellow travelers looking to do similar itineraries*.
 - :x: *Book accommodation or tours directly from an itinerary*.
 - :x: *Review itineraries and earn travel prizes for the best rated*.
