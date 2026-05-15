@@ -97,6 +97,8 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 itineraries*.
 - :x: *to review itineraries and travel prizes for the best rated*.
 - :x: *to filter itineraries using certain parameters*.
+- :x: *a mini map with markers for precise co-ordinates of each trip stop*.
+- :x: *a trip timeline, synced up to each trip date, next to the mini map*.
 - :x: *mosaic tiling as a background for the trip and itinerary cards*.
 - :x: *a tile image, uploaded by the user, which displays when the user hovers over the mosaic tiles of the trip and itinerary cards*.
 
@@ -110,6 +112,8 @@ itineraries*.
     -   The color palette for Hip Trip Hooray draws on calm, earthy, travel-inspired tones — sepia greys, warm whites, sandy browns, coral pinks and oceanic blues — designed to evoke the minimalist feel of a well-worn travel journal. The palette is clean and sophisticated, letting the user's own photos and stories do the story-telling.
 
     <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
+
+    [Palette URL](https://coolors.co/e6a57e-f4c7ab-fafafa-807979-111111-a7fae8-add8e6-23849a)
 
 
 -   ## Typography
@@ -154,6 +158,8 @@ itineraries*.
     The about page features a striking and self-explanatory hero image, of photos being uploaded all over the planet as a boat sails in and a plane takes off, illustrating the nature of the site to the user. 
         
       <h3 align="center"><img src="static/readme/hero-image-hiptriphooray-about.png"></h3>
+
+    ### About Page Vibe Image  
 
     Additionally, a 'vibe' image is displayed at the bottom of the page, of a family sat around the fireplace sharing travel photos, to really imbue the emotional energy behind Hip Trip Hooray.
 
@@ -230,8 +236,7 @@ Most of my css is in my stylesheet - but I have kept embedded css in my template
 
 ## Embedded Javascript
 
-I have kept the js styling inline for all templates until I have successfully added more stops to each category, as this will involve editing the javascript that exists right now and I find it much more efficient to swap just the templates within my IDE, than having to swap templates and corresponding .js files. Once the site has these future features implemented, I will create trips.js, itineraries.js etc.
-
+I have kept embedded javascript, but greyed out, for certain itinerary and trip templates until I have successfully added more stops to each category - as this will involve editing the javascript that exists - and I find it much more efficient to swap just the templates within my IDE, than having to juggle templates and corresponding .js files. Functioning js scripts exist in the static/js folder for trip_form, trip_detail and itinerary_detail, as they should, but I have kept the marked-out javascript embedded in those templates too.
 
 <br>
 <br>
