@@ -95,12 +95,11 @@ Get started right here: ([Hip Trip Hooray](https://hip-trip-hooray-041d66f48ae3.
 - :x: *to buddy up with fellow travelers looking to do similar itineraries*.
 - :x: *to book accommodation or tours directly from an itinerary*.
 itineraries*.
+- :x: *to share itinerary pages easily with share buttons*.
 - :x: *to review itineraries and travel prizes for the best rated*.
 - :x: *to filter itineraries using certain parameters*.
 - :x: *a mini map with markers for precise co-ordinates of each trip stop*.
 - :x: *a trip timeline, synced up to each trip date, next to the mini map*.
-- :x: *mosaic tiling as a background for the trip and itinerary cards*.
-- :x: *a tile image, uploaded by the user, which displays when the user hovers over the mosaic tiles of the trip and itinerary cards*.
 
 <br>
 <br>
@@ -353,10 +352,12 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 - :x: *In-app booking for accommodation and tours*
 - :x: *Social sharing buttons on itinerary pages*
 - :x: *Likes and reactions on itineraries*
-- :x: *to buddy up with fellow travelers looking to do similar itineraries*.
-- :x: *to book accommodation or tours directly from an itinerary*.
-- :x: *to review itineraries and travel prizes for the best rated*.
+- :x: *Buddy up with fellow travelers looking to do similar itineraries*.
+- :x: *Book accommodation or tours directly from an itinerary*.
+- :x: *Review itineraries and earn travel prizes for the best rated*.
 - :x: *to filter itineraries using certain parameters*.
+- :x: *a mini map with markers for precise co-ordinates of each trip stop*.
+- :x: *a trip timeline, synced up to each trip date and the map markers, placed next to the mini map*.
 - :x: *mosaic tiling as a background for the trip and itinerary cards*.
 - :x: *a tile image, uploaded by the user, which displays when the user hovers over the mosaic tiles of the trip and itinerary cards*.
 
