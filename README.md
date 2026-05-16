@@ -112,6 +112,8 @@ itineraries*.
 
     <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
 
+    [Palette URL](https://coolors.co/e6a57e-f4c7ab-fafafa-807979-111111-a7fae8-add8e6-23849a)
+
 
 -   ## Typography
 
@@ -231,9 +233,6 @@ itineraries*.
 
 Most of my css is in my stylesheet - but I have kept embedded css in my templates, in order to better control how my page displays within Bootstrap's frameworks.
 
-## Embedded Javascript
-
-I have kept embedded javascript, but greyed out, for certain itinerary and trip templates until I have successfully added more stops to each category - as this will involve editing the javascript that exists - and I find it much more efficient to swap just the templates within my IDE, than having to juggle templates and corresponding .js files. Functioning js scripts exist in the static/js folder for trip_form, trip_detail and itinerary_detail, as they should, but I have kept the marked-out javascript embedded in those templates too.
 
 <br>
 <br>
