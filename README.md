@@ -113,6 +113,7 @@ itineraries*.
     <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
 
 
+
 -   ## Typography
 
     -   The typography for Hip Trip Hooray is chosen to feel adventurous, sophisticated and fun — think 80s Miami Deco vibes with a touch of Condé Nast class. 
@@ -1411,9 +1412,9 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 -   Rachel Furlong, my Academic Supervisor and Lecturer, for the great lessons, inspirational pep talks, kind guidance, helpful feedback and recommended tools.
 
--   Thank you to my fellow students for their friendly tips and guidance.
-
 -   Thank you to the tutors and staff at Code Institute for all their support.
+
+-   Thank you to my fellow students for their friendly tips and guidance.
 
 -   Thank you to the Code Institute Discord Community.
 
