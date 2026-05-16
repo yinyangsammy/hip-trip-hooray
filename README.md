@@ -112,7 +112,6 @@ itineraries*.
 
     <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
 
-    [Palette URL](https://coolors.co/e6a57e-f4c7ab-fafafa-807979-111111-a7fae8-add8e6-23849a)
 
 
 -   ## Typography
@@ -351,11 +350,11 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 - :x: *Buddy up with fellow travelers looking to do similar itineraries*.
 - :x: *Book accommodation or tours directly from an itinerary*.
 - :x: *Review itineraries and earn travel prizes for the best rated*.
-- :x: *to filter itineraries using certain parameters*.
-- :x: *a mini map with markers for precise co-ordinates of each trip stop*.
-- :x: *a trip timeline, synced up to each trip date and the map markers, placed next to the mini map*.
-- :x: *mosaic tiling as a background for the trip and itinerary cards*.
-- :x: *a tile image, uploaded by the user, which displays when the user hovers over the mosaic tiles of the trip and itinerary cards*.
+- :x: *Filter itineraries using certain parameters*.
+- :x: *A mini map with markers for precise co-ordinates of each trip stop*.
+- :x: *A trip timeline, synced up to each trip date and the map markers, placed next to the mini map*.
+- :x: *Mosaic tiling as a background for the trip and itinerary cards*.
+- :x: *A tile image, uploaded by the user, which displays when the user hovers over the mosaic tiles of the trip and itinerary cards*.
 
 <br>
 
