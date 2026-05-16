@@ -114,7 +114,6 @@ itineraries*.
 
 
 
-
 -   ## Typography
 
     -   The typography for Hip Trip Hooray is chosen to feel adventurous, sophisticated and fun — think 80s Miami Deco vibes with a touch of Condé Nast class. 
@@ -1180,6 +1179,75 @@ These include the bugs I was encountering when incorporating more than one stop 
 
 4. **Trip title not propagating to dynamically added stop forms** — Additional stop forms created from the hidden template were not inheriting the parent trip title before submission, causing blank titles in saved `TripItem` records. Fixed by adding a final submit hook that loops through all `.stop-card` elements and injects the current trip title into each hidden `.stop-title` field before form submission.
 
+
+<br>
+
+-   ## Unresolved
+
+1) **Templates** — Although I created database models for templates, it soon became clear that their addition was unrealistic, given the time constraints.
+
+2) **Stops** —  One of the largest architectural challenges encountered during development involved the trip stop ordering system within the trip_form, so that new stops would render successfully within the trip_detail and itinerary_detail templates.
+
+Initially, stops were responsible for multiple concerns simultaneously:
+
+* Determining the visual display order in the UI
+* Defining the actual journey/travel sequence
+* Controlling category grouping and rendering logic
+
+While this approach worked during the early stages of development, it became increasingly fragile as more advanced functionality was introduced, including:
+
+* Category tabs
+* Carousel-based itinerary rendering
+* Live preview synchronization
+* Future drag-and-drop planning
+* Dynamic map interactions
+
+The core issue became clear:
+
+> A stop can belong to a category layout and also belong to a journey sequence — but those are not always the same thing.
+
+For example, a user might want their journey sequence to be:
+
+1. Paris Café
+2. Eiffel Tower
+3. Night Cruise
+
+while still visually grouping those stops under separate categories such as:
+
+* Flavours
+* Sights
+* Experiences
+
+This created conflicts between:
+
+* UI ordering
+* Narrative ordering
+* Database ordering
+* Category rendering logic
+
+To solve this properly, the architecture needed to be redesigned around two separate concepts:
+
+* `display_order` → controlling UI/admin/category rendering
+* `stop_order` → controlling the actual travel sequence
+
+However, implementing this correctly would have required a significant refactor involving:
+
+* Template restructuring
+* Queryset refactoring
+* Preview synchronization updates
+* Tab rendering revisions
+* Additional map synchronization testing
+
+Given project deadlines, the decision was made to prioritize:
+
+* Platform stability
+* UX polish
+* Architectural clarity
+* Avoidance of regression bugs (please see the resolved stop bugs above)
+
+The stop-order refactor will feature in version 2.0, implemented cleanly and synergistically alongside the planned minimap marker and trip timeline features. 
+
+
 <br>
 <br>
 
@@ -1298,7 +1366,7 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 -   [Mozilla Developer Network](https://developer.mozilla.org/): Referenced for JavaScript, CSS and HTML questions.
 
--   [dbdiagram.io](https://dbdiagram.io/home) — ERD diagram creator
+-   [dbdiagram.io](https://dbdiagram.io/home): ERD diagram creator
 
 <br>
 
