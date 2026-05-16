@@ -113,7 +113,6 @@ itineraries*.
     <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
 
 
-
 -   ## Typography
 
     -   The typography for Hip Trip Hooray is chosen to feel adventurous, sophisticated and fun — think 80s Miami Deco vibes with a touch of Condé Nast class. 
@@ -209,6 +208,8 @@ itineraries*.
 
 -   Hip Trip Hooray is structured as a Django full-stack web application, with the following main sections:
 
+<br>
+
 | Page | Description |
 |------|-------------|
 | Home | Landing page with hero image, tagline & search bar |
@@ -224,6 +225,8 @@ itineraries*.
 | Sign Out | Log out of the website |
 | About | Mission statement and platform description |
 | Contact | Contact form |
+
+<br>
 
 # Irregular Structure
 
@@ -357,6 +360,7 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 - :x: *A tile image, uploaded by the user, which displays when the user hovers over the mosaic tiles of the trip and itinerary cards*.
 
 <br>
+<br>
 
 # Wireframes
 
@@ -369,7 +373,7 @@ Hip Trip Hooray is fully responsive across all screen sizes — mobile, tablet a
 <h3 align="center"><img src="static/readme/hip-trip-hooray-create-a-trip-wireframe.jpg"></h3>
 
 <br>
-
+<br>
 
 # Database Schema
 
@@ -503,6 +507,9 @@ Itinerary
 | created_at       |
 +------------------+
 ```
+<br>
+
+-   Original ERD Including Templates 
 
 <h3 align="center"><img src="static/readme/hiptriphooray-erd.png"></h3>
 
@@ -582,6 +589,9 @@ This enables:
 
 ---
 
+<br>
+<br>
+
 # Security Overview
 
 ## Authentication Security
@@ -643,7 +653,6 @@ Trip.objects.get(pk=pk, owner=request.user)
 - [Heroku](https://www.heroku.com/) — cloud deployment platform
 - [Git](https://git-scm.com/) — version control
 - [GitHub](https://github.com/) — code repository
-- [dbdiagram.io](https://dbdiagram.io/home) — ERD creator
 
 <br>
 <br>
@@ -1287,6 +1296,8 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 -   [Mozilla Developer Network](https://developer.mozilla.org/): Referenced for JavaScript, CSS and HTML questions.
 
+-   [dbdiagram.io](https://dbdiagram.io/home) — ERD diagram creator
+
 <br>
 
 ## Content
@@ -1331,6 +1342,7 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 -   Thank you to the Reddit community.
 
+<br>
 <br>
 
 # Root
