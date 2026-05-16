@@ -113,6 +113,8 @@ itineraries*.
     <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
 
 
+
+
 -   ## Typography
 
     -   The typography for Hip Trip Hooray is chosen to feel adventurous, sophisticated and fun — think 80s Miami Deco vibes with a touch of Condé Nast class. 
@@ -1128,7 +1130,7 @@ I also created custom settings for FHD (1920x1080), 2k (2560x1440) & 4K (3840 x 
 
 ## Debugging
 
-These include the bugs I was encountering when incorporating more than one stop per category, hence the removal of that functionality for the time being. You can find these bugs in the unresolved section.
+These include the bugs I was encountering when incorporating more than one stop per category. Time restraints prevented me from fully debugging stops; hence the removal of that functionality for the time being. 
 
 <br>
 
