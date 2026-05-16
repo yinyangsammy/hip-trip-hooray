@@ -113,7 +113,6 @@ itineraries*.
     <h3 align="center"><img src="static/readme/colour-palette.png"></h3>
 
 
-
 -   ## Typography
 
     -   The typography for Hip Trip Hooray is chosen to feel adventurous, sophisticated and fun — think 80s Miami Deco vibes with a touch of Condé Nast class. 
@@ -1133,7 +1132,7 @@ These include the bugs I was encountering when incorporating more than one stop 
 
 <br>
 
--   ## Resolved
+## Resolved
 
 1. **500 error on trip creation (Heroku / PostgreSQL)** — The trip creation view was binding the formset to an unsaved `Trip` instance with no primary key. When Django attempted to save the inline items, the foreign key reference pointed to a non-existent row, causing a database integrity error. Fixed by removing the `instance=temp_trip` binding on POST and assigning `item.trip = trip` within the save loop after the parent trip had been committed to the database.
 
@@ -1169,7 +1168,7 @@ These include the bugs I was encountering when incorporating more than one stop 
 
 <br>
 
--   ## Resolved (Future Feature - Stops)
+## Resolved (Future Feature - Stops)
 
 1. **Trip preview image not updating for dynamically added stops** — Newly added stop cards could upload images successfully, but the live preview panel was only listening to the original static file inputs rendered on page load. Fixed by switching to delegated event listeners using `document.addEventListener("change")`, allowing dynamically created stop image inputs to update the preview correctly.
 
@@ -1182,11 +1181,15 @@ These include the bugs I was encountering when incorporating more than one stop 
 
 <br>
 
--   ## Unresolved
+## Unresolved
 
-1) **Templates** — Although I created database models for templates, it soon became clear that their addition was unrealistic, given the time constraints.
+1| **Templates** — Although provisions were made for templates within the database schema, it soon became clear that their implementation was unrealistic given the project time constraints.
 
-2) **Stops** —  One of the largest architectural challenges encountered during development involved the trip stop ordering system within the trip_form, so that new stops would render successfully within the trip_detail and itinerary_detail templates.
+2| **Stops** — One of the largest architectural challenges encountered during development involved the trip stop ordering system within the `trip_form`, ensuring that newly created stops rendered correctly within the category-tab carousel systems used by the `trip_detail` and `itinerary_detail` templates.
+
+<br>
+
+#### The Problem
 
 Initially, stops were responsible for multiple concerns simultaneously:
 
@@ -1204,13 +1207,13 @@ While this approach worked during the early stages of development, it became inc
 
 The core issue became clear:
 
-> A stop can belong to a category layout and also belong to a journey sequence — but those are not always the same thing.
+> A stop can belong to a category layout while also belonging to a journey sequence — but those are not always the same thing.
 
 For example, a user might want their journey sequence to be:
 
 1. Paris Café
 2. Eiffel Tower
-3. Night Cruise
+3. Seine River Cruise
 
 while still visually grouping those stops under separate categories such as:
 
@@ -1224,6 +1227,16 @@ This created conflicts between:
 * Narrative ordering
 * Database ordering
 * Category rendering logic
+
+To summarize:
+
+* Cause: `display_order` conflicted when being used simultaneously for categories and stops.
+
+* Result: User input would successfully persist within the database, and the carousel progress bar would acknowledge new stops with additional indicator dots, but the associated stop content itself would remain hidden within the template rendering layer.
+
+<br>
+
+#### The Solution
 
 To solve this properly, the architecture needed to be redesigned around two separate concepts:
 
@@ -1243,9 +1256,9 @@ Given project deadlines, the decision was made to prioritize:
 * Platform stability
 * UX polish
 * Architectural clarity
-* Avoidance of regression bugs (please see the resolved stop bugs above)
+* Avoidance of regression bugs (please see the resolved stop-related bugs above)
 
-The stop-order refactor will feature in version 2.0, implemented cleanly and synergistically alongside the planned minimap marker and trip timeline features. 
+**The stop-order refactor is planned for HipTripHooray v2.0, where it will be implemented cleanly and synergistically alongside the synced minimap and trip timeline systems.**
 
 
 <br>
